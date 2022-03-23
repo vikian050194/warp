@@ -4,28 +4,37 @@ function setPageBackgroundColor() {
     });
 };
 
-let index = 0;
-colors = ["#4285f4", "#34a853", "#fbbc05", "#ea4335"];
+document.addEventListener("DOMContentLoaded", async () => {
+    let query = "";
 
-window.addEventListener("load", () => {
-    let changeColor = document.getElementById("changeColor");
+    const [root] = await chrome.bookmarks.search({ title: "Warp" });
+    const subTree = await chrome.bookmarks.getSubTree(root.id);
+    const bookmarks = subTree[0].children;
 
-    // chrome.storage.sync.get("color", ({ color }) => {
-    //     changeColor.style.backgroundColor = color;
-    // });
+    const search = (query) => {
+        const parts = query.split(" ");
+        console.log(parts);
 
-    changeColor.addEventListener("click", async () => {
-        changeColor.style.backgroundColor = colors[index];
-        index = (index + 1) % colors.length;
+        const matched = bookmarks.filter(b => b.title && b.url && b.title == parts[0]);
+        if (matched.length == 1) {
+            chrome.tabs.create({
+                url: matched[0].url
+            });
+        }
+    };
 
-        // let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const $query = document.getElementById("query");
 
-        // chrome.scripting.executeScript({
-        //     target: { tabId: tab.id },
-        //     function: setPageBackgroundColor,
-        // });
+    document.addEventListener("keydown", ({ key }) => {
+        if (key == "Backspace") {
+            query = query.slice(0, query.length - 1);
+        } else {
+            query += key;
+        }
+
+        $query.innerText = query;
+        search(query);
     });
 
-    // The body of this function will be executed as a content script inside the
-    // current page
+    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 });

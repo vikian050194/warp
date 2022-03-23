@@ -1,23 +1,37 @@
-let color = '#3aa757';
+// chrome.runtime.onInstalled.addListener(() => {
+// run scan function
+// });
 
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ color });
-    console.log('Default background color set to %cgreen', `color: ${color}`);
+chrome.runtime.onStartup.addListener(() => {
+    // run scan function
 });
 
-// chrome.runtime.onMessage.addListener(function (message, sender) {
-//     if (message === 'fullscreen') {
-//         chrome.windows.getCurrent((window) => {
-//             chrome.windows.update(window.id, {
-//                 state: "fullscreen"
-//             });
-//         });
-//     }
-
-//     if (message === 'zoom') {
-//         chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-//             const { id } = tabs[0];
-//             chrome.tabs.setZoom(id, 0.9);
-//         });
-//     }
+// chrome.bookmarks.onChanged.addListener(() => {
+// run scan function
 // });
+
+// chrome.bookmarks.onChildrenReordered.addListener(() => {
+// run scan function
+// });
+
+// chrome.bookmarks.onMoved.addListener(() => {
+// run scan function
+// });
+
+// chrome.bookmarks.onRemoved.addListener(() => {
+// run scan function
+// });
+
+// chrome.bookmarks.getTree((tree) => {
+//     debugger;
+// });
+
+chrome.runtime.onMessage.addListener((message, callback) => {
+    debugger;
+    console.log(`Message "${message}"`);
+});
+
+chrome.commands.onCommand.addListener((command) => {
+    debugger;
+    console.log(`Command "${command}"`);
+});
