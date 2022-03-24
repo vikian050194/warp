@@ -1,0 +1,12 @@
+body {
+    width: 320px;
+}
+
+.selected {
+    color: green;
+    font-weight: bold;
+}
+
+.empty {
+    color: gray;
+}

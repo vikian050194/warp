@@ -27,11 +27,9 @@ chrome.runtime.onStartup.addListener(() => {
 // });
 
 chrome.runtime.onMessage.addListener((message, callback) => {
-    debugger;
-    console.log(`Message "${message}"`);
+    console.log(`Message "${message} ${callback}"`);
 });
 
 chrome.commands.onCommand.addListener((command) => {
-    debugger;
     console.log(`Command "${command}"`);
 });
