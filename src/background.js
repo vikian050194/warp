@@ -1,30 +1,37 @@
-// chrome.runtime.onInstalled.addListener(() => {
-// run scan function
-// });
+// TODO extract get/set functions to separate file
+const setOption = (key, value) => {
+    chrome.storage.sync.set({ [key]: value });
+}
 
-chrome.runtime.onStartup.addListener(() => {
-    // run scan function
+const getOption = async (key) => {
+    const valueObject = await chrome.storage.sync.get([key]);
+    return valueObject[key];
+}
+
+chrome.runtime.onInstalled.addListener((e) => {
+    console.log("onInstalled", e);
+    setOption("root-directory", "Warp")
 });
 
-// chrome.bookmarks.onChanged.addListener(() => {
-// run scan function
-// });
+chrome.runtime.onStartup.addListener((e) => {
+    console.log("onStartup", e);
+});
 
-// chrome.bookmarks.onChildrenReordered.addListener(() => {
-// run scan function
-// });
+chrome.bookmarks.onChanged.addListener((e) => {
+    console.log("onChanged", e);
+});
 
-// chrome.bookmarks.onMoved.addListener(() => {
-// run scan function
-// });
+chrome.bookmarks.onChildrenReordered.addListener((e) => {
+    console.log("onChildrenReordered", e);
+});
 
-// chrome.bookmarks.onRemoved.addListener(() => {
-// run scan function
-// });
+chrome.bookmarks.onMoved.addListener((e) => {
+    console.log("onMoved", e);
+});
 
-// chrome.bookmarks.getTree((tree) => {
-//     debugger;
-// });
+chrome.bookmarks.onRemoved.addListener((e) => {
+    console.log("onRemoved", e);
+});
 
 chrome.runtime.onMessage.addListener((message, callback) => {
     console.log(`Message "${message} ${callback}"`);

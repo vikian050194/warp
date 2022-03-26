@@ -1,3 +1,4 @@
+// TODO extract classes to separate files
 class LevelModel {
     constructor(id, title) {
         this.id = id;
@@ -13,7 +14,20 @@ class BookmarkModel {
     }
 }
 
-const plain = async (bookmark) => {
+
+// TODO extract get/set functions to separate file
+const setOption = (key, value) => {
+    chrome.storage.sync.set({ [key]: value });
+}
+
+const getOption = async (key) => {
+    const valueObject = await chrome.storage.sync.get([key]);
+    return valueObject[key];
+}
+
+// TODO move searching to background
+// TODO update list on change* events
+const getBookmarksList = async (bookmark) => {
     const result = [];
     const levels = [];
     const stack = [];
@@ -22,13 +36,16 @@ const plain = async (bookmark) => {
     while (stack) {
         const current = stack.pop();
         const lastLevel = levels[levels.length - 1];
+
         if (!stack.length && current && lastLevel && current.id == lastLevel.id) {
             return result.map(b => new BookmarkModel(b.dirs.slice(1), b.title, b.url));
         }
+
         if (lastLevel && current.title == lastLevel.title && current.id == lastLevel.id) {
             levels.pop();
             continue;
         }
+
         if (current.url) {
             result.push(new BookmarkModel([...levels.map(({ title }) => title)], current.title, current.url));
         } else {
@@ -37,7 +54,6 @@ const plain = async (bookmark) => {
             stack.push(...subs);
             levels.push(new LevelModel(current.id, current.title));
         }
-
     }
 };
 
@@ -64,9 +80,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $root.append($query, document.createElement("hr"), $options);
 
-    const [root] = await chrome.bookmarks.search({ title: "Warp" });
+    // TODO use constants for options names
+    const rootDirectoryName = await getOption("root-directory");
+    const [root] = await chrome.bookmarks.search({ title: rootDirectoryName });
 
-    const bookmarks = await plain(root);
+    const bookmarks = await getBookmarksList(root);
 
     const search = (query) => {
         const parts = query.split(" ");

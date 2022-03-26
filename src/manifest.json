@@ -1,11 +1,12 @@
 {
     "manifest_version": 3,
     "name": "warp",
-    "description": "Super fast jump to bookmarks",
+    "description": "Open bookmarks as fast as possible without clicking",
     "version": "0.1.0",
     "permissions": [
-        "storage",
+        "tabs",
         "activeTab",
+        "storage",
         "bookmarks"
     ],
     "background": {
@@ -16,22 +17,32 @@
     },
     "options_page": "options.html",
     "commands": {
-        "run-foo": {
+        "foo-command": {
             "suggested_key": {
-                "windows": "Ctrl+Shift+4",
-                "mac": "Command+Shift+4",
-                "chromeos": "Ctrl+Shift+4",
-                "linux": "Ctrl+Shift+4"
+                "windows": "Ctrl+Shift+1",
+                "mac": "Command+Shift+1",
+                "chromeos": "Ctrl+Shift+1",
+                "linux": "Ctrl+Shift+1"
             },
-            "description": "Run \"foo\" on the current page.",
+            "description": "Send foo-command to the background.js",
+            "global": false
+        },
+        "bar-command": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+2",
+                "mac": "Command+Shift+2",
+                "chromeos": "Ctrl+Shift+2",
+                "linux": "Ctrl+Shift+2"
+            },
+            "description": "Send bar-command to the background.js",
             "global": false
         },
         "_execute_action": {
             "suggested_key": {
-                "windows": "Ctrl+Shift+5",
-                "mac": "Command+Shift+5",
-                "chromeos": "Ctrl+Shift+5",
-                "linux": "Ctrl+Shift+5"
+                "windows": "Alt+W",
+                "mac": "Command+W",
+                "chromeos": "Alt+W",
+                "linux": "Alt+W"
             }
         }
     }

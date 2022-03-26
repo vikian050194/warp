@@ -2,16 +2,26 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="options.css">
     <script src="options.js"></script>
 </head>
 
 <body>
-    <div id="buttonDiv">
-    </div>
-    <div>
-        <p>Choose a different background color!</p>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Root directory</td>
+                <td><input id="root-directory"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="save">Save</button>
 </body>
 
 </html>
