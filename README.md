@@ -5,7 +5,7 @@
 
 ## About
 
-**warp** is Google Chrome extension for rapid summon required bookmark.
+**warp** is Google Chrome extension for rapid jump to required bookmark.
 
 ## Motivation
 

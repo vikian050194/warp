@@ -117,15 +117,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     $query.innerText = "...";
     render();
 
-    document.addEventListener("keydown", async ({ key }) => {
+    document.addEventListener("keydown", async ({ key, shiftKey }) => {
         switch (key) {
             case "Backspace":
                 query = query.slice(0, query.length - 1);
                 break;
             case "Enter":
-                chrome.tabs.create({
-                    url: options[currentOptionIndex].url
-                });
+                if (shiftKey) {
+                    chrome.tabs.create({
+                        url: options[currentOptionIndex].url
+                    });
+                } else {
+                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                    chrome.tabs.update(
+                        tab.id, {
+                        url: options[currentOptionIndex].url
+                    });
+                }
                 break;
             case "ArrowUp":
                 currentOptionIndex -= currentOptionIndex > 0 ? 1 : 0;
@@ -147,6 +155,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         $query.innerText = query || "...";
     });
-
-    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 });
