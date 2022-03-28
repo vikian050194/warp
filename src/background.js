@@ -1,12 +1,8 @@
-// TODO extract get/set functions to separate file
-const setOption = (key, value) => {
-    chrome.storage.sync.set({ [key]: value });
-}
-
-const getOption = async (key) => {
-    const valueObject = await chrome.storage.sync.get([key]);
-    return valueObject[key];
-}
+import {
+    commonLog,
+    getOption,
+    setOption
+} from "./common.js";
 
 chrome.runtime.onInstalled.addListener((e) => {
     console.log("onInstalled", e);
@@ -39,4 +35,5 @@ chrome.runtime.onMessage.addListener((message, callback) => {
 
 chrome.commands.onCommand.addListener((command) => {
     console.log(`Command "${command}"`);
+    commonLog();
 });

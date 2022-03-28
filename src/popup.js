@@ -1,3 +1,8 @@
+import {
+    getOption,
+    setOption
+} from "./common.js"
+
 // TODO extract classes to separate files
 class LevelModel {
     constructor(id, title) {
@@ -12,17 +17,6 @@ class BookmarkModel {
         this.title = title;
         this.url = url;
     }
-}
-
-
-// TODO extract get/set functions to separate file
-const setOption = (key, value) => {
-    chrome.storage.sync.set({ [key]: value });
-}
-
-const getOption = async (key) => {
-    const valueObject = await chrome.storage.sync.get([key]);
-    return valueObject[key];
 }
 
 // TODO move searching to background

@@ -1,12 +1,7 @@
-// TODO extract get/set functions to separate file
-const setOption = (key, value) => {
-    chrome.storage.sync.set({ [key]: value });
-}
-
-const getOption = async (key) => {
-    const valueObject = await chrome.storage.sync.get([key]);
-    return valueObject[key];
-}
+import {
+    getOption,
+    setOption
+} from "./common.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
     const $rootDirectory = document.getElementById("root-directory");
