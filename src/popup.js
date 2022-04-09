@@ -1,56 +1,3 @@
-import {
-    getOption,
-    setOption
-} from "./common.js"
-
-// TODO extract classes to separate files
-class LevelModel {
-    constructor(id, title) {
-        this.id = id;
-        this.title = title;
-    }
-}
-
-class BookmarkModel {
-    constructor(dirs, title, url) {
-        this.dirs = dirs;
-        this.title = title;
-        this.url = url;
-    }
-}
-
-// TODO move searching to background
-// TODO update list on change* events
-const getBookmarksList = async (bookmark) => {
-    const result = [];
-    const levels = [];
-    const stack = [];
-    stack.push(bookmark);
-
-    while (stack) {
-        const current = stack.pop();
-        const lastLevel = levels[levels.length - 1];
-
-        if (!stack.length && current && lastLevel && current.id == lastLevel.id) {
-            return result.map(b => new BookmarkModel(b.dirs.slice(1), b.title, b.url));
-        }
-
-        if (lastLevel && current.title == lastLevel.title && current.id == lastLevel.id) {
-            levels.pop();
-            continue;
-        }
-
-        if (current.url) {
-            result.push(new BookmarkModel([...levels.map(({ title }) => title)], current.title, current.url));
-        } else {
-            const subs = await chrome.bookmarks.getChildren(current.id);
-            stack.push(current);
-            stack.push(...subs);
-            levels.push(new LevelModel(current.id, current.title));
-        }
-    }
-};
-
 const makeDiv = (id, text = null, className = null) => {
     const newElement = document.createElement("div");
     newElement.id = id;
@@ -74,20 +21,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $root.append($query, document.createElement("hr"), $options);
 
-    // TODO use constants for options names
-    const rootDirectoryName = await getOption("root-directory");
-    const [root] = await chrome.bookmarks.search({ title: rootDirectoryName });
-
-    const bookmarks = await getBookmarksList(root);
-
-    const search = (query) => {
-        const parts = query.split(" ");
-        return bookmarks.filter(b => b.title.indexOf(parts[0]) == 0);
-    };
-
     let currentOptionIndex = 0;
     let maxIndex = 0;
-    let foo = 3;
+    const placeholderSize = 3;
     let options = [];
 
     const render = () => {
@@ -98,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const className = index == currentOptionIndex ? "selected" : null;
             elements.push(makeDiv(index, title, className));
         }
-        for (let index = options.length; index < foo; index++) {
+        for (let index = options.length; index < placeholderSize; index++) {
             elements.push(makeDiv(index, "...", "empty"));
 
         }
@@ -140,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             default:
                 if (key.length == 1) {
                     query += key;
-                    options = search(query);
+                    options = await chrome.runtime.sendMessage(query);
                     maxIndex = options.length - 1;
                     render();
                 }
