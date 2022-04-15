@@ -54,16 +54,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             case "Enter":
                 if (shiftKey) {
-                    chrome.tabs.create({
+                    await chrome.tabs.create({
                         url: options[currentOptionIndex].url
                     });
                 } else {
                     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-                    chrome.tabs.update(
-                        tab.id, {
-                        url: options[currentOptionIndex].url
-                    });
+                    await chrome.tabs.update(
+                        tab.id,
+                        {
+                            url: options[currentOptionIndex].url
+                        });
                 }
+                // TODO add setting for this feature
+                window.close();
                 break;
             case "ArrowUp":
                 currentOptionIndex -= currentOptionIndex > 0 ? 1 : 0;

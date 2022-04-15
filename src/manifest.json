@@ -14,11 +14,11 @@
         "type": "module"
     },
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup/popup.html"
     },
     "options_page": "options.html",
     "options_ui": {
-        "page": "options.html",
+        "page": "options/options.html",
         "open_in_tab": false
     },
     "commands": {
