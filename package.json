@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint src --config=.eslintrc --ext=js",
-    "test": "mocha ./tests/**/*-tests.js",
+    "test": "mocha 'tests/**/*-tests.js'",
     "cover": "c8 --reporter=text-summary --reporter=html npm run test",
     "cover:ci": "c8 --reporter=text-summary --reporter=lcovonly npm run test"
   },

@@ -36,4 +36,6 @@ export const getBookmarksList = async (bookmark) => {
             levels.push(new LevelModel(current.id, current.title));
         }
     }
+
+    return [];
 };

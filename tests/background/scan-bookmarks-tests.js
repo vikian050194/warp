@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { getBookmarksList } from "../../src/background/foo.js";
+import { getBookmarksList } from "../../src/background/scan.js";
 import { BookmarkModel } from "../../src/common/index.js";
 
 const mockChromeApi = (bookmarks) => {
@@ -17,8 +17,8 @@ class ChromeBookmark {
     }
 }
 
-describe("Scan bookmarks", function () {
-    it("Undefined root", async () => {
+describe("scan bookmarks", function () {
+    it("undefined root", async () => {
         const root = undefined;
         const bookmarks = {};
         mockChromeApi(bookmarks);
@@ -30,7 +30,7 @@ describe("Scan bookmarks", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("No bookmarks", async () => {
+    it("no bookmarks", async () => {
         const root = new ChromeBookmark(1, "root");
         const bookmarks = {
             1: []
@@ -44,7 +44,7 @@ describe("Scan bookmarks", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("Zero level", async () => {
+    it("zero level", async () => {
         const root = new ChromeBookmark(1, "root");
         const bookmarks = {
             1: [
@@ -62,7 +62,7 @@ describe("Scan bookmarks", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("First level", async () => {
+    it("first level", async () => {
         const root = new ChromeBookmark(1, "root");
         const bookmarks = {
             1: [
@@ -83,7 +83,7 @@ describe("Scan bookmarks", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("Second level", async () => {
+    it("second level", async () => {
         const root = new ChromeBookmark(1, "root");
         const bookmarks = {
             1: [

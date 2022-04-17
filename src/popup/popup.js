@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const elements = [];
         for (let index = 0; index < options.length; index++) {
             const option = options[index];
-            const title = option.dirs.join("/") + ":" + option.title;
+            const title = (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
             const className = index == currentOptionIndex ? "selected" : null;
             elements.push(makeDiv(index, title, className));
         }

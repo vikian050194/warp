@@ -2,12 +2,12 @@ import {
     Sync,
     Local
 } from "../common/index.js";
-import { getBookmarksList } from "./foo.js";
-import { filerByTitle } from "./filters.js";
+import { getBookmarksList } from "./scan.js";
+import { filter } from "./filters.js";
 
 const filterBookmarks = async (query) => {
     const bookmarks = await Local.get("bookmarks");
-    return filerByTitle(query, bookmarks);
+    return filter(query, bookmarks);
 };
 
 const onUpdate = async () => {
