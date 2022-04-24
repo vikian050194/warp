@@ -5,7 +5,6 @@
     "version": "0.1.0",
     "permissions": [
         "tabs",
-        "activeTab",
         "storage",
         "bookmarks"
     ],
@@ -19,29 +18,9 @@
     "options_page": "options.html",
     "options_ui": {
         "page": "options/options.html",
-        "open_in_tab": false
+        "open_in_tab": true
     },
     "commands": {
-        "foo-command": {
-            "suggested_key": {
-                "windows": "Ctrl+Shift+1",
-                "mac": "Command+Shift+1",
-                "chromeos": "Ctrl+Shift+1",
-                "linux": "Ctrl+Shift+1"
-            },
-            "description": "Send foo-command to the background.js",
-            "global": false
-        },
-        "bar-command": {
-            "suggested_key": {
-                "windows": "Ctrl+Shift+2",
-                "mac": "Command+Shift+2",
-                "chromeos": "Ctrl+Shift+2",
-                "linux": "Ctrl+Shift+2"
-            },
-            "description": "Send bar-command to the background.js",
-            "global": false
-        },
         "_execute_action": {
             "suggested_key": {
                 "windows": "Alt+W",

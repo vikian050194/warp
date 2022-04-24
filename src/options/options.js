@@ -1,6 +1,6 @@
 import {
     Sync
-} from "./common.js";
+} from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const $rootDirectory = document.getElementById("root-directory");
