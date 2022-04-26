@@ -1,3 +1,7 @@
+import {
+    send
+} from "../common/index.js";
+
 const makeDiv = (id, text = null, className = null) => {
     const newElement = document.createElement("div");
     newElement.id = id;
@@ -49,9 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.addEventListener("keydown", async ({ key, shiftKey }) => {
         switch (key) {
-            case "Backspace":
-                query = query.slice(0, query.length - 1);
-                break;
             case "Enter":
                 if (shiftKey) {
                     await chrome.tabs.create({
@@ -79,10 +80,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             default:
                 if (key.length == 1) {
                     query += key;
-                    options = await chrome.runtime.sendMessage(query);
-                    maxIndex = options.length - 1;
-                    render();
+                } else {
+                    if (key == "Backspace") {
+                        query = query.slice(0, query.length - 1);
+                    } else {
+                        break;
+                    }
                 }
+                options = await send.queryMessage(query);
+                maxIndex = options.length - 1;
+                render();
                 break;
         }
 

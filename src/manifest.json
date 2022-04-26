@@ -4,7 +4,6 @@
     "description": "Open bookmarks as fast as possible without clicking",
     "version": "0.1.0",
     "permissions": [
-        "tabs",
         "storage",
         "bookmarks"
     ],
@@ -13,6 +12,7 @@
         "type": "module"
     },
     "action": {
+        "default_icon": "icons/icon_32.png",
         "default_popup": "popup/popup.html"
     },
     "options_page": "options.html",
@@ -29,5 +29,10 @@
                 "linux": "Alt+W"
             }
         }
+    },
+    "icons": {
+        "16": "icons/icon_16.png",
+        "32": "icons/icon_32.png",
+        "128": "icons/icon_128.png"
     }
 }

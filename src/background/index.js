@@ -1,6 +1,7 @@
 import {
     Sync,
-    Local
+    Local,
+    type
 } from "../common/index.js";
 import { getBookmarksList } from "./scan.js";
 import { filter } from "./filters.js";
@@ -43,6 +44,19 @@ chrome.bookmarks.onRemoved.addListener(async () => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // message listener is not async/await because of
     // bug in GC https://crbug.com/1304272
+    switch (message.type) {
+        case type.QUERY:
+            filterBookmarks(message.value).then(options => {
+                sendResponse(options);
+            });
+            return true;
+        case type.UPDATE:
+            onUpdate().then(() => sendResponse());
+            return true;
+        default:
+            break;
+    }
+
     filterBookmarks(message).then(options => {
         sendResponse(options);
     });

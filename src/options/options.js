@@ -1,5 +1,6 @@
 import {
-    Sync
+    Sync,
+    send
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -11,5 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set("root-directory", $rootDirectory.value);
+        await send.updateMessage();
     });
 });
