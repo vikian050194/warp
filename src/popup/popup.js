@@ -32,19 +32,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const render = () => {
         const elements = [];
+
         for (let index = 0; index < options.length; index++) {
             const option = options[index];
             const title = (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
             const className = index == currentOptionIndex ? "selected" : null;
             elements.push(makeDiv(index, title, className));
         }
+
         for (let index = options.length; index < placeholderSize; index++) {
             elements.push(makeDiv(index, "...", "empty"));
-
         }
+
         while ($options.firstChild) {
             $options.removeChild($options.firstChild);
         }
+
         $options.append(...elements);
     };
 

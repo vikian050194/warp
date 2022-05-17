@@ -12,16 +12,23 @@
             <tr>
                 <th>Name</th>
                 <th>Value</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td>Use root directory</td>
+                <td><input id="is-root" type="checkbox"></td>
+                <td><span class="new">NEW!</span><span>Enable to be more specific (search in the "root" directory) or disable for unlimited search (whole "Bookmarks bar")</span></td>
+            </tr>
+            <tr>
                 <td>Root directory</td>
                 <td><input id="root-directory"></td>
+                <td><span>Directory with bookmarks to search for. Name should be unique!</span></td>
             </tr>
         </tbody>
     </table>
-    <button id="save">Save</button>
+    <button id="save" class="save">Save</button>
 </body>
 
 </html>

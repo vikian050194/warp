@@ -1,7 +1,8 @@
 import {
     Sync,
     Local,
-    type
+    type,
+    Keys
 } from "../common/index.js";
 import { getBookmarksList } from "./scan.js";
 import { filter } from "./filters.js";
@@ -11,18 +12,37 @@ const filterBookmarks = async (query) => {
     return filter(query, bookmarks);
 };
 
+const getRoot = async () => {
+    const searchRoot = await Sync.get(Keys.IS_ROOT);
+
+    if (searchRoot) {
+        const rootDirectoryName = await Sync.get(Keys.ROOT);
+        const [root] = await chrome.bookmarks.search({ title: rootDirectoryName });
+        return root;
+    }
+
+    const [root] = await chrome.bookmarks.get("1");
+    return root;
+};
+
 const onUpdate = async () => {
-    // TODO use constants for options names
-    const rootDirectoryName = await Sync.get("root-directory");
-    const [root] = await chrome.bookmarks.search({ title: rootDirectoryName });
+    const root = await getRoot();
 
     const bookmarks = await getBookmarksList(root);
     await Local.set("bookmarks", bookmarks);
 };
 
 chrome.runtime.onInstalled.addListener(async () => {
-    // TODO improve update algorithm and use event data
-    await Sync.set("root-directory", "Warp");
+    const root = await Sync.get(Keys.ROOT);
+    if (root === undefined) {
+        await Sync.set(Keys.ROOT, "Warp");
+    }
+
+    const is_root = await Sync.get(Keys.IS_ROOT);
+    if (is_root === undefined) {
+        await Sync.set(Keys.IS_ROOT, true);
+    }
+
     await onUpdate();
 });
 
