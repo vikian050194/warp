@@ -4,6 +4,11 @@
 [![Maintenance status][status-badge]][status-url]
 [![Code coverage][coverage-badge]][coverage-url]
 
+[![Chrome Web Store version][store-version-badge]][store-version-url]
+[![Chrome Web Store rating][store-rating-badge]][store-rating-url]
+[![Chrome Web Store rating][store-stars-badge]][store-stars-url]
+[![Chrome Web Store users count][store-users-badge]][store-users-url]
+
 ## About
 
 **warp** is Google Chrome extension for rapid jump to required bookmark.
@@ -17,6 +22,12 @@ It's a bit strange, but I did not found Google Chrome extension that can do some
 Developed and tested on `Version 100.0.4896.75 (Official Build) (64-bit)`
 
 ## Installation
+
+**Chrome Web Store**
+
+Just go [here][store-version-url] and click "Add to Chrome"
+
+**From sources**
 
 1. Clone repo
 2. Open Chrome and navigate [here](chrome://extensions/)
@@ -56,3 +67,15 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 
 [coverage-url]: https://codecov.io/gh/vikian050194/warp
 [coverage-badge]: https://img.shields.io/codecov/c/github/vikian050194/warp
+
+[store-version-url]: https://chrome.google.com/webstore/detail/warp/kfpnmdafkjnbhidilikbkggjnmndobnc
+[store-version-badge]: https://img.shields.io/chrome-web-store/v/kfpnmdafkjnbhidilikbkggjnmndobnc
+
+[store-rating-url]: https://chrome.google.com/webstore/detail/warp/kfpnmdafkjnbhidilikbkggjnmndobnc
+[store-rating-badge]: https://img.shields.io/chrome-web-store/rating/kfpnmdafkjnbhidilikbkggjnmndobnc
+
+[store-stars-url]: https://chrome.google.com/webstore/detail/warp/kfpnmdafkjnbhidilikbkggjnmndobnc
+[store-stars-badge]: https://img.shields.io/chrome-web-store/stars/kfpnmdafkjnbhidilikbkggjnmndobnc
+
+[store-users-url]: https://chrome.google.com/webstore/detail/warp/kfpnmdafkjnbhidilikbkggjnmndobnc
+[store-users-badge]: https://img.shields.io/chrome-web-store/users/kfpnmdafkjnbhidilikbkggjnmndobnc
