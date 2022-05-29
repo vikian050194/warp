@@ -1,23 +1,26 @@
 import {
     Sync,
     Local,
-    type,
-    Keys
+    MESSAGE,
+    OPTIONS,
+    STORE,
+    HistoryItem
 } from "../common/index.js";
+import * as MENU from "./menu.js";
 import { getBookmarksList } from "./scan.js";
 import { filter } from "./filters.js";
 
 const filterBookmarks = async (query) => {
-    const bookmarks = await Local.get("bookmarks");
+    const bookmarks = await Local.get(STORE.BOOKMARKS);
     return filter(query, bookmarks);
 };
 
 const getRoot = async () => {
-    const searchRoot = await Sync.get(Keys.IS_ROOT);
+    const searchInCustomDerectory = await Sync.get(OPTIONS.IS_CUSTOM_DIRECTORY);
 
-    if (searchRoot) {
-        const rootDirectoryName = await Sync.get(Keys.ROOT);
-        const [root] = await chrome.bookmarks.search({ title: rootDirectoryName });
+    if (searchInCustomDerectory) {
+        const customDirectoryName = await Sync.get(OPTIONS.CUSTOM_DIRECTORY);
+        const [root] = await chrome.bookmarks.search({ title: customDirectoryName });
         return root;
     }
 
@@ -29,19 +32,56 @@ const onUpdate = async () => {
     const root = await getRoot();
 
     const bookmarks = await getBookmarksList(root);
-    await Local.set("bookmarks", bookmarks);
+    await Local.set(STORE.BOOKMARKS, bookmarks);
+};
+
+const onCall = async (id) => {
+    const now = new Date().toISOString();
+    const newItem = new HistoryItem(id, now);
+    const history = await Local.get(STORE.HISTORY);
+    history.push(newItem);
+    await Local.set(STORE.HISTORY, history);
+};
+
+const updateMenu = () => {
+    chrome.contextMenus.create({
+        id: MENU.HISTORY,
+        title: "History",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
+
+    chrome.contextMenus.create({
+        id: MENU.FREQUENCY,
+        title: "Frequency",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
+};
+
+const updateDefaultValues = async () => {
+    const customDirectory = await Sync.get(OPTIONS.CUSTOM_DIRECTORY);
+    if (customDirectory === undefined) {
+        await Sync.set(OPTIONS.CUSTOM_DIRECTORY, "Warp");
+    }
+
+    const isCustomDirectory = await Sync.get(OPTIONS.IS_CUSTOM_DIRECTORY);
+    if (isCustomDirectory === undefined) {
+        await Sync.set(OPTIONS.IS_CUSTOM_DIRECTORY, false);
+    }
+
+    const history = await Local.get(STORE.HISTORY);
+    if (history === undefined) {
+        await Local.set(STORE.HISTORY, []);
+    }
 };
 
 chrome.runtime.onInstalled.addListener(async () => {
-    const root = await Sync.get(Keys.ROOT);
-    if (root === undefined) {
-        await Sync.set(Keys.ROOT, "Warp");
-    }
+    updateMenu();
 
-    const is_root = await Sync.get(Keys.IS_ROOT);
-    if (is_root === undefined) {
-        await Sync.set(Keys.IS_ROOT, true);
-    }
+    await updateDefaultValues();
 
     await onUpdate();
 });
@@ -65,24 +105,39 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // message listener is not async/await because of
     // bug in GC https://crbug.com/1304272
     switch (message.type) {
-        case type.QUERY:
+        case MESSAGE.QUERY:
             filterBookmarks(message.value).then(options => {
                 sendResponse(options);
             });
             return true;
-        case type.UPDATE:
+        case MESSAGE.UPDATE:
             onUpdate().then(() => sendResponse());
+            return true;
+        case MESSAGE.CALL:
+            onCall(message.value).then(() => sendResponse());
             return true;
         default:
             break;
     }
-
-    filterBookmarks(message).then(options => {
-        sendResponse(options);
-    });
-    return true;
 });
 
 chrome.commands.onCommand.addListener(() => {
     //code will be here
+});
+
+chrome.contextMenus.onClicked.addListener(async (info) => {
+    switch (info.menuItemId) {
+        case MENU.HISTORY:
+            await chrome.tabs.create({
+                url: "history/history.html"
+            });
+            break;
+        case MENU.FREQUENCY:
+            await chrome.tabs.create({
+                url: "frequency/frequency.html"
+            });
+            break;
+        default:
+            break;
+    }
 });

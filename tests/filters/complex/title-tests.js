@@ -17,9 +17,9 @@ describe("complex filter by title", function () {
     it("no matches", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel([], "bar"),
-            new BookmarkModel([], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", []),
+            new BookmarkModel("3", "url3", "baz", [])
         ];
         const expected = [];
 
@@ -31,13 +31,13 @@ describe("complex filter by title", function () {
     it("lower", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo - test - 123"),
-            new BookmarkModel([], "TEST - test - 456"),
-            new BookmarkModel([], "test123")
+            new BookmarkModel("1", "url1", "foo - test - 123", []),
+            new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("3", "url3", "test123", [])
         ];
         const expected = [
-            new BookmarkModel([], "test123"),
-            new BookmarkModel([], "TEST - test - 456")
+            new BookmarkModel("3", "url3", "test123", []),
+            new BookmarkModel("2", "url2", "TEST - test - 456", [])
         ];
 
         const actual = filter(query, bookmarks);
@@ -48,13 +48,13 @@ describe("complex filter by title", function () {
     it("capital", function () {
         const query = "TEST";
         const bookmarks = [
-            new BookmarkModel([], "foo - test - 123"),
-            new BookmarkModel([], "TEST - test - 456"),
-            new BookmarkModel([], "test123")
+            new BookmarkModel("1", "url1", "foo - test - 123", []),
+            new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("3", "url3", "test123", [])
         ];
         const expected = [
-            new BookmarkModel([], "TEST - test - 456"),
-            new BookmarkModel([], "test123")
+            new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("3", "url3", "test123", [])
         ];
 
         const actual = filter(query, bookmarks);

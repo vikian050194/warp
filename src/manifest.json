@@ -2,10 +2,11 @@
     "manifest_version": 3,
     "name": "warp",
     "description": "Open bookmark without clicking",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "permissions": [
         "storage",
-        "bookmarks"
+        "bookmarks",
+        "contextMenus"
     ],
     "background": {
         "service_worker": "background/index.js",
@@ -15,7 +16,7 @@
         "default_icon": "icons/icon_32.png",
         "default_popup": "popup/popup.html"
     },
-    "options_page": "options.html",
+    "options_page": "options/options.html",
     "options_ui": {
         "page": "options/options.html",
         "open_in_tab": true
@@ -34,5 +35,6 @@
         "16": "icons/icon_16.png",
         "32": "icons/icon_32.png",
         "128": "icons/icon_128.png"
-    }
+    },
+    "homepage_url": "https://github.com/vikian050194/warp"
 }

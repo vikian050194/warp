@@ -49,7 +49,8 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 
 | Name | Description |
 | :--- | :--- |
-| Root directory | Bookmarks directory to scan |
+| Use custom directory | Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar") |
+| Custom directory | Directory with bookmarks to search for. Name should be unique! |
 
 ## Tests
 

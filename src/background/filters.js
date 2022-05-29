@@ -1,4 +1,4 @@
-const startsWith = (line, pattern, caseSensitive) => {
+const startsWith = (line, pattern, caseSensitive = true) => {
     const l = caseSensitive ? line : line.toLowerCase();
     return l.indexOf(pattern) == 0;
 };

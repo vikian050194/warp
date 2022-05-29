@@ -7,9 +7,9 @@ describe("filter by dirs - case insensitive", function () {
     it("no matches", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["dir1"], "bar"),
-            new BookmarkModel(["dir2", "dir3"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["dir2", "dir3"])
         ];
         const expected = [];
 
@@ -21,13 +21,13 @@ describe("filter by dirs - case insensitive", function () {
     it("lower", function () {
         const query = "dir";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["Dir1"], "bar"),
-            new BookmarkModel(["DIR2", "subdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["Dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir"])
         ];
         const expected = [
-            new BookmarkModel(["Dir1"], "bar"),
-            new BookmarkModel(["DIR2", "subdir"], "baz")
+            new BookmarkModel("2", "url2", "bar", ["Dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir"])
         ];
 
         const actual = filterByDirs(query, bookmarks, false);
@@ -38,11 +38,13 @@ describe("filter by dirs - case insensitive", function () {
     it("capital - first", function () {
         const query = "cdir";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["adir"], "bar"),
-            new BookmarkModel(["bdir", "Cdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["adir"]),
+            new BookmarkModel("3", "url3", "baz", ["bdir", "Cdir"])
         ];
-        const expected = [new BookmarkModel(["bdir", "Cdir"], "baz")];
+        const expected = [
+            new BookmarkModel("3", "url3", "baz", ["bdir", "Cdir"])
+        ];
 
         const actual = filterByDirs(query, bookmarks, false);
 
@@ -52,11 +54,13 @@ describe("filter by dirs - case insensitive", function () {
     it("capital - all", function () {
         const query = "bdir";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["adir"], "bar"),
-            new BookmarkModel(["BDIR", "cdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["adir"]),
+            new BookmarkModel("3", "url3", "baz", ["BDIR", "cdir"])
         ];
-        const expected = [new BookmarkModel(["BDIR", "cdir"], "baz")];
+        const expected = [
+            new BookmarkModel("3", "url3", "baz", ["BDIR", "cdir"])
+        ];
 
         const actual = filterByDirs(query, bookmarks, false);
 
@@ -66,9 +70,9 @@ describe("filter by dirs - case insensitive", function () {
     it("CAPS", function () {
         const query = "BDIR";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["adir"], "bar"),
-            new BookmarkModel(["bdir", "cdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["adir"]),
+            new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
         ];
         const expected = [];
 

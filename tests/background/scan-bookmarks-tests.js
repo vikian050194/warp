@@ -48,13 +48,13 @@ describe("scan bookmarks", function () {
         const root = new ChromeBookmark(1, "root");
         const bookmarks = {
             1: [
-                new ChromeBookmark(2, "bm", "url2")
+                new ChromeBookmark("2", "bm", "url2")
             ]
         };
         mockChromeApi(bookmarks);
 
         const expected = [
-            new BookmarkModel([], "bm", "url2")
+            new BookmarkModel("2", "url2", "bm", [])
         ];
 
         const actual = await getBookmarksList(root);
@@ -63,19 +63,19 @@ describe("scan bookmarks", function () {
     });
 
     it("first level", async () => {
-        const root = new ChromeBookmark(1, "root");
+        const root = new ChromeBookmark("1", "root");
         const bookmarks = {
             1: [
-                new ChromeBookmark(2, "sub2")
+                new ChromeBookmark("2", "sub2")
             ],
             2: [
-                new ChromeBookmark(3, "bm", "url3")
+                new ChromeBookmark("3", "bm", "url3")
             ]
         };
         mockChromeApi(bookmarks);
 
         const expected = [
-            new BookmarkModel(["sub2"], "bm", "url3")
+            new BookmarkModel("3", "url3", "bm", ["sub2"])
         ];
 
         const actual = await getBookmarksList(root);
@@ -84,22 +84,22 @@ describe("scan bookmarks", function () {
     });
 
     it("second level", async () => {
-        const root = new ChromeBookmark(1, "root");
+        const root = new ChromeBookmark("1", "root");
         const bookmarks = {
             1: [
-                new ChromeBookmark(2, "sub2")
+                new ChromeBookmark("2", "sub2")
             ],
             2: [
-                new ChromeBookmark(3, "sub3")
+                new ChromeBookmark("3", "sub3")
             ],
             3: [
-                new ChromeBookmark(4, "bm", "url4")
+                new ChromeBookmark("4", "bm", "url4")
             ]
         };
         mockChromeApi(bookmarks);
 
         const expected = [
-            new BookmarkModel(["sub2", "sub3"], "bm", "url4")
+            new BookmarkModel("4", "url4", "bm", ["sub2", "sub3"])
         ];
 
         const actual = await getBookmarksList(root);

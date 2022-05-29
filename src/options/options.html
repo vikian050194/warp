@@ -4,9 +4,11 @@
 <head>
     <link rel="stylesheet" href="options.css">
     <script src="options.js" type="module"></script>
+    <title>warp: options</title>
 </head>
 
 <body>
+    <h1>Options</h1>
     <table>
         <thead>
             <tr>
@@ -17,18 +19,31 @@
         </thead>
         <tbody>
             <tr>
-                <td>Use root directory</td>
-                <td><input id="is-root" type="checkbox"></td>
-                <td><span class="new">NEW!</span><span>Enable to be more specific (search in the "root" directory) or disable for unlimited search (whole "Bookmarks bar")</span></td>
+                <td>Use custom directory</td>
+                <td><input id="is-custom-directory" type="checkbox"></td>
+                <td><span class="new">NEW!</span><span>Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar")</span></td>
             </tr>
             <tr>
-                <td>Root directory</td>
-                <td><input id="root-directory"></td>
+                <td>Custom directory</td>
+                <td><input id="custom-directory"></td>
                 <td><span>Directory with bookmarks to search for. Name should be unique!</span></td>
             </tr>
         </tbody>
     </table>
     <button id="save" class="save">Save</button>
+    <footer style="position: absolute; bottom: 8px;">
+        <span>
+            <a href="/options/options.html">options</a>
+        </span>
+        <span>|</span>
+        <span>
+            <a href="/history/history.html">history</a>
+        </span>
+        <span>|</span>
+        <span>
+            <a href="/frequency/frequency.html">frequency</a>
+        </span>
+    </footer>
 </body>
 
 </html>

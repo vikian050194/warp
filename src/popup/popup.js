@@ -1,22 +1,12 @@
 import {
-    send
+    send,
+    dom
 } from "../common/index.js";
-
-const makeDiv = (id, text = null, className = null) => {
-    const newElement = document.createElement("div");
-    newElement.id = id;
-    if (className) {
-        newElement.className = className;
-    }
-    if (text) {
-        const textContent = document.createTextNode(text);
-        newElement.appendChild(textContent);
-    }
-    return newElement;
-};
 
 document.addEventListener("DOMContentLoaded", async () => {
     let query = "";
+
+    const makeDiv = dom.makeElementCreator("div");
 
     const $root = document.getElementById("root");
 
@@ -27,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let currentOptionIndex = 0;
     let maxIndex = 0;
+    // TODO add option for this feature
     const placeholderSize = 3;
     let options = [];
 
@@ -37,11 +28,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             const option = options[index];
             const title = (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
             const className = index == currentOptionIndex ? "selected" : null;
-            elements.push(makeDiv(index, title, className));
+            elements.push(makeDiv({ id: index, text: title, className }));
         }
 
         for (let index = options.length; index < placeholderSize; index++) {
-            elements.push(makeDiv(index, "...", "empty"));
+            elements.push(makeDiv({ id: index, text: "...", className: "empty" }));
         }
 
         while ($options.firstChild) {
@@ -56,22 +47,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.addEventListener("keydown", async ({ key, shiftKey }) => {
         switch (key) {
-            case "Enter":
+            case "Enter": {
+                const option = options[currentOptionIndex];
+                await send.callMessage(option.id);
                 if (shiftKey) {
                     await chrome.tabs.create({
-                        url: options[currentOptionIndex].url
+                        url: option.url
                     });
                 } else {
                     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
                     await chrome.tabs.update(
                         tab.id,
                         {
-                            url: options[currentOptionIndex].url
+                            url: option.url
                         });
                 }
-                // TODO add setting for this feature
+                // TODO add option for this feature
                 window.close();
                 break;
+            }
             case "ArrowUp":
                 currentOptionIndex -= currentOptionIndex > 0 ? 1 : 0;
                 render();

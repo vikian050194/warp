@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Check root directory
+## [0.3.0] - 2022-05-29
+
+### Added
+
+- Extension home page (GitHub repo) is available through action context menu
+- Two new action context menu items: history and frequency
+- History page
+- Frequency page
+- Full history/frequency reset
+
+### Changed
+
+- "root" directory and associated flag are renamed to "custom"
+- Options page title is specified
 
 ## [0.2.0] - 2022-05-17
 
@@ -23,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/vikian050194/warp/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/vikian050194/warp/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/vikian050194/warp/releases/tag/v0.1.0

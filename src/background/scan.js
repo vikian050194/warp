@@ -19,7 +19,7 @@ export const getBookmarksList = async (bookmark) => {
         const lastLevel = levels[levels.length - 1];
 
         if (!stack.length && current && lastLevel && current.id == lastLevel.id) {
-            return result.map(b => new BookmarkModel(b.dirs.slice(1), b.title, b.url));
+            return result.map(b => new BookmarkModel(b.id, b.url, b.title, b.dirs.slice(1)));
         }
 
         if (lastLevel && current.title == lastLevel.title && current.id == lastLevel.id) {
@@ -28,7 +28,7 @@ export const getBookmarksList = async (bookmark) => {
         }
 
         if (current.url) {
-            result.push(new BookmarkModel([...levels.map(({ title }) => title)], current.title, current.url));
+            result.push(new BookmarkModel(current.id, current.url, current.title, [...levels.map(({ title }) => title)]));
         } else {
             const subs = await chrome.bookmarks.getChildren(current.id);
             stack.push(current);

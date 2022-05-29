@@ -7,11 +7,13 @@ describe("filter by title - case insensitive", function () {
     it("capital - first", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel([], "Test"),
-            new BookmarkModel([], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "Test", []),
+            new BookmarkModel("3", "url3", "baz", [])
         ];
-        const expected = [new BookmarkModel([], "Test")];
+        const expected = [
+            new BookmarkModel("2", "url2", "Test", [])
+        ];
 
         const actual = filterByTitle(query, bookmarks, false);
 
@@ -21,11 +23,13 @@ describe("filter by title - case insensitive", function () {
     it("capital - all", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel([], "TEST"),
-            new BookmarkModel([], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "TEST", []),
+            new BookmarkModel("3", "url3", "baz", [])
         ];
-        const expected = [new BookmarkModel([], "TEST")];
+        const expected = [
+            new BookmarkModel("2", "url2", "TEST", [])
+        ];
 
         const actual = filterByTitle(query, bookmarks, false);
 
@@ -35,9 +39,9 @@ describe("filter by title - case insensitive", function () {
     it("CAPS", function () {
         const query = "TEST";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel([], "test"),
-            new BookmarkModel([], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "test", []),
+            new BookmarkModel("3", "url3", "baz", [])
         ];
         const expected = [];
 

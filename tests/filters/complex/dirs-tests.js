@@ -17,9 +17,9 @@ describe("complex filter by dirs", function () {
     it("no matches", function () {
         const query = "test";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["dir1"], "bar"),
-            new BookmarkModel(["dir2"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["dir2"])
         ];
         const expected = [];
 
@@ -31,13 +31,13 @@ describe("complex filter by dirs", function () {
     it("lower", function () {
         const query = "dir";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["dir1"], "bar"),
-            new BookmarkModel(["dir2", "subdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", [] ),
+            new BookmarkModel("2", "url2", "bar", ["dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["dir2", "subdir"])
         ];
         const expected = [
-            new BookmarkModel(["dir1"], "bar"),
-            new BookmarkModel(["dir2", "subdir"], "baz")
+            new BookmarkModel("2", "url2", "bar", ["dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["dir2", "subdir"])
         ];
 
         const actual = filter(query, bookmarks);
@@ -48,13 +48,13 @@ describe("complex filter by dirs", function () {
     it("capital - first", function () {
         const query = "dir";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["Dir1"], "bar"),
-            new BookmarkModel(["foo", "Dir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["Dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["foo", "Dir"])
         ];
         const expected = [
-            new BookmarkModel(["Dir1"], "bar"),
-            new BookmarkModel(["foo", "Dir"], "baz")
+            new BookmarkModel("2", "url2", "bar", ["Dir1"]),
+            new BookmarkModel("3", "url3", "baz", ["foo", "Dir"])
         ];
 
         const actual = filter(query, bookmarks);
@@ -65,11 +65,13 @@ describe("complex filter by dirs", function () {
     it("CAPS", function () {
         const query = "BDIR";
         const bookmarks = [
-            new BookmarkModel([], "foo"),
-            new BookmarkModel(["adir"], "bar"),
-            new BookmarkModel(["bdir", "cdir"], "baz")
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["adir"]),
+            new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
         ];
-        const expected = [new BookmarkModel(["bdir", "cdir"], "baz")];
+        const expected = [
+            new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
+        ];
 
         const actual = filter(query, bookmarks);
 

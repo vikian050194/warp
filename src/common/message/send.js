@@ -1,7 +1,8 @@
 import { Message } from "./message.js";
-import * as type from "./type.js";
+import { MESSAGE } from "../constants/index.js";
 
 const send = async (message) => await chrome.runtime.sendMessage(message);
 
-export const queryMessage = async (query) => await send(new Message(type.QUERY, query));
-export const updateMessage = async () => await send(new Message(type.UPDATE));
+export const queryMessage = async (query) => await send(new Message(MESSAGE.QUERY, query));
+export const updateMessage = async () => await send(new Message(MESSAGE.UPDATE));
+export const callMessage = async (id) => await send(new Message(MESSAGE.CALL, id));
