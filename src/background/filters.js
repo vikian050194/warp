@@ -15,10 +15,10 @@ export const filterByDirs = (query, bookmarks, caseSensitive = true) => {
 
 export const filter = (query, bookmarks) => {
     const result = [];
-    
+
     const first = filterByTitle(query, bookmarks);
     result.push(...first);
-    
+
     const second = filterByTitle(query.toLowerCase(), bookmarks, false);
     const secondNew = second.filter(b => result.indexOf(b) == -1);
     result.push(...secondNew);
@@ -26,10 +26,20 @@ export const filter = (query, bookmarks) => {
     const third = filterByDirs(query, bookmarks);
     const thirdNew = third.filter(b => result.indexOf(b) == -1);
     result.push(...thirdNew);
-    
+
     const forth = filterByDirs(query.toLowerCase(), bookmarks, false);
     const forthNew = forth.filter(b => result.indexOf(b) == -1);
     result.push(...forthNew);
 
     return result;
 };
+
+export const filterByCount = (history, threshold) => {
+    if (history.length <= threshold) {
+        return history;
+    }
+
+    return history.slice(history.length - threshold);
+};
+
+export const filterByTime = (history, threshold) => history.filter(i => new Date(i.date) >= threshold);

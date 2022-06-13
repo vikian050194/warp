@@ -8,7 +8,21 @@ import {
 } from "../common/index.js";
 import * as MENU from "./menu.js";
 import { getBookmarksList } from "./scan.js";
-import { filter } from "./filters.js";
+import { filter, filterByCount, filterByTime } from "./filters.js";
+
+const filterHistory = async () => {
+    const history = await Local.get(STORE.HISTORY);
+
+    const maxCount = await Sync.get(OPTIONS.HISTORY_MAX_COUNT);
+    const filteredByCount = filterByCount(history, maxCount);
+
+    const expirationTime = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
+    let timeThreshold = new Date();
+    timeThreshold = new Date(timeThreshold.getTime() - expirationTime * 1000);
+    const filteredByTime = filterByTime(filteredByCount, timeThreshold);
+
+    await Local.set(STORE.HISTORY, filteredByTime);
+};
 
 const filterBookmarks = async (query) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
@@ -33,6 +47,8 @@ const onUpdate = async () => {
 
     const bookmarks = await getBookmarksList(root);
     await Local.set(STORE.BOOKMARKS, bookmarks);
+
+    await filterHistory();
 };
 
 const onCall = async (id) => {
@@ -41,6 +57,8 @@ const onCall = async (id) => {
     const history = await Local.get(STORE.HISTORY);
     history.push(newItem);
     await Local.set(STORE.HISTORY, history);
+
+    await filterHistory();
 };
 
 const updateMenu = () => {
@@ -70,6 +88,16 @@ const updateDefaultValues = async () => {
     const isCustomDirectory = await Sync.get(OPTIONS.IS_CUSTOM_DIRECTORY);
     if (isCustomDirectory === undefined) {
         await Sync.set(OPTIONS.IS_CUSTOM_DIRECTORY, false);
+    }
+
+    const maxCount = await Sync.get(OPTIONS.HISTORY_MAX_COUNT);
+    if (maxCount === undefined) {
+        await Sync.set(OPTIONS.HISTORY_MAX_COUNT, 100000);
+    }
+
+    const expirationTime = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
+    if (expirationTime === undefined) {
+        await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, 31536000);
     }
 
     const history = await Local.get(STORE.HISTORY);

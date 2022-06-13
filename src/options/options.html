@@ -9,6 +9,7 @@
 
 <body>
     <h1>Options</h1>
+    <h2>Bookmarks</h2>
     <table>
         <thead>
             <tr>
@@ -21,7 +22,7 @@
             <tr>
                 <td>Use custom directory</td>
                 <td><input id="is-custom-directory" type="checkbox"></td>
-                <td><span class="new">NEW!</span><span>Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar")</span></td>
+                <td><span>Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar")</span></td>
             </tr>
             <tr>
                 <td>Custom directory</td>
@@ -30,8 +31,37 @@
             </tr>
         </tbody>
     </table>
+    <h2>History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Maximum count of history items</td>
+                <td><input id="history-max-count" type="number" min="1" max="100000" step="10"></td>
+                <td><span class="new">NEW!</span><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
+            </tr>
+            <tr>
+                <td>Expiration time of history items</td>
+                <td>
+                    <select id="history-expiration-time">
+                        <option value="31536000">365 days</option>
+                        <option value="2678400">31 days</option>
+                        <option value="1209600">14 days</option>
+                        <option value="604800">7 days</option>
+                        <option value="86400">1 day</option>
+                    </select>
+                <td><span class="new">NEW!</span><span>All history items that are older than this threshold will be automatically deleted</span></td>
+            </tr>
+        </tbody>
+    </table>
     <button id="save" class="save">Save</button>
-    <footer style="position: absolute; bottom: 8px;">
+    <footer style="position: fixed; bottom: 8px;">
         <span>
             <a href="/options/options.html">options</a>
         </span>
