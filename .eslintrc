@@ -8,7 +8,11 @@
         "sourceType": "module",
         "requireConfigFile": false
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/recommended"
+    ],
+    "plugins": ["@babel"],
     "env": {
         "es6": true,
         "browser": true,

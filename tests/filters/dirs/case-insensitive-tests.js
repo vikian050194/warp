@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { filterByDirs } from "../../../src/background/filters.js";
+import { filterBookmarksByDirs } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("filter by dirs - case insensitive", function () {
@@ -13,7 +13,7 @@ describe("filter by dirs - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterByDirs(query, bookmarks, false);
+        const actual = filterBookmarksByDirs(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -30,7 +30,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir"])
         ];
 
-        const actual = filterByDirs(query, bookmarks, false);
+        const actual = filterBookmarksByDirs(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -46,7 +46,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["bdir", "Cdir"])
         ];
 
-        const actual = filterByDirs(query, bookmarks, false);
+        const actual = filterBookmarksByDirs(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -62,7 +62,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["BDIR", "cdir"])
         ];
 
-        const actual = filterByDirs(query, bookmarks, false);
+        const actual = filterBookmarksByDirs(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -76,7 +76,7 @@ describe("filter by dirs - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterByDirs(query, bookmarks, false);
+        const actual = filterBookmarksByDirs(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });

@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { filterByTitle } from "../../../src/background/filters.js";
+import { filterBookmarksByTitle } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("filter by title - case sensitive", function () {
@@ -9,7 +9,7 @@ describe("filter by title - case sensitive", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +23,7 @@ describe("filter by title - case sensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -39,7 +39,7 @@ describe("filter by title - case sensitive", function () {
             new BookmarkModel("2", "url2", "test", [])
         ];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -55,7 +55,7 @@ describe("filter by title - case sensitive", function () {
             new BookmarkModel("2", "url2", "Test", [])
         ];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -71,7 +71,7 @@ describe("filter by title - case sensitive", function () {
             new BookmarkModel("2", "url2", "TEST", [])
         ];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -85,7 +85,7 @@ describe("filter by title - case sensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterByTitle(query, bookmarks);
+        const actual = filterBookmarksByTitle(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { filterByTitle } from "../../../src/background/filters.js";
+import { filterBookmarksByTitle } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("filter by title - case insensitive", function () {
@@ -15,7 +15,7 @@ describe("filter by title - case insensitive", function () {
             new BookmarkModel("2", "url2", "Test", [])
         ];
 
-        const actual = filterByTitle(query, bookmarks, false);
+        const actual = filterBookmarksByTitle(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -31,7 +31,7 @@ describe("filter by title - case insensitive", function () {
             new BookmarkModel("2", "url2", "TEST", [])
         ];
 
-        const actual = filterByTitle(query, bookmarks, false);
+        const actual = filterBookmarksByTitle(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -45,7 +45,7 @@ describe("filter by title - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterByTitle(query, bookmarks, false);
+        const actual = filterBookmarksByTitle(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });

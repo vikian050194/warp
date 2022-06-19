@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { filterByCount } from "../../../src/background/filters.js";
+import { filterHistoryByCount } from "../../../src/background/filters/index.js";
 import { HistoryItem } from "../../../src/common/models/index.js";
 
 describe("filter by max count", function () {
@@ -11,7 +11,7 @@ describe("filter by max count", function () {
         const expected = [
         ];
 
-        const actual = filterByCount(history, threshold);
+        const actual = filterHistoryByCount(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -25,7 +25,7 @@ describe("filter by max count", function () {
             new HistoryItem("1", "date1")
         ];
 
-        const actual = filterByCount(history, threshold);
+        const actual = filterHistoryByCount(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -43,7 +43,7 @@ describe("filter by max count", function () {
             new HistoryItem("3", "date3")
         ];
 
-        const actual = filterByCount(history, threshold);
+        const actual = filterHistoryByCount(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -60,7 +60,7 @@ describe("filter by max count", function () {
             new HistoryItem("3", "date3")
         ];
 
-        const actual = filterByCount(history, threshold);
+        const actual = filterHistoryByCount(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
