@@ -44,7 +44,7 @@
             <tr>
                 <td>Maximum count of history items</td>
                 <td><input id="history-max-count" type="number" min="1" max="100000" step="10"></td>
-                <td><span class="new">NEW!</span><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
+                <td><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
             </tr>
             <tr>
                 <td>Expiration time of history items</td>
@@ -56,7 +56,33 @@
                         <option value="604800">7 days</option>
                         <option value="86400">1 day</option>
                     </select>
-                <td><span class="new">NEW!</span><span>All history items that are older than this threshold will be automatically deleted</span></td>
+                </td>
+                <td><span>All history items that are older than this threshold will be automatically deleted</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Paging</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Results per page</td>
+                <td>
+                    <select id="results-per-page">
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>\
+                        <option value="100">100</option>
+                    </select>
+                </td>
+                <td><span class="new">NEW!</span><span>Results per page in the popup</span></td>
             </tr>
         </tbody>
     </table>
