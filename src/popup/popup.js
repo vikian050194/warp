@@ -1,6 +1,8 @@
 import {
     send,
-    dom
+    dom,
+    Sync,
+    OPTIONS
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -17,8 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let currentOptionIndex = 0;
     let maxIndex = 0;
-    // TODO add option for this feature
-    const placeholderSize = 3;
+    const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
     let options = [];
 
     const render = () => {
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             elements.push(makeDiv({ id: index, text: title, className }));
         }
 
-        for (let index = options.length; index < placeholderSize; index++) {
+        for (let index = options.length; index < resultsPerPage; index++) {
             elements.push(makeDiv({ id: index, text: "...", className: "empty" }));
         }
 
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                 }
                 options = await send.queryMessage(query);
+                options = options.slice(0, resultsPerPage);
                 maxIndex = options.length - 1;
                 render();
                 break;

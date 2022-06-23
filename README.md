@@ -47,10 +47,25 @@ Extension has few options.
 
 You can [setup your own shortcut for activation](chrome://extensions/shortcuts), but default one is `Alt+W` or `Command+W`.
 
+**Bookmarks**
+
 | Name | Description |
 | :--- | :--- |
 | Use custom directory | Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar") |
 | Custom directory | Directory with bookmarks to search for. Name should be unique! |
+
+**History**
+
+| Name | Description |
+| :--- | :--- |
+| Maximum count of history items | All history items (starting from the oldest) that are above this threshold by count will be automatically deleted |
+| Expiration time of history items | All history items that are older than this threshold will be automatically deleted |
+
+**Paging**
+
+| Name | Description |
+| :--- | :--- |
+| Results per page | Results per page in the popup |
 
 ## Tests
 

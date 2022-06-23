@@ -41,6 +41,11 @@ const updateDefaultValues = async () => {
         await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, 31536000);
     }
 
+    const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
+    if (resultsPerPage === undefined) {
+        await Sync.set(OPTIONS.RESULTS_PER_PAGE, 10);
+    }
+
     const history = await Local.get(STORE.HISTORY);
     if (history === undefined) {
         await Local.set(STORE.HISTORY, []);
