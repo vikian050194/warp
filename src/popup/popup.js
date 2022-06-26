@@ -4,35 +4,50 @@ import {
     Sync,
     OPTIONS
 } from "../common/index.js";
+import { splitByPages } from "./paging.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     let query = "";
+    let pages = [[]];
+
+    const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
+
+    let currentOptionIndex = 0;
+    let maxOptionIndex = 0;
+
+    let currentPageIndex = 0;
+    let maxPageIndex = 0;
 
     const makeDiv = dom.makeElementCreator("div");
+    const makeSpan = dom.makeElementCreator("span");
+
+    const getPager = () => `${currentPageIndex + 1}/${pages.length}`;
 
     const $root = document.getElementById("root");
 
-    const $query = makeDiv("query");
-    const $options = makeDiv("options");
+    const $query = makeDiv({ id: "query" });
+    const $options = makeDiv({ id: "options" });
+    const $paging = makeDiv({ className: "paging" });
 
-    $root.append($query, document.createElement("hr"), $options);
+    $root.append($query, document.createElement("hr"), $options, document.createElement("hr"), $paging);
 
-    let currentOptionIndex = 0;
-    let maxIndex = 0;
-    const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
-    let options = [];
+    const $backPage = makeSpan({ id: "back", text: "back", className: "arrow" });
+    const $currentPage = makeSpan({ id: "pager", text: getPager(), className: "pager" });
+    const $nextPage = makeSpan({ id: "next", text: "next", className: "arrow" });
+
+    $paging.append($backPage, $currentPage, $nextPage);
 
     const render = () => {
         const elements = [];
 
-        for (let index = 0; index < options.length; index++) {
-            const option = options[index];
+        for (let index = 0; index < pages[currentPageIndex].length; index++) {
+            const option = pages[currentPageIndex][index];
             const title = (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
             const className = index == currentOptionIndex ? "selected" : null;
             elements.push(makeDiv({ id: index, text: title, className }));
         }
 
-        for (let index = options.length; index < resultsPerPage; index++) {
+        for (let index = pages[currentPageIndex].length; index < resultsPerPage; index++) {
             elements.push(makeDiv({ id: index, text: "...", className: "empty" }));
         }
 
@@ -41,15 +56,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         $options.append(...elements);
+
+        $backPage.classList.toggle("animated", currentPageIndex > 0);
+        $currentPage.innerText = getPager();
+        $nextPage.classList.toggle("animated", currentPageIndex < maxPageIndex);
     };
 
     $query.innerText = "...";
+
+    const onKey = async () => {
+        const options = await send.queryMessage(query);
+        currentPageIndex = 0;
+        pages = splitByPages(options, resultsPerPage);
+        maxPageIndex = pages.length - 1;
+        maxOptionIndex = pages[currentPageIndex].length - 1;
+    };
+
+    await onKey();
     render();
 
     document.addEventListener("keydown", async ({ key, shiftKey }) => {
         switch (key) {
             case "Enter": {
-                const option = options[currentOptionIndex];
+                const option = pages[currentPageIndex][currentOptionIndex];
                 await send.callMessage(option.id);
                 if (shiftKey) {
                     await chrome.tabs.create({
@@ -72,10 +101,22 @@ document.addEventListener("DOMContentLoaded", async () => {
                 render();
                 break;
             case "ArrowDown":
-                currentOptionIndex += currentOptionIndex < maxIndex ? 1 : 0;
+                currentOptionIndex += currentOptionIndex < maxOptionIndex ? 1 : 0;
                 render();
                 break;
-            default:
+            case "ArrowRight":
+                currentOptionIndex = 0;
+                currentPageIndex += currentPageIndex < maxPageIndex ? 1 : 0;
+                maxOptionIndex = pages[currentPageIndex].length - 1;
+                render();
+                break;
+            case "ArrowLeft":
+                currentOptionIndex = 0;
+                currentPageIndex -= currentPageIndex > 0 ? 1 : 0;
+                maxOptionIndex = pages[currentPageIndex].length - 1;
+                render();
+                break;
+            default: {
                 if (key.length == 1) {
                     query += key;
                 } else {
@@ -85,11 +126,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         break;
                     }
                 }
-                options = await send.queryMessage(query);
-                options = options.slice(0, resultsPerPage);
-                maxIndex = options.length - 1;
+                await onKey();
                 render();
                 break;
+            }
         }
 
         $query.innerText = query || "...";

@@ -10,3 +10,30 @@ body {
 .empty {
     color: gray;
 }
+
+.paging {
+    display: flex;
+    justify-content: center;
+}
+
+.pager {
+    margin: auto;
+}
+
+@keyframes arrow {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+.arrow {
+    display: inline-flex;
+}
+
+.animated {
+    animation: arrow 2s infinite alternate ease-in-out;
+}
