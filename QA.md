@@ -65,3 +65,9 @@
     Q: *Can I close popup from JS?*
 
     A: Yes, just call `window.close()`.
+
+12. **Icons?!**
+
+   Q: *Can retrieve and use favicons of bookmarks?*
+
+   A: Unfortunately, no, because of [bug in GC](https://crbug.com/104102).
