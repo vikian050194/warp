@@ -5,5 +5,9 @@ export const splitByPages = (input, size) => {
         result.push(input.slice(i, i + size));
     }
 
+    if (result.length === 0) {
+        return [[]];
+    }
+
     return result;
 };

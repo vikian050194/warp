@@ -9,6 +9,7 @@ describe("paging", function () {
 
         ];
         const expected = [
+            []
         ];
 
         const actual = splitByPages(input, resultsPerPage);
