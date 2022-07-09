@@ -45,6 +45,11 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
                 url: "frequency/frequency.html"
             });
             break;
+        case MENU.COUNTERS:
+            await chrome.tabs.create({
+                url: "counters/counters.html"
+            });
+            break;
         default:
             break;
     }

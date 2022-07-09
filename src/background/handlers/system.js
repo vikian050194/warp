@@ -3,7 +3,8 @@ import {
     Local,
     OPTIONS,
     STORE,
-    MENU
+    MENU,
+    COUNTERS
 } from "../../common/index.js";
 import { getBookmarksList } from "../scan.js";
 
@@ -50,6 +51,13 @@ const updateDefaultValues = async () => {
     if (history === undefined) {
         await Local.set(STORE.HISTORY, []);
     }
+
+    const since = await Local.set(COUNTERS.SINCE);
+    if (since === undefined) {
+        await Local.set(COUNTERS.SINCE, new Date().toISOString());
+        await Local.set(COUNTERS.OPEN_UPDATE, 0);
+        await Local.set(COUNTERS.OPEN_CREATE, 0);
+    }
 };
 
 const updateMenu = () => {
@@ -64,6 +72,14 @@ const updateMenu = () => {
     chrome.contextMenus.create({
         id: MENU.FREQUENCY,
         title: "Frequency",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
+
+    chrome.contextMenus.create({
+        id: MENU.COUNTERS,
+        title: "Counters",
         contexts: ["action"],
         type: "normal",
         enabled: true
