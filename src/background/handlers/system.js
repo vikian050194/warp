@@ -52,7 +52,7 @@ const updateDefaultValues = async () => {
         await Local.set(STORE.HISTORY, []);
     }
 
-    const since = await Local.set(COUNTERS.SINCE);
+    const since = await Local.get(COUNTERS.SINCE);
     if (since === undefined) {
         await Local.set(COUNTERS.SINCE, new Date().toISOString());
         await Local.set(COUNTERS.OPEN_UPDATE, 0);
