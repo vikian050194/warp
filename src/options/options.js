@@ -1,10 +1,14 @@
 import {
+    dom,
     Sync,
     send,
-    OPTIONS
+    OPTIONS,
+    SORTING
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const makeOption = dom.makeElementCreator("option");
+
     // Bookmarks
     const $customDirectory = document.getElementById(OPTIONS.CUSTOM_DIRECTORY);
     $customDirectory.value = await Sync.get(OPTIONS.CUSTOM_DIRECTORY);
@@ -19,9 +23,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $expirationTime = document.getElementById(OPTIONS.HISTORY_EXPIRATION_TIME);
     $expirationTime.value = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
 
-    // Paging
+    // Results
     const $resultsPerPage = document.getElementById(OPTIONS.RESULTS_PER_PAGE);
     $resultsPerPage.value = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
+
+    const $resultsSorting = document.getElementById(OPTIONS.RESULTS_SORTING);
+    $resultsSorting.append(
+        makeOption({ text: "as is", value: SORTING.AS_IS }),
+        makeOption({ text: "alphabet", value: SORTING.ALPHABET }),
+        makeOption({ text: "frequency", value: SORTING.FREQUENCY }),
+        makeOption({ text: "history", value: SORTING.HISTORY })
+    );
+    $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
 
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
@@ -32,6 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, parseInt($expirationTime.value));
 
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
+        await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);
 
         await send.updateMessage();
     });

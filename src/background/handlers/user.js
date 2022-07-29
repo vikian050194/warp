@@ -3,13 +3,22 @@ import {
     Local,
     OPTIONS,
     STORE,
-    HistoryItem
+    HistoryItem,
+    SORTING
 } from "../../common/index.js";
 import {
     filterBookmarks,
     filterHistoryByCount,
     filterHistoryByTime
 } from "../filters/index.js";
+import {
+    sortByAlphabet,
+    sortByHistory,
+    sortByFrequency
+} from "../sorting/index.js";
+import {
+    groupByIdAndOrderDesc
+} from "../../frequency/join.js";
 
 const filterHistory = async () => {
     const history = await Local.get(STORE.HISTORY);
@@ -25,9 +34,33 @@ const filterHistory = async () => {
     await Local.set(STORE.HISTORY, filteredByTime);
 };
 
+const sortBookmarks = async (bookmarks) => {
+    const sortingType = await Sync.get(OPTIONS.RESULTS_SORTING);
+    switch (sortingType) {
+        case SORTING.AS_IS: {
+            return bookmarks;
+        }
+        case SORTING.ALPHABET:
+            return sortByAlphabet(bookmarks);
+        case SORTING.HISTORY: {
+            const history = await Local.get(STORE.HISTORY);
+            return sortByHistory(bookmarks, history);
+        }
+        case SORTING.FREQUENCY: {
+            const history = await Local.get(STORE.HISTORY);
+            const frequency = groupByIdAndOrderDesc(history);
+            return sortByFrequency(bookmarks, frequency);
+        }
+        default:
+            throw new Error("unexpected sorting type");
+    }
+};
+
 export const onFilter = async (query) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
-    return filterBookmarks(query, bookmarks);
+    const filteredBookmarks = filterBookmarks(query, bookmarks);
+    const sortedBookmarks = await sortBookmarks(filteredBookmarks);
+    return sortedBookmarks;
 };
 
 export const onCall = async (id) => {

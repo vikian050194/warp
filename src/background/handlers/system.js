@@ -4,7 +4,8 @@ import {
     OPTIONS,
     STORE,
     MENU,
-    COUNTERS
+    COUNTERS,
+    SORTING
 } from "../../common/index.js";
 import { getBookmarksList } from "../scan.js";
 
@@ -45,6 +46,11 @@ const updateDefaultValues = async () => {
     const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
     if (resultsPerPage === undefined) {
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, 10);
+    }
+
+    const resultsSorting = await Sync.get(OPTIONS.RESULTS_SORTING);
+    if (resultsSorting === undefined) {
+        await Sync.set(OPTIONS.RESULTS_SORTING, SORTING.FREQUENCY);
     }
 
     const history = await Local.get(STORE.HISTORY);

@@ -65,3 +65,9 @@
     Q: *Can I close popup from JS?*
 
     A: Yes, just call `window.close()`.
+
+12. **Index**
+
+    Q: *How can I find last index of element in array?*
+
+    A: `findLastIndex` is not implemented in `Node.js` - tests are not working without `babel`

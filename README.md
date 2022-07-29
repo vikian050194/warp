@@ -61,11 +61,12 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | Maximum count of history items | All history items (starting from the oldest) that are above this threshold by count will be automatically deleted |
 | Expiration time of history items | All history items that are older than this threshold will be automatically deleted |
 
-**Paging**
+**Results**
 
 | Name | Description |
 | :--- | :--- |
 | Results per page | Results per page in the popup |
+| Results sorting | Results sorting order |
 
 ## Tests
 
