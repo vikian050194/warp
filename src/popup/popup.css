@@ -1,9 +1,10 @@
 body {
     width: 320px;
+    font-size: var(--font-size);
 }
 
 .selected {
-    color: green;
+    color: var(--selected-item-color);
     font-weight: bold;
 }
 

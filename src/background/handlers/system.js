@@ -1,4 +1,5 @@
 import {
+    ui,
     Sync,
     Local,
     OPTIONS,
@@ -63,6 +64,16 @@ const updateDefaultValues = async () => {
         await Local.set(COUNTERS.SINCE, new Date().toISOString());
         await Local.set(COUNTERS.OPEN_UPDATE, 0);
         await Local.set(COUNTERS.OPEN_CREATE, 0);
+    }
+
+    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    if (color === undefined) {
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, ui.defaultColor.value);
+    }
+
+    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
+    if (fontSize === undefined) {
+        await Sync.set(OPTIONS.UI_FONT_SIZE, ui.defaultSize);
     }
 };
 

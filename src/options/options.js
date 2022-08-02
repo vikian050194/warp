@@ -1,4 +1,5 @@
 import {
+    ui,
     dom,
     Sync,
     send,
@@ -36,6 +37,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
 
+    const $selectedItemColor = document.getElementById(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    for (const { value, name } of ui.colors) {
+        $selectedItemColor.append(
+            makeOption({ text: name, value }),
+        );
+    }
+    $selectedItemColor.value = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+
+    const $fontSize = document.getElementById(OPTIONS.UI_FONT_SIZE);
+    for (const value of ui.sizes) {
+        $fontSize.append(
+            makeOption({ text: value, value }),
+        );
+    }
+    $fontSize.value = await Sync.get(OPTIONS.UI_FONT_SIZE);
+
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set(OPTIONS.CUSTOM_DIRECTORY, $customDirectory.value);
@@ -46,6 +63,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
         await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);
+
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, $selectedItemColor.value);
+        await Sync.set(OPTIONS.UI_FONT_SIZE, $fontSize.value);
 
         await send.updateMessage();
     });

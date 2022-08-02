@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const getPager = () => `${currentPageIndex + 1}/${pages.length}`;
 
+    const $rootElement = document.documentElement;
     const $root = document.getElementById("root");
 
     const $query = makeDiv({ id: "query" });
@@ -38,6 +39,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $nextPage = makeSpan({ id: "next", text: "next", className: "arrow" });
 
     $paging.append($backPage, $currentPage, $nextPage);
+
+    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    $rootElement.style.setProperty("--selected-item-color", color);
+
+    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
+    $rootElement.style.setProperty("--font-size", fontSize);
 
     const render = () => {
         const elements = [];
