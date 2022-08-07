@@ -5,7 +5,7 @@ body {
 
 .selected {
     color: var(--selected-item-color);
-    font-weight: bold;
+    font-weight: var(--selected-item-font-weight);
 }
 
 .empty {

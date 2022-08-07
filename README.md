@@ -68,6 +68,15 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | Results per page | Results per page in the popup |
 | Results sorting | Results sorting order |
 
+**Appearance**
+
+| Name | Description |
+| :--- | :--- |
+| Font size | Popup font size in pixels |
+| Selected item color | Color of selected item in results list |
+| Selected item font weight | Font weight of selected item in results list |
+| Arrow pointer | Arrow appears in front of selected item |
+
 ## Tests
 
 `mocha` and `assert` are used for testing and `c8` for coverage

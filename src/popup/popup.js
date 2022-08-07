@@ -9,6 +9,13 @@ import {
 import { splitByPages } from "./paging.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const isArrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
+
+    const arrowChar = "&#10148;";
+    const visibleArrow = isArrow ? `<span>${arrowChar}</span>` : "";
+    const invisibleArrow = isArrow ? `<span style="color:white;">${arrowChar}</span>` : "";
+    const placeholder = `${invisibleArrow}...`;
+
     let query = "";
     let pages = [[]];
 
@@ -43,6 +50,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
     $rootElement.style.setProperty("--selected-item-color", color);
 
+    const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
+    $rootElement.style.setProperty("--selected-item-font-weight", weight);
+
     const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
     $rootElement.style.setProperty("--font-size", fontSize);
 
@@ -51,13 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         for (let index = 0; index < pages[currentPageIndex].length; index++) {
             const option = pages[currentPageIndex][index];
-            const title = (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
-            const className = index == currentOptionIndex ? "selected" : null;
-            elements.push(makeDiv({ id: index, text: title, className }));
+            const isSelected = index == currentOptionIndex;
+            const titlePrefix = isSelected ? visibleArrow : invisibleArrow;
+            const title = titlePrefix + (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
+            const className = isSelected ? "selected" : null;
+            elements.push(makeDiv({ id: index, innerHTML: title, className }));
         }
 
         for (let index = pages[currentPageIndex].length; index < resultsPerPage; index++) {
-            elements.push(makeDiv({ id: index, text: "...", className: "empty" }));
+            elements.push(makeDiv({ id: index, innerHTML: placeholder, className: "empty" }));
         }
 
         while ($options.firstChild) {

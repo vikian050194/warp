@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2022-08-07
+
+### Added
+
+- Selected item font weight
+- Arrow pointer
+
 ## [0.9.0] - 2022-08-02
 
 ### Added
@@ -97,7 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/vikian050194/warp/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vikian050194/warp/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/vikian050194/warp/compare/v0.7.1...v0.8.0
 [0.7.1]: https://github.com/vikian050194/warp/compare/v0.7.0...v0.7.1

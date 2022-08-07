@@ -66,14 +66,24 @@ const updateDefaultValues = async () => {
         await Local.set(COUNTERS.OPEN_CREATE, 0);
     }
 
+    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
+    if (fontSize === undefined) {
+        await Sync.set(OPTIONS.UI_FONT_SIZE, ui.defaultSize);
+    }
+
     const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
     if (color === undefined) {
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, ui.defaultColor.value);
     }
 
-    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
-    if (fontSize === undefined) {
-        await Sync.set(OPTIONS.UI_FONT_SIZE, ui.defaultSize);
+    const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
+    if (weight === undefined) {
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT, ui.defaultWeight);
+    }
+
+    const arrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
+    if (arrow === undefined) {
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, true);
     }
 };
 

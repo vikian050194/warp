@@ -37,6 +37,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
 
+    // Appearance
+    const $fontSize = document.getElementById(OPTIONS.UI_FONT_SIZE);
+    for (const value of ui.sizes) {
+        $fontSize.append(
+            makeOption({ text: value, value }),
+        );
+    }
+    $fontSize.value = await Sync.get(OPTIONS.UI_FONT_SIZE);
+
     const $selectedItemColor = document.getElementById(OPTIONS.UI_SELECTED_ITEM_COLOR);
     for (const { value, name } of ui.colors) {
         $selectedItemColor.append(
@@ -45,13 +54,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     $selectedItemColor.value = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
 
-    const $fontSize = document.getElementById(OPTIONS.UI_FONT_SIZE);
-    for (const value of ui.sizes) {
-        $fontSize.append(
+    const $selectedItemFontWeight = document.getElementById(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
+    for (const value of ui.weights) {
+        $selectedItemFontWeight.append(
             makeOption({ text: value, value }),
         );
     }
-    $fontSize.value = await Sync.get(OPTIONS.UI_FONT_SIZE);
+    $selectedItemFontWeight.value = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
+
+    const $selectedItemArrow = document.getElementById(OPTIONS.UI_SELECTED_ITEM_ARROW);
+    $selectedItemArrow.checked = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
@@ -64,8 +76,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
         await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);
 
-        await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, $selectedItemColor.value);
         await Sync.set(OPTIONS.UI_FONT_SIZE, $fontSize.value);
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, $selectedItemColor.value);
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT, $selectedItemFontWeight.value);
+        await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, $selectedItemArrow.checked);
 
         await send.updateMessage();
     });
