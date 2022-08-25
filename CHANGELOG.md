@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-08-25
+
+### Added
+
+- Abbreviation search
+
 ## [0.10.0] - 2022-08-07
 
 ### Added
@@ -104,7 +110,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/vikian050194/warp/compare/v0.10.0...v1.0.0
 [0.10.0]: https://github.com/vikian050194/warp/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vikian050194/warp/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/vikian050194/warp/compare/v0.7.1...v0.8.0
