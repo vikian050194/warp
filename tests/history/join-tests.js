@@ -60,8 +60,8 @@ describe("history: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new HistoryItemView(1, "date2", "title2"),
-            new HistoryItemView(2, "date1", "title1")
+            new HistoryItemView(2, "date2", "title2"),
+            new HistoryItemView(1, "date1", "title1")
         ];
 
         const actual = join(history, bookmarks);

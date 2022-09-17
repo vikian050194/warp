@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2022-09-17
+
+### Fixed
+
+- Header is not pinned
+- Footer has transparent background
+- History items indexes are not match date based items sorting
+
 ## [1.0.0] - 2022-08-25
 
 ### Added

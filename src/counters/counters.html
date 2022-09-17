@@ -8,69 +8,75 @@
 </head>
 
 <body>
-    <h1>Counters</h1>
-    <h2>Common</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Since</td>
-                <td><span id="count-since"></span></td>
-                <td><span>Date when counters were reseted</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>Opening</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Total openings</td>
-                <td><span id="count-opening-total"></span></td>
-                <td><span>Total counter of all openings</span></td>
-            </tr>
-            <tr>
-                <td>Update tab openings</td>
-                <td><span id="count-opening-update"></span><span id="count-opening-update-percent"></span></td>
-                <td><span>Counter of openings via current tab updating</span></td>
-            </tr>
-            <tr>
-                <td>Create tab openings</td>
-                <td><span id="count-opening-create"></span><span id="count-opening-create-percent"></span></td>
-                <td><span>Counter of openings via new tab creating</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <button id="reset" class="reset">Reset</button>
-    <footer style="position: fixed; bottom: 8px;">
-        <span>
-            <a href="/options/options.html">options</a>
-        </span>
-        <span>|</span>
-        <span>
-            <a href="/history/history.html">history</a>
-        </span>
-        <span>|</span>
-        <span>
-            <a href="/frequency/frequency.html">frequency</a>
-        </span>
-        <span>|</span>
-        <span>
-            <a href="/counters/counters.html">counters</a>
-        </span>
-    </footer>
+    <div class="container">
+        <header>
+            <h1>Counters</h1>
+        </header>
+        <main>
+            <h2>Common</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Since</td>
+                        <td><span id="count-since"></span></td>
+                        <td><span>Date when counters were reseted</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Opening</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total openings</td>
+                        <td><span id="count-opening-total"></span></td>
+                        <td><span>Total counter of all openings</span></td>
+                    </tr>
+                    <tr>
+                        <td>Update tab openings</td>
+                        <td><span id="count-opening-update"></span><span id="count-opening-update-percent"></span></td>
+                        <td><span>Counter of openings via current tab updating</span></td>
+                    </tr>
+                    <tr>
+                        <td>Create tab openings</td>
+                        <td><span id="count-opening-create"></span><span id="count-opening-create-percent"></span></td>
+                        <td><span>Counter of openings via new tab creating</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="reset" class="action">Reset</button>
+        </main>
+        <footer>
+            <span>
+                <a href="/options/options.html">options</a>
+            </span>
+            <span>|</span>
+            <span>
+                <a href="/history/history.html">history</a>
+            </span>
+            <span>|</span>
+            <span>
+                <a href="/frequency/frequency.html">frequency</a>
+            </span>
+            <span>|</span>
+            <span>
+                <a href="/counters/counters.html">counters</a>
+            </span>
+        </footer>
+    </div>
 </body>
 
 </html>

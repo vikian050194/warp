@@ -1,21 +1,7 @@
-table,
-th,
-td {
-    border: 1px dotted gray;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 4px;
-}
+@import "../common.css";
 
 .new {
     color: orange;
     font-weight: bold;
     margin-right: 4px;
-}
-
-.save {
-    margin-top: 8px;
 }
