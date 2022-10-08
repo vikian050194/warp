@@ -1,6 +1,6 @@
-import assert from "assert";
+import assert from "node:assert";
 
-import { filterHistoryByCount } from "../../../src/background/filters/index.js";
+import { filterHistoryByTime } from "../../../src/background/filters/index.js";
 import { HistoryItem } from "../../../src/common/models/index.js";
 
 describe("filter by expiration time", function () {
@@ -11,7 +11,7 @@ describe("filter by expiration time", function () {
         const expected = [
         ];
 
-        const actual = filterHistoryByCount(history, threshold);
+        const actual = filterHistoryByTime(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -25,7 +25,7 @@ describe("filter by expiration time", function () {
             new HistoryItem("1", "2022-06-12T12:01:20.000Z")
         ];
 
-        const actual = filterHistoryByCount(history, threshold);
+        const actual = filterHistoryByTime(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -42,7 +42,7 @@ describe("filter by expiration time", function () {
             new HistoryItem("3", "2022-06-12T14:00:00.000Z")
         ];
 
-        const actual = filterHistoryByCount(history, threshold);
+        const actual = filterHistoryByTime(history, threshold);
 
         assert.deepEqual(actual, expected);
     });
@@ -57,7 +57,7 @@ describe("filter by expiration time", function () {
         const expected = [
         ];
 
-        const actual = filterHistoryByCount(history, threshold);
+        const actual = filterHistoryByTime(history, threshold);
 
         assert.deepEqual(actual, expected);
     });

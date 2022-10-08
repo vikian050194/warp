@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             url: option.url
                         });
                 }
-                // TODO add option for this feature
                 window.close();
                 break;
             }

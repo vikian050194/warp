@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { filterHistoryByCount } from "../../../src/background/filters/index.js";
 import { HistoryItem } from "../../../src/common/models/index.js";

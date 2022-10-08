@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { dom } from "../../src/common/index.js";
 import { MockDomElement } from "./mock.js";

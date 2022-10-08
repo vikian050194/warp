@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { join } from "../../src/frequency/join.js";
 import {
@@ -86,6 +86,40 @@ describe("frequency: join history items and bookmarks", function () {
         const expected = [
             new FreakItemView(1, 1, "title1"),
             new FreakItemView(2, 1, "<NOT FOUND BOOKMARK #2>")
+        ];
+
+        const actual = join(history, bookmarks);
+
+        assert.deepEqual(actual, expected);
+    });
+
+    it("second level", () => {
+        const history = [
+            new HistoryItem("1", "date1")
+        ];
+        const bookmarks = [
+            new BookmarkModel("1", "url1", "title1", ["dir1"])
+        ];
+
+        const expected = [
+            new FreakItemView(1, 1, "dir1:title1")
+        ];
+
+        const actual = join(history, bookmarks);
+
+        assert.deepEqual(actual, expected);
+    });
+
+    it("third level", () => {
+        const history = [
+            new HistoryItem("1", "date1")
+        ];
+        const bookmarks = [
+            new BookmarkModel("1", "url1", "title1", ["dir1", "dir2"])
+        ];
+
+        const expected = [
+            new FreakItemView(1, 1, "dir1/dir2:title1")
         ];
 
         const actual = join(history, bookmarks);

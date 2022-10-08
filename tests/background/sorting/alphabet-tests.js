@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { sortByAlphabet } from "../../../src/background/sorting/alphabet.js";
 import { BookmarkModel } from "../../../src/common/index.js";

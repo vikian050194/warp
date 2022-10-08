@@ -42,10 +42,6 @@ export const getCombinatios = function* (n, k) {
         let memory = false;
 
         for (let index = maxK; index >= 0; index--) {
-            if (index !== maxK && !memory) {
-                break;
-            }
-
             newCombination[index]++;
 
             if (memory) {

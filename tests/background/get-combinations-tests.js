@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { getCombinatios } from "../../src/background/filters/bookmarks.js";
 

@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { dom } from "../../src/common/index.js";
 import { MockDomElement } from "./mock.js";
@@ -19,6 +19,7 @@ describe("dom: makeElement", function () {
         const actual = dom.makeElement("div");
 
         assert.equal(actual.tag, "div");
+        assert.equal(actual.child, undefined);
     });
 
     it("div with id", () => {
@@ -42,5 +43,12 @@ describe("dom: makeElement", function () {
         assert.equal(actual.tag, "div");
         assert.equal(child.tag, "text");
         assert.equal(child.value, "789");
+    });
+
+    it("div with custom attribute", () => {
+        const actual = dom.makeElement("div", { "data-test": "target" });
+
+        assert.equal(actual.tag, "div");
+        assert.equal(actual["data-test"], "target");
     });
 });

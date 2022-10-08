@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { filterBookmarksByTitle } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";

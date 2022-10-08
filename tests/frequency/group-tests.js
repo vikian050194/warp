@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from "node:assert";
 
 import { groupByIdAndOrderDesc as group } from "../../src/frequency/join.js";
 import {
