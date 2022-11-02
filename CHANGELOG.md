@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-11-02
+
+### Changed
+
+- Colors list for selected item
+
 ## [1.0.1] - 2022-09-17
 
 ### Fixed
@@ -118,7 +124,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/vikian050194/warp/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/vikian050194/warp/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/vikian050194/warp/compare/v0.10.0...v1.0.0
 [0.10.0]: https://github.com/vikian050194/warp/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/vikian050194/warp/compare/v0.8.0...v0.9.0
