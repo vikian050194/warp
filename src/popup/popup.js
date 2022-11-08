@@ -2,9 +2,8 @@ import {
     send,
     dom,
     Sync,
-    Local,
     OPTIONS,
-    COUNTERS
+    CallData
 } from "../common/index.js";
 import { splitByPages } from "./paging.js";
 
@@ -56,6 +55,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
     $rootElement.style.setProperty("--font-size", fontSize);
 
+    const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
+
     const render = () => {
         const elements = [];
 
@@ -96,27 +97,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     await onKey();
     render();
 
-    document.addEventListener("keydown", async ({ key, shiftKey }) => {
+    document.addEventListener("keydown", async ({ key, shiftKey, ctrlKey }) => {
         switch (key) {
             case "Enter": {
+                const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
                 const option = pages[currentPageIndex][currentOptionIndex];
-                await send.callMessage(option.id);
-                if (shiftKey) {
-                    const create = await Local.get(COUNTERS.OPEN_CREATE);
-                    await Local.set(COUNTERS.OPEN_CREATE, create + 1);
-                    await chrome.tabs.create({
-                        url: option.url
-                    });
-                } else {
-                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-                    const update = await Local.get(COUNTERS.OPEN_UPDATE);
-                    await Local.set(COUNTERS.OPEN_UPDATE, update + 1);
-                    await chrome.tabs.update(
-                        tab.id,
-                        {
-                            url: option.url
-                        });
-                }
+                const useKeepGroup = keepGroup !== ctrlKey && tab.groupId >= 0;
+                const useNewTab = shiftKey;
+                const callData = new CallData(option.id, tab.groupId, useNewTab, useKeepGroup);
+                await send.callMessage(callData);
                 window.close();
                 break;
             }

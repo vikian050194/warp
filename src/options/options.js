@@ -65,6 +65,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $selectedItemArrow = document.getElementById(OPTIONS.UI_SELECTED_ITEM_ARROW);
     $selectedItemArrow.checked = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
+    const $newTabKeepGroup = document.getElementById(OPTIONS.NEW_TAB_KEEP_GROUP);
+    $newTabKeepGroup.checked = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
+
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set(OPTIONS.CUSTOM_DIRECTORY, $customDirectory.value);
@@ -80,6 +83,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, $selectedItemColor.value);
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT, $selectedItemFontWeight.value);
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, $selectedItemArrow.checked);
+
+        await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, $newTabKeepGroup.checked);
 
         await send.updateMessage();
     });

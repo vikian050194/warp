@@ -4,7 +4,8 @@ import {
     OPTIONS,
     STORE,
     HistoryItem,
-    SORTING
+    SORTING,
+    COUNTERS
 } from "../../common/index.js";
 import {
     filterBookmarks,
@@ -63,9 +64,35 @@ export const onFilter = async (query) => {
     return sortedBookmarks;
 };
 
-export const onCall = async (id) => {
+export const onCall = async (data) => {
+    const bookmarks = await Local.get(STORE.BOOKMARKS);
+    const bookmark = bookmarks.find(b => b.id === data.id);
+
+    if (data.newTab) {
+        const create = await Local.get(COUNTERS.OPEN_CREATE);
+        await Local.set(COUNTERS.OPEN_CREATE, create + 1);
+        const newTab = await chrome.tabs.create({
+            url: bookmark.url
+        });
+
+        if (data.keepGroup) {
+            await chrome.tabs.group({
+                groupId: data.groupId,
+                tabIds: [newTab.id]
+            });
+        }
+    } else {
+        const update = await Local.get(COUNTERS.OPEN_UPDATE);
+        await Local.set(COUNTERS.OPEN_UPDATE, update + 1);
+        await chrome.tabs.update(
+            data.id,
+            {
+                url: bookmark.url
+            });
+    }
+
     const now = new Date().toISOString();
-    const newItem = new HistoryItem(id, now);
+    const newItem = new HistoryItem(data.id, now);
     const history = await Local.get(STORE.HISTORY);
     history.push(newItem);
     await Local.set(STORE.HISTORY, history);

@@ -85,6 +85,11 @@ const updateDefaultValues = async () => {
     if (arrow === undefined) {
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, true);
     }
+
+    const group = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
+    if (group === undefined) {
+        await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, true);
+    }
 };
 
 const updateMenu = () => {

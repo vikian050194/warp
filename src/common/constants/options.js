@@ -11,3 +11,5 @@ export const UI_SELECTED_ITEM_COLOR = "ui-selected-item-color";
 export const UI_SELECTED_ITEM_ARROW = "ui-selected-item-arrow";
 export const UI_SELECTED_ITEM_FONT_WEIGHT = "ui-selected-item-font-weight";
 export const UI_FONT_SIZE = "ui-font-size";
+
+export const NEW_TAB_KEEP_GROUP = "new-tab-keep-group";
