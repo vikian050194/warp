@@ -65,6 +65,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $selectedItemArrow = document.getElementById(OPTIONS.UI_SELECTED_ITEM_ARROW);
     $selectedItemArrow.checked = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
+    const $newTabOnShift = document.getElementById(OPTIONS.NEW_TAB_ON_SHIFT);
+    $newTabOnShift.checked = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
+
     const $newTabKeepGroup = document.getElementById(OPTIONS.NEW_TAB_KEEP_GROUP);
     $newTabKeepGroup.checked = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
 
@@ -84,6 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT, $selectedItemFontWeight.value);
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, $selectedItemArrow.checked);
 
+        await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, $newTabOnShift.checked);
         await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, $newTabKeepGroup.checked);
 
         await send.updateMessage();

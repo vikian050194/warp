@@ -19,7 +19,7 @@ It's a bit strange, but I did not found Google Chrome extension that can do some
 
 ## Requirements
 
-Developed and tested on `Version 100.0.4896.75 (Official Build) (64-bit)`
+Developed and tested on `Version 107.0.5304.87 (Official Build) (64-bit)`
 
 ## Installation
 
@@ -76,6 +76,13 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | Selected item color | Color of selected item in results list |
 | Selected item font weight | Font weight of selected item in results list |
 | Arrow pointer | Arrow appears in front of selected item |
+
+**Tabs**
+
+| Name | Description |
+| :--- | :--- |
+| Additional action | Press additional "Shift" (in other words "Shift+Enter") to open new tab if enabled and to update current tab if disabled |
+| Current group | Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour |
 
 ## Tests
 

@@ -90,6 +90,11 @@ const updateDefaultValues = async () => {
     if (group === undefined) {
         await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, true);
     }
+
+    const onShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
+    if (onShift === undefined) {
+        await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, true);
+    }
 };
 
 const updateMenu = () => {

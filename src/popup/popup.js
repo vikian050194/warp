@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $rootElement.style.setProperty("--font-size", fontSize);
 
     const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
+    const newOnShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
 
     const render = () => {
         const elements = [];
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
                 const option = pages[currentPageIndex][currentOptionIndex];
                 const useKeepGroup = keepGroup !== ctrlKey && tab.groupId >= 0;
-                const useNewTab = shiftKey;
+                const useNewTab = newOnShift === shiftKey;
                 const callData = new CallData(option.id, tab.id, tab.groupId, useNewTab, useKeepGroup);
                 await send.callMessage(callData);
                 window.close();
