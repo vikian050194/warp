@@ -25,6 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Open new tab in the current group of tabs
 
+## [1.1.0] - 2022-11-02
+
+### Changed
+
+- Colors list for selected item
+
 ## [1.0.1] - 2022-09-17
 
 ### Fixed
