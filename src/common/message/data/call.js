@@ -1,6 +1,7 @@
 export class CallData {
-    constructor(id, groupId, newTab, keepGroup) {
-        this.id = id;
+    constructor(bookmarkId, tabId, groupId, newTab, keepGroup) {
+        this.bookmarkId = bookmarkId;
+        this.tabId = tabId;
         this.groupId = groupId;
         this.newTab = newTab;
         this.keepGroup = keepGroup;

@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const option = pages[currentPageIndex][currentOptionIndex];
                 const useKeepGroup = keepGroup !== ctrlKey && tab.groupId >= 0;
                 const useNewTab = shiftKey;
-                const callData = new CallData(option.id, tab.groupId, useNewTab, useKeepGroup);
+                const callData = new CallData(option.id, tab.id, tab.groupId, useNewTab, useKeepGroup);
                 await send.callMessage(callData);
                 window.close();
                 break;

@@ -66,7 +66,7 @@ export const onFilter = async (query) => {
 
 export const onCall = async (data) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
-    const bookmark = bookmarks.find(b => b.id === data.id);
+    const bookmark = bookmarks.find(b => b.id === data.bookmarkId);
 
     if (data.newTab) {
         const create = await Local.get(COUNTERS.OPEN_CREATE);
@@ -85,14 +85,14 @@ export const onCall = async (data) => {
         const update = await Local.get(COUNTERS.OPEN_UPDATE);
         await Local.set(COUNTERS.OPEN_UPDATE, update + 1);
         await chrome.tabs.update(
-            data.id,
+            data.tabId,
             {
                 url: bookmark.url
             });
     }
 
     const now = new Date().toISOString();
-    const newItem = new HistoryItem(data.id, now);
+    const newItem = new HistoryItem(data.bookmarkId, now);
     const history = await Local.get(STORE.HISTORY);
     history.push(newItem);
     await Local.set(STORE.HISTORY, history);
