@@ -8,34 +8,32 @@ export const getBookmarksList = async (bookmark) => {
     const levels = [];
     const stack = [];
 
-    if (!bookmark) {
-        return result;
+    if (bookmark) {
+        stack.push(bookmark);
     }
 
-    stack.push(bookmark);
+    while (stack.length !== 0) {
+        const bookmark = stack.pop();
+        const level = levels[levels.length - 1];
 
-    while (stack) {
-        const current = stack.pop();
-        const lastLevel = levels[levels.length - 1];
-
-        if (!stack.length && current && lastLevel && current.id == lastLevel.id) {
-            return result.map(b => new BookmarkModel(b.id, b.url, b.title, b.dirs.slice(1)));
+        if (stack.length === 0 && bookmark && level && bookmark.id === level.id) {
+            break;
         }
 
-        if (lastLevel && current.title == lastLevel.title && current.id == lastLevel.id) {
+        if (level && bookmark.id === level.id) {
             levels.pop();
             continue;
         }
 
-        if (current.url) {
-            result.push(new BookmarkModel(current.id, current.url, current.title, [...levels.map(({ title }) => title)]));
+        if (bookmark.url) {
+            result.push(new BookmarkModel(bookmark.id, bookmark.url, bookmark.title, [...levels.map(({ title }) => title)]));
         } else {
-            const subs = await chrome.bookmarks.getChildren(current.id);
-            stack.push(current);
+            const subs = await chrome.bookmarks.getChildren(bookmark.id);
+            stack.push(bookmark);
             stack.push(...subs);
-            levels.push(new LevelModel(current.id, current.title));
+            levels.push(new LevelModel(bookmark.id, bookmark.title));
         }
     }
 
-    return [];
+    return result.map(b => new BookmarkModel(b.id, b.url, b.title, b.dirs.slice(1)));
 };
