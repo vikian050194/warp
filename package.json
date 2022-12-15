@@ -10,7 +10,7 @@
     "cover:ci": "c8 --reporter=text-summary --reporter=lcovonly npm run test"
   },
   "engines": {
-    "node": "^12.16.3"
+    "node": ">=12"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
