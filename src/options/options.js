@@ -8,6 +8,14 @@ import {
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const $spinner = document.getElementById("spinner");
+    const spinnerColor = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    $spinner.style.borderBottomColor = spinnerColor;
+    const backgroundSpinnerColor = `${spinnerColor}10`;
+    $spinner.style.borderTopColor = backgroundSpinnerColor;
+    $spinner.style.borderLeftColor = backgroundSpinnerColor;
+    $spinner.style.borderRightColor = backgroundSpinnerColor;
+
     const makeOption = dom.makeElementCreator("option");
 
     // Bookmarks
@@ -92,4 +100,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await send.updateMessage();
     });
+
+    setTimeout(() => {
+        const $loader = document.getElementById("loader");
+        $loader.style.display = "none";
+    }, 200);
 });
