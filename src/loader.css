@@ -1,0 +1,35 @@
+.loader {
+    z-index: 1024;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.9);
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.spinner {
+    top: calc(50% - 48px);
+    left: 50%;
+    width: 48px;
+    height: 48px;
+	position: absolute;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
