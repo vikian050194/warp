@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
     const newOnShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
 
+    const makeId = (id) => `opt-${id}`;
+
     const render = () => {
         const elements = [];
 
@@ -67,11 +69,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             const titlePrefix = isSelected ? visibleArrow : invisibleArrow;
             const title = titlePrefix + (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
             const className = isSelected ? "selected" : null;
-            elements.push(makeDiv({ id: index, innerHTML: title, className }));
+            elements.push(makeDiv({ id: makeId(index), innerHTML: title, className }));
         }
 
         for (let index = pages[currentPageIndex].length; index < resultsPerPage; index++) {
-            elements.push(makeDiv({ id: index, innerHTML: placeholder, className: "empty" }));
+            elements.push(makeDiv({ id: makeId(index), innerHTML: placeholder, className: "empty" }));
         }
 
         while ($options.firstChild) {

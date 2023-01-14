@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2023-01-14
+
+### Fixed
+
+- Nothing
+
 ## [1.3.1] - 2022-11-11
 
 ### Fixed
@@ -148,7 +154,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/vikian050194/warp/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/vikian050194/warp/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/vikian050194/warp/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/vikian050194/warp/compare/v1.2.0...v1.2.1

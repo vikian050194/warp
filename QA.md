@@ -71,3 +71,21 @@
     Q: *How can I find last index of element in array?*
 
     A: `findLastIndex` is not implemented in `Node.js` - tests are not working without `babel`
+
+13. **e2e testing framework**
+
+    Q: *What is best e2e test framework for extensions?*
+
+    A: `Selenium` is good old one. `Nightwatch` and `TestCafe` are not so popular now. `Cypress` is slow and many developers have issues with extensions testing. `Playwright` is new and fast option with ready solution for Google Chrome extensions.
+
+14. **Too fast**
+
+    Q: *How to wait for client JS execution finish before test?*
+
+    A: Simulate real user speed via `slowMo` option.
+
+15. **Test data**
+
+    Q: *How to run browser with test bookmarks?*
+
+    A: First argument for `chromium.launchPersistentContext` is path to profile directory. Create temporary directory and copy `Bookmarks`.

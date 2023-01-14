@@ -15,4 +15,10 @@ if [ "$GREP_CHANGELOG" != 4 ]; then
     exit -1;
 fi
 
+set -e
+
+npm run lint
+npm run test
+npm run test:ui
+
 zip -r "warp-$MANIFEST_VERSION.zip" src
