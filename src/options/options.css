@@ -1,7 +1,23 @@
 @import "../common.css";
 
 .new {
-    color: orange;
+    color: var(--new);
     font-weight: bold;
     margin-right: 4px;
+    animation: blink 1s infinite alternate;
+}
+
+.new::after {
+    content: "\2605";
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }

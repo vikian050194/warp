@@ -17,9 +17,11 @@
 
 It's a bit strange, but I did not found Google Chrome extension that can do something like "Ctrl+P" in VS Code or "Ctrl+T" in Slack. OK, I just will make it by my own. You can take a look at [list of questions and problems](./QA.md) that I faced during development.
 
+UPD: There are few competitors, but all of them (that I have tested) have a bit different features, restrictions and main goal. **warp** will evolve further.
+
 ## Requirements
 
-Developed and tested on `Version 107.0.5304.87 (Official Build) (64-bit)`
+Developed and tested on `Version 109.0.5414.119 (Official Build) (64-bit)`
 
 ## Installation
 
@@ -67,6 +69,7 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | :--- | :--- |
 | Results per page | Results per page in the popup |
 | Results sorting | Results sorting order |
+| Results looping | Looping on attempt to move out of list boundaries |
 
 **Appearance**
 

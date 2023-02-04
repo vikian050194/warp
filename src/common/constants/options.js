@@ -6,6 +6,7 @@ export const HISTORY_EXPIRATION_TIME = "history-expiration-time";
 
 export const RESULTS_PER_PAGE = "results-per-page";
 export const RESULTS_SORTING = "results-sorting";
+export const RESULTS_LOOPING = "results-looping";
 
 export const UI_SELECTED_ITEM_COLOR = "ui-selected-item-color";
 export const UI_SELECTED_ITEM_ARROW = "ui-selected-item-arrow";

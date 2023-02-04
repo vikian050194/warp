@@ -5,8 +5,8 @@ export class PopupPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
      */
-    constructor(extensionId, page) {
-        super(extensionId, page);
+    constructor(page, extensionId) {
+        super(page, extensionId);
 
         this.query = page.locator("#query");
         this.back = page.locator("#back");

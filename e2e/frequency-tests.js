@@ -9,7 +9,7 @@ test.describe("Frequency", () => {
     test.beforeEach(async ({ page, extensionId }) => {
         await page.waitForTimeout(2000);
 
-        const pom = new FrequencyPage(extensionId, page);
+        const pom = new FrequencyPage(page, extensionId);
         await pom.goto();
     });
 
@@ -70,7 +70,7 @@ test.describe("Frequency", () => {
     test.describe("Values", () => {
         test("Single opening", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -78,7 +78,7 @@ test.describe("Frequency", () => {
             await popup.enter();
 
             page = await context.newPage();
-            const pom = new FrequencyPage(extensionId, page);
+            const pom = new FrequencyPage(page, extensionId);
             await pom.goto();
 
             // Assert
@@ -87,7 +87,7 @@ test.describe("Frequency", () => {
 
         test("Two and one", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -107,7 +107,7 @@ test.describe("Frequency", () => {
             await popup.enter();
 
             page = await context.newPage();
-            const pom = new FrequencyPage(extensionId, page);
+            const pom = new FrequencyPage(page, extensionId);
             await pom.goto();
 
             // Assert
@@ -117,7 +117,7 @@ test.describe("Frequency", () => {
 
         test("Removed bookmark", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -145,7 +145,7 @@ test.describe("Frequency", () => {
             await page.waitForTimeout(1000);
 
             page = await context.newPage();
-            const pom = new FrequencyPage(extensionId, page);
+            const pom = new FrequencyPage(page, extensionId);
             await pom.goto();
 
             // Assert
@@ -157,7 +157,7 @@ test.describe("Frequency", () => {
     test.describe("Reset", () => {
         test("No data", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new FrequencyPage(extensionId, page);
+            const pom = new FrequencyPage(page, extensionId);
 
             // Act
             await pom.goto();
@@ -170,7 +170,7 @@ test.describe("Frequency", () => {
 
         test("Single row", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -178,7 +178,7 @@ test.describe("Frequency", () => {
             await popup.enter();
 
             page = await context.newPage();
-            const pom = new FrequencyPage(extensionId, page);
+            const pom = new FrequencyPage(page, extensionId);
             await pom.goto();
             await pom.reset();
             await page.reload();

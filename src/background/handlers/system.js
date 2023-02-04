@@ -54,6 +54,11 @@ const updateDefaultValues = async () => {
         await Sync.set(OPTIONS.RESULTS_SORTING, SORTING.FREQUENCY);
     }
 
+    const resultsLooping = await Sync.get(OPTIONS.RESULTS_LOOPING);
+    if (resultsLooping === undefined) {
+        await Sync.set(OPTIONS.RESULTS_LOOPING, true);
+    }
+
     const history = await Local.get(STORE.HISTORY);
     if (history === undefined) {
         await Local.set(STORE.HISTORY, []);

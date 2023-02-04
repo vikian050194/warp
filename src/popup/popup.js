@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
 
+    const resultsLooping = await Sync.get(OPTIONS.RESULTS_LOOPING);
+
     let currentOptionIndex = 0;
     let maxOptionIndex = 0;
 
@@ -113,11 +115,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
             case "ArrowUp":
-                currentOptionIndex -= currentOptionIndex > 0 ? 1 : 0;
+                if (resultsLooping) {
+                    currentOptionIndex = currentOptionIndex > 0 ? currentOptionIndex - 1 : maxOptionIndex;
+                } else {
+                    currentOptionIndex -= currentOptionIndex > 0 ? 1 : 0;
+                }
                 render();
                 break;
             case "ArrowDown":
-                currentOptionIndex += currentOptionIndex < maxOptionIndex ? 1 : 0;
+                if (resultsLooping) {
+                    currentOptionIndex = currentOptionIndex < maxOptionIndex ? currentOptionIndex + 1 : 0;
+                } else {
+                    currentOptionIndex += currentOptionIndex < maxOptionIndex ? 1 : 0;
+                }
                 render();
                 break;
             case "ArrowRight":

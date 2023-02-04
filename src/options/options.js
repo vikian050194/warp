@@ -8,6 +8,11 @@ import {
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const $rootElement = document.documentElement;
+
+    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    $rootElement.style.setProperty("--new", color);
+
     const makeOption = dom.makeElementCreator("option");
 
     // Bookmarks
@@ -36,6 +41,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         makeOption({ text: "history", value: SORTING.HISTORY })
     );
     $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
+
+    const $resultsLooping = document.getElementById(OPTIONS.RESULTS_LOOPING);
+    $resultsLooping.checked = await Sync.get(OPTIONS.RESULTS_LOOPING);
 
     // Appearance
     const $fontSize = document.getElementById(OPTIONS.UI_FONT_SIZE);
@@ -81,6 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
         await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);
+        await Sync.set(OPTIONS.RESULTS_LOOPING, $resultsLooping.checked);
 
         await Sync.set(OPTIONS.UI_FONT_SIZE, $fontSize.value);
         await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, $selectedItemColor.value);

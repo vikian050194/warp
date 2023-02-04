@@ -5,7 +5,7 @@ test.describe("Options", () => {
     test.beforeEach(async ({ page, extensionId }) => {
         await page.waitForTimeout(2000);
 
-        const pom = new OptionsPage(extensionId, page);
+        const pom = new OptionsPage(page, extensionId);
         await pom.goto();
     });
 
@@ -77,7 +77,7 @@ test.describe("Options", () => {
 
     test("Section: Bookmarks", async ({ page }) => {
         // Arrange
-        const saveButton = page.locator("#save");
+        const pom = new OptionsPage(page);
 
         const isCustomDir = page.locator("#is-custom-directory");
         await expect(isCustomDir).toBeChecked({ checked: false });
@@ -90,8 +90,8 @@ test.describe("Options", () => {
         await customDir.fill("Hello");
         await expect(customDir).toHaveValue("Hello");
 
-        await saveButton.click();
-        await page.reload();
+        await pom.save();
+        await pom.reload();
 
         // Assert
         await expect(isCustomDir).toBeChecked({ checked: true });
@@ -100,7 +100,7 @@ test.describe("Options", () => {
 
     test("Section: History", async ({ page }) => {
         // Arrange
-        const saveButton = page.locator("#save");
+        const pom = new OptionsPage(page);
 
         const maxCount = page.locator("#history-max-count");
         await expect(maxCount).toHaveValue("100000");
@@ -111,8 +111,8 @@ test.describe("Options", () => {
         await maxCount.fill("500");
         await expirationTime.selectOption("2678400");
 
-        await saveButton.click();
-        await page.reload();
+        await pom.save();
+        await pom.reload();
 
         // Assert
         await expect(maxCount).toHaveValue("500");
@@ -121,57 +121,54 @@ test.describe("Options", () => {
 
     test("Section: Results", async ({ page }) => {
         // Arrange
-        const saveButton = page.locator("#save");
+        const pom = new OptionsPage(page);
 
-        const results = page.locator("#results-per-page");
-        await expect(await results.inputValue()).toBe("10");
-        const sorting = page.locator("#results-sorting");
-        await expect(await sorting.inputValue()).toBe("frequency");
+        await pom.results.perPage.hasValue("10");
+        await pom.results.sorting.hasValue("frequency");
+        await pom.results.looping.isChecked(true);
 
         // Act
-        await results.selectOption("3");
-        await sorting.selectOption("alphabet");
+        await pom.results.perPage.setValue("3");
+        await pom.results.sorting.setValue("alphabet");
+        await pom.results.looping.click();
 
-        await saveButton.click();
-        await page.reload();
+        await pom.save();
+        await pom.reload();
 
         // Assert
-        await expect(await results.inputValue()).toBe("3");
-        await expect(await sorting.inputValue()).toBe("alphabet");
+        await pom.results.perPage.hasValue("3");
+        await pom.results.sorting.hasValue("alphabet");
+        await pom.results.looping.isChecked(false);
     });
 
     test("Section: Appearance", async ({ page }) => {
         // Arrange
-        const saveButton = page.locator("#save");
+        const pom = new OptionsPage(page);
 
-        const fontSize = page.locator("#ui-font-size");
-        await expect(await fontSize.inputValue()).toBe("12px");
-        const selectedColor = page.locator("#ui-selected-item-color");
-        await expect(await selectedColor.inputValue()).toBe("#EC4339");
-        const fontWeight = page.locator("#ui-selected-item-font-weight");
-        await expect(await fontWeight.inputValue()).toBe("bold");
-        const arrow = page.locator("#ui-selected-item-arrow");
-        await expect(arrow).toBeChecked({ checked: true });
+        await pom.ui.fontSize.hasValue("12px");
+        await pom.ui.selectedItemColor.hasValue("#EC4339");
+        await pom.ui.selectedItemFontWeight.hasValue("bold");
+        await pom.ui.selectedItemArrow.isChecked(true);
 
         // Act
-        await fontSize.selectOption("8px");
-        await selectedColor.selectOption("#00A0DC");
-        await fontWeight.selectOption("normal");
-        await arrow.click();
+        await pom.ui.fontSize.setValue("8px");
+        await pom.ui.selectedItemColor.setValue("#00A0DC");
+        await pom.ui.selectedItemFontWeight.setValue("normal");
+        await pom.ui.selectedItemArrow.click();
 
-        await saveButton.click();
-        await page.reload();
+        await pom.save();
+        await pom.reload();
 
         // Assert
-        await expect(await fontSize.inputValue()).toBe("8px");
-        await expect(await selectedColor.inputValue()).toBe("#00A0DC");
-        await expect(await fontWeight.inputValue()).toBe("normal");
-        await expect(arrow).toBeChecked({ checked: false });
+        await pom.ui.fontSize.hasValue("8px");
+        await pom.ui.selectedItemColor.hasValue("#00A0DC");
+        await pom.ui.selectedItemFontWeight.hasValue("normal");
+        await pom.ui.selectedItemArrow.isChecked(false);
     });
 
     test("Section: Tabs", async ({ page }) => {
         // Arrange
-        const saveButton = page.locator("#save");
+        const pom = new OptionsPage(page);
 
         const newTab = page.locator("#new-tab-on-shift");
         await expect(newTab).toBeChecked({ checked: true });
@@ -182,8 +179,8 @@ test.describe("Options", () => {
         await newTab.click();
         await keepGroup.click();
 
-        await saveButton.click();
-        await page.reload();
+        await pom.save();
+        await pom.reload();
 
         // Assert
         await expect(newTab).toBeChecked({ checked: false });

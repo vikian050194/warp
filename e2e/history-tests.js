@@ -9,7 +9,7 @@ test.describe("History", () => {
     test.beforeEach(async ({ page, extensionId }) => {
         await page.waitForTimeout(2000);
 
-        const pom = new HistoryPage(extensionId, page);
+        const pom = new HistoryPage(page, extensionId);
         await pom.goto();
     });
 
@@ -70,7 +70,7 @@ test.describe("History", () => {
     test.describe("Values", () => {
         test("Single opening", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -78,7 +78,7 @@ test.describe("History", () => {
             await popup.enter();
 
             page = await context.newPage();
-            const pom = new HistoryPage(extensionId, page);
+            const pom = new HistoryPage(page, extensionId);
             await pom.goto();
 
             // Assert
@@ -87,7 +87,7 @@ test.describe("History", () => {
 
         test("Two and one", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -107,7 +107,7 @@ test.describe("History", () => {
             await popup.enter();
 
             page = await context.newPage();
-            const pom = new HistoryPage(extensionId, page);
+            const pom = new HistoryPage(page, extensionId);
             await pom.goto();
 
             // Assert
@@ -118,7 +118,7 @@ test.describe("History", () => {
 
         test("Removed bookmark", async ({ page, extensionId, context }) => {
             // Arrange
-            const popup = new PopupPage(extensionId, page);
+            const popup = new PopupPage(page, extensionId);
 
             // Act
             await popup.goto();
@@ -146,7 +146,7 @@ test.describe("History", () => {
             await page.waitForTimeout(1000);
 
             page = await context.newPage();
-            const pom = new HistoryPage(extensionId, page);
+            const pom = new HistoryPage(page, extensionId);
             await pom.goto();
 
             // Assert

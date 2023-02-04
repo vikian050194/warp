@@ -5,8 +5,8 @@ export class FrequencyPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
      */
-    constructor(extensionId, page) {
-        super(extensionId, page);
+    constructor(page, extensionId) {
+        super(page, extensionId);
 
         this.resetButton = page.locator("#reset");
     }

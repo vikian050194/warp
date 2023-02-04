@@ -8,14 +8,13 @@ test.describe("Popup", () => {
     test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(1000);
 
-        const options = new OptionsPage(extensionId, page);
+        const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        const arrow = page.locator("#ui-selected-item-arrow");
-        await arrow.click();
+        await options.ui.selectedItemArrow.click();
         await options.save();
 
-        const pom = new PopupPage(extensionId, page);
+        const pom = new PopupPage(page, extensionId);
         await pom.goto();
 
         await context.pages()[0].close();
@@ -24,7 +23,7 @@ test.describe("Popup", () => {
     test.describe("Query", () => {
         test("Empty", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Assert
             await expect(pom.query).toHaveText("...");
@@ -32,7 +31,7 @@ test.describe("Popup", () => {
 
         test("One word", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await page.type("body", "maps");
@@ -43,7 +42,7 @@ test.describe("Popup", () => {
 
         test("Two words", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await page.type("body", "maps cz");
@@ -54,7 +53,7 @@ test.describe("Popup", () => {
 
         test("Clean", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await page.type("body", "maps");
@@ -68,9 +67,34 @@ test.describe("Popup", () => {
     });
 
     test.describe("Items", () => {
-        test("Up for nothing", async ({ page, extensionId }) => {
+        test("Up for down", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
+
+            // Act
+            await pom.up();
+
+            // Assert
+            await expect(pom.selected).toHaveText("Warp/Google:Drive");
+            await expect(pom.nth(9)).toHaveText("Warp/Google:Drive");
+
+            for (let index = 0; index < 9; index++) {
+                await expect(pom.nth(index)).not.toHaveClass("selected");
+                await expect(pom.nth(index)).not.toHaveText("...");
+            }
+        });
+
+        test("Up for nothing", async ({ page, extensionId, context }) => {
+            // Arrange
+            const options = new OptionsPage(await context.newPage(), extensionId);
+            await options.goto();
+
+            await options.results.looping.click();
+            await options.save();
+            await options.close();
+
+            const pom = new PopupPage(page, extensionId);
+            await pom.reload();
 
             // Act
             await pom.up();
@@ -87,7 +111,7 @@ test.describe("Popup", () => {
 
         test("Down for second item", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.down();
@@ -106,9 +130,38 @@ test.describe("Popup", () => {
             }
         });
 
-        test("Down for nothing", async ({ page, extensionId }) => {
+        test("Down for up", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
+
+            // Act
+            for (let index = 0; index < 9; index++) {
+                await pom.down();
+            }
+
+            await pom.down();
+
+            // Assert
+            await expect(pom.selected).toHaveText("Warp/Chat:Discord");
+            await expect(pom.nth(0)).toHaveText("Warp/Chat:Discord");
+
+            for (let index = 1; index < 10; index++) {
+                await expect(pom.nth(index)).not.toHaveClass("selected");
+                await expect(pom.nth(index)).not.toHaveText("...");
+            }
+        });
+
+        test("Down for nothing", async ({ page, extensionId, context }) => {
+            // Arrange
+            const options = new OptionsPage(await context.newPage(), extensionId);
+            await options.goto();
+
+            await options.results.looping.click();
+            await options.save();
+            await options.close();
+
+            const pom = new PopupPage(page, extensionId);
+            await pom.reload();
 
             // Act
             for (let index = 0; index < 9; index++) {
@@ -129,7 +182,7 @@ test.describe("Popup", () => {
 
         test("Start from beginning on the next page", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.down();
@@ -149,7 +202,7 @@ test.describe("Popup", () => {
     test.describe("Actions", () => {
         test("Update tab", async ({ page, extensionId, context }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
             const updatedPage = await context.newPage();
 
             // Act
@@ -162,7 +215,7 @@ test.describe("Popup", () => {
 
         test("Open new tab without group", async ({ page, extensionId, context }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.search("example");
@@ -177,7 +230,7 @@ test.describe("Popup", () => {
 
         test("Open new tab and keep a group (without group)", async ({ page, extensionId, context }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.search("example");
@@ -194,7 +247,7 @@ test.describe("Popup", () => {
     test.describe("Paging", () => {
         test("Initial page", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Assert
             await expect(pom.back).not.toHaveClass("arrow animated");
@@ -204,7 +257,7 @@ test.describe("Popup", () => {
 
         test("Middle page", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.right();
@@ -217,7 +270,7 @@ test.describe("Popup", () => {
 
         test("Last page", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             for (let index = 0; index < 3; index++) {
@@ -232,7 +285,7 @@ test.describe("Popup", () => {
 
         test("Single page", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await page.press("body", "t");
@@ -245,7 +298,7 @@ test.describe("Popup", () => {
 
         test("Go back", async ({ page, extensionId }) => {
             // Arrange
-            const pom = new PopupPage(extensionId, page);
+            const pom = new PopupPage(page, extensionId);
 
             // Act
             await pom.right();
