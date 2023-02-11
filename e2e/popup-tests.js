@@ -34,7 +34,7 @@ test.describe("Popup", () => {
             const pom = new PopupPage(page, extensionId);
 
             // Act
-            await page.type("body", "maps");
+            await pom.search("maps");
 
             // Assert
             await expect(pom.query).toHaveText("maps");
@@ -45,7 +45,7 @@ test.describe("Popup", () => {
             const pom = new PopupPage(page, extensionId);
 
             // Act
-            await page.type("body", "maps cz");
+            await pom.search("maps cz");
 
             // Assert
             await expect(pom.query).toHaveText("maps cz");
@@ -56,7 +56,7 @@ test.describe("Popup", () => {
             const pom = new PopupPage(page, extensionId);
 
             // Act
-            await page.type("body", "maps");
+            await pom.search("maps");
             for (let index = 0; index < 4; index++) {
                 await pom.backspace();
             }

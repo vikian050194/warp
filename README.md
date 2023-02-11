@@ -89,11 +89,12 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 
 ## Tests
 
-`mocha` and `assert` are used for testing and `c8` for coverage
+`mocha` is used for unit testing and `c8` for coverage
+`playwright` is used for e2e testing
 
-`npm test` - run tests
-
+`npm test` - run unit tests
 `npm run cover` - run code coverage
+`npm run test:ui` - run e2e tests
 
 [status-url]: https://github.com/vikian050194/warp/pulse
 [status-badge]: https://img.shields.io/github/last-commit/vikian050194/warp.svg
