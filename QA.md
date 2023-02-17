@@ -89,3 +89,9 @@
     Q: *How to run browser with test bookmarks?*
 
     A: First argument for `chromium.launchPersistentContext` is path to profile directory. Create temporary directory and copy `Bookmarks`.
+
+16. **Icons?!**
+
+   Q: *Can retrieve and use favicons of bookmarks?*
+
+   A: Unfortunately, no, because of [bug in GC](https://crbug.com/104102). But new API should be awailable soon. Or it's available now. It's needed to be checked.
