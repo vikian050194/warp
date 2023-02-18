@@ -85,7 +85,8 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | Name | Description |
 | :--- | :--- |
 | Additional action | Press additional "Shift" (in other words "Shift+Enter") to open new tab if enabled and to update current tab if disabled |
-| Current group | Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour |
+| Keep group | Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour |
+| Keep neighbour | Open new tab next to active one |
 
 ## Tests
 

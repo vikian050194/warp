@@ -5,7 +5,8 @@ import {
     STORE,
     HistoryItem,
     SORTING,
-    COUNTERS
+    COUNTERS,
+    NEIGHBOUR
 } from "../../common/index.js";
 import {
     filterBookmarks,
@@ -65,6 +66,8 @@ export const onFilter = async (query) => {
 };
 
 export const onCall = async (data) => {
+    const neighbour = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
+
     const bookmarks = await Local.get(STORE.BOOKMARKS);
     const bookmark = bookmarks.find(b => b.id === data.bookmarkId);
 
@@ -79,6 +82,15 @@ export const onCall = async (data) => {
             await chrome.tabs.group({
                 groupId: data.groupId,
                 tabIds: [newTab.id]
+            });
+        }
+
+        if ((neighbour === NEIGHBOUR.ALWAYS) ||
+            (neighbour === NEIGHBOUR.ONLY_IN_GROUP && data.groupId !== -1 && data.keepGroup) ||
+            (neighbour === NEIGHBOUR.ONLY_WITHOUT_GROUP && data.groupId === -1)) {
+            const newIndex = data.tabIndex + 1;
+            await chrome.tabs.move(newTab.id, {
+                index: newIndex
             });
         }
     } else {

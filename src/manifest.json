@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "warp",
     "description": "Open bookmark without clicking",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "permissions": [
         "storage",
         "bookmarks",

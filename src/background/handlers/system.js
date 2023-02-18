@@ -6,7 +6,8 @@ import {
     STORE,
     MENU,
     COUNTERS,
-    SORTING
+    SORTING,
+    NEIGHBOUR
 } from "../../common/index.js";
 import { getBookmarksList } from "../scan.js";
 
@@ -99,6 +100,11 @@ const updateDefaultValues = async () => {
     const onShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
     if (onShift === undefined) {
         await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, true);
+    }
+
+    const neighbour = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
+    if (neighbour === undefined) {
+        await Sync.set(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR, NEIGHBOUR.ALWAYS);
     }
 };
 

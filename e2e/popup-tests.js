@@ -213,35 +213,122 @@ test.describe("Popup", () => {
             await expect(updatedPage).toHaveURL(new RegExp("example.com"));
         });
 
-        test("Open new tab without group", async ({ page, extensionId, context }) => {
-            // Arrange
-            const pom = new PopupPage(page, extensionId);
+        test.describe("Open tab", () => {
+            test("Always, no group", async ({ page, extensionId, context }) => {
+                // Arrange
+                const pom = new PopupPage(page, extensionId);
 
-            // Act
-            await pom.search("example");
-            const [newPage] = await Promise.all([
-                context.waitForEvent("page"),
-                pom.shiftEnter()
-            ]);
+                await context.newPage();
+                await context.pages()[0].bringToFront();
 
-            // Assert
-            await expect(newPage).toHaveURL(new RegExp("example.com"));
+                // Act
+                await pom.search("example");
+                const [newPage] = await Promise.all([
+                    context.waitForEvent("page"),
+                    pom.shiftEnter()
+                ]);
+
+                // Assert
+                await expect(newPage).toHaveURL(new RegExp("example.com"));
+            });
+
+            test("Never, no group", async ({ page, extensionId, context }) => {
+                // Arrange
+                const options = new OptionsPage(await context.newPage(), extensionId);
+                await options.goto();
+
+                await options.tab.neighbour.setValue("never");
+                await options.save();
+                await options.close();
+
+                await context.newPage();
+                await context.pages()[0].bringToFront();
+
+                const pom = new PopupPage(page, extensionId);
+                await pom.reload();
+
+                // Act
+                await pom.search("example");
+                const [newPage] = await Promise.all([
+                    context.waitForEvent("page"),
+                    pom.shiftEnter()
+                ]);
+
+                // Assert
+                await expect(newPage).toHaveURL(new RegExp("example.com"));
+            });
+
+            test("Only in group, no group", async ({ page, extensionId, context }) => {
+                // Arrange
+                const options = new OptionsPage(await context.newPage(), extensionId);
+                await options.goto();
+
+                await options.tab.neighbour.setValue("only-in-group");
+                await options.save();
+                await options.close();
+
+                await context.newPage();
+                await context.pages()[0].bringToFront();
+
+                const pom = new PopupPage(page, extensionId);
+                await pom.reload();
+
+                // Act
+                await pom.search("example");
+                const [newPage] = await Promise.all([
+                    context.waitForEvent("page"),
+                    pom.shiftEnter()
+                ]);
+
+                // Assert
+                await expect(newPage).toHaveURL(new RegExp("example.com"));
+            });
+
+            test("Only without group, no group", async ({ page, extensionId, context }) => {
+                // Arrange
+                const options = new OptionsPage(await context.newPage(), extensionId);
+                await options.goto();
+
+                await options.tab.neighbour.setValue("only-without-group");
+                await options.save();
+                await options.close();
+
+                await context.newPage();
+                await context.pages()[0].bringToFront();
+
+                const pom = new PopupPage(page, extensionId);
+                await pom.reload();
+
+                // Act
+                await pom.search("example");
+                const [newPage] = await Promise.all([
+                    context.waitForEvent("page"),
+                    pom.shiftEnter()
+                ]);
+
+                // Assert
+                await expect(newPage).toHaveURL(new RegExp("example.com"));
+            });
+
+            test("Keep group, always, no group", async ({ page, extensionId, context }) => {
+                // Arrange
+                const pom = new PopupPage(page, extensionId);
+
+                await context.newPage();
+                await context.pages()[0].bringToFront();
+
+                // Act
+                await pom.search("example");
+                const [newPage] = await Promise.all([
+                    context.waitForEvent("page"),
+                    pom.controlShiftEnter()
+                ]);
+
+                // Assert
+                await expect(newPage).toHaveURL(new RegExp("example.com"));
+            });
         });
 
-        test("Open new tab and keep a group (without group)", async ({ page, extensionId, context }) => {
-            // Arrange
-            const pom = new PopupPage(page, extensionId);
-
-            // Act
-            await pom.search("example");
-            const [newPage] = await Promise.all([
-                context.waitForEvent("page"),
-                pom.controlShiftEnter()
-            ]);
-
-            // Assert
-            await expect(newPage).toHaveURL(new RegExp("example.com"));
-        });
     });
 
     test.describe("Paging", () => {

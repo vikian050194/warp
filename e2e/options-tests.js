@@ -170,20 +170,21 @@ test.describe("Options", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        const newTab = page.locator("#new-tab-on-shift");
-        await expect(newTab).toBeChecked({ checked: true });
-        const keepGroup = page.locator("#new-tab-keep-group");
-        await expect(keepGroup).toBeChecked({ checked: true });
+        await pom.tab.action.isChecked(true);
+        await pom.tab.group.isChecked(true);
+        await pom.tab.neighbour.hasValue("always");
 
         // Act
-        await newTab.click();
-        await keepGroup.click();
+        await pom.tab.action.click();
+        await pom.tab.group.click();
+        await pom.tab.neighbour.setValue("never");
 
         await pom.save();
         await pom.reload();
 
         // Assert
-        await expect(newTab).toBeChecked({ checked: false });
-        await expect(keepGroup).toBeChecked({ checked: false });
+        await pom.tab.action.isChecked(false);
+        await pom.tab.group.isChecked(false);
+        await pom.tab.neighbour.hasValue("never");
     });
 });

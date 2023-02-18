@@ -70,6 +70,19 @@ export class UiOptions extends BasePOM {
     }
 }
 
+export class TabOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.action = new CheckboxOption(page, OPTIONS.NEW_TAB_ON_SHIFT);
+        this.group = new CheckboxOption(page, OPTIONS.NEW_TAB_KEEP_GROUP);
+        this.neighbour = new SelectOption(page, OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
+    }
+}
+
 export class OptionsPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
@@ -79,6 +92,7 @@ export class OptionsPage extends BasePage {
 
         this.results = new ResultsOptions(page);
         this.ui = new UiOptions(page);
+        this.tab = new TabOptions(page);
 
         this.saveButton = page.locator("#save");
     }

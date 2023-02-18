@@ -4,7 +4,8 @@ import {
     Sync,
     send,
     OPTIONS,
-    SORTING
+    SORTING,
+    NEIGHBOUR
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -79,6 +80,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $newTabKeepGroup = document.getElementById(OPTIONS.NEW_TAB_KEEP_GROUP);
     $newTabKeepGroup.checked = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
 
+    const $keepTogether = document.getElementById(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
+    $keepTogether.append(
+        makeOption({ text: "never", value: NEIGHBOUR.NEVER }),
+        makeOption({ text: "only in group", value: NEIGHBOUR.ONLY_IN_GROUP }),
+        makeOption({ text: "only without group", value: NEIGHBOUR.ONLY_WITHOUT_GROUP }),
+        makeOption({ text: "always", value: NEIGHBOUR.ALWAYS })
+    );
+    $keepTogether.value = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
+
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set(OPTIONS.CUSTOM_DIRECTORY, $customDirectory.value);
@@ -98,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, $newTabOnShift.checked);
         await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, $newTabKeepGroup.checked);
+        await Sync.set(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR, $keepTogether.value);
 
         await send.updateMessage();
     });
