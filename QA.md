@@ -76,7 +76,7 @@
 
     Q: *What is best e2e test framework for extensions?*
 
-    A: `Selenium` is good old one. `Nightwatch` and `TestCafe` are not so popular now. `Cypress` is slow and many developers have issues with extensions testing. `Playwright` is new and fast option with ready solution for Google Chrome extensions.
+    A: `Selenium` is good old one. `Nightwatch` and `TestCafe` are not so popular now. `Cypress` is not support [required protocol](https://github.com/cypress-io/cypress/issues/1965). `Playwright` is new and fast option with ready solution for Google Chrome extensions.
 
 14. **Too fast**
 
