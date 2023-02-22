@@ -73,6 +73,7 @@ test.describe("Options", () => {
         await expect(sections.nth(2)).toHaveText("Results");
         await expect(sections.nth(3)).toHaveText("Appearance");
         await expect(sections.nth(4)).toHaveText("Tabs");
+        await expect(sections.nth(5)).toHaveText("Autoclose");
     });
 
     test("Section: Bookmarks", async ({ page }) => {
@@ -186,5 +187,24 @@ test.describe("Options", () => {
         await pom.tab.action.isChecked(false);
         await pom.tab.group.isChecked(false);
         await pom.tab.neighbour.hasValue("never");
+    });
+
+    test("Section: Autoclose", async ({ page }) => {
+        // Arrange
+        const pom = new OptionsPage(page);
+
+        await pom.autoclose.enabled.isChecked(true);
+        await pom.autoclose.time.hasValue("5");
+
+        // Act
+        await pom.autoclose.enabled.click();
+        await pom.autoclose.time.setValue("1");
+
+        await pom.save();
+        await pom.reload();
+
+        // Assert
+        await pom.autoclose.enabled.isChecked(false);
+        await pom.autoclose.time.hasValue("1");
     });
 });

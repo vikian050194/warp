@@ -167,11 +167,42 @@
                         <td><span>Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour</span></td>
                     </tr>
                     <tr>
-                        <td>Keep neighbour<span class="new"></span></td>
+                        <td>Keep neighbour</td>
                         <td>
                             <select id="new-tab-keep-neighbour" type="checkbox"></select>
                         </td>
                         <td><span>Open new tab next to active one</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Autoclose</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Autoclose enabled<span class="new"></span></td>
+                        <td><input id="is-autoclose-enabled" type="checkbox"></td>
+                        <td><span>Is popup autoclose enabled</span></td>
+                    </tr>
+                    <tr>
+                        <td>Autoclose time<span class="new"></span></td>
+                        <td>
+                            <select id="autoclose-time">
+                                <option value="0">0 sec</option>
+                                <option value="1">1 sec</option>
+                                <option value="2">2 sec</option>
+                                <option value="3">3 sec</option>
+                                <option value="5">5 sec</option>
+                                <option value="10">10 sec</option>
+                            </select>
+                        </td>
+                        <td><span>Popup autoclose time in seconds</span></td>
                     </tr>
                 </tbody>
             </table>

@@ -16,3 +16,6 @@ export const UI_FONT_SIZE = "ui-font-size";
 export const NEW_TAB_KEEP_GROUP = "new-tab-keep-group";
 export const NEW_TAB_KEEP_NEIGHBOUR = "new-tab-keep-neighbour";
 export const NEW_TAB_ON_SHIFT = "new-tab-on-shift";
+
+export const IS_AUTOCLOSE_ENABLED = "is-autoclose-enabled";
+export const AUTOCLOSE_TIME = "autoclose-time";

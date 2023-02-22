@@ -89,6 +89,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     $keepTogether.value = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
 
+    const $isAutocloseEnabled = document.getElementById(OPTIONS.IS_AUTOCLOSE_ENABLED);
+    $isAutocloseEnabled.checked = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
+
+    const $autocloseTimeSec = document.getElementById(OPTIONS.AUTOCLOSE_TIME);
+    $autocloseTimeSec.value = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
+
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set(OPTIONS.CUSTOM_DIRECTORY, $customDirectory.value);
@@ -109,6 +115,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, $newTabOnShift.checked);
         await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, $newTabKeepGroup.checked);
         await Sync.set(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR, $keepTogether.value);
+
+        await Sync.set(OPTIONS.IS_AUTOCLOSE_ENABLED, $isAutocloseEnabled.checked);
+        await Sync.set(OPTIONS.AUTOCLOSE_TIME, $autocloseTimeSec.value);
 
         await send.updateMessage();
     });

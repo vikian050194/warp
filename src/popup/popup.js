@@ -8,6 +8,11 @@ import {
 import { splitByPages } from "./paging.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const isAutocloseEnabled = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
+    const autocloseTimeSec = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
+    let autocloseId = null;
+    const resetAutoclose = () => clearTimeout(autocloseId);
+
     const isArrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
     const arrowChar = "&#10148;";
@@ -111,10 +116,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const useNewTab = newOnShift === shiftKey;
                 const callData = new CallData(option.id, tab.id, tab.index, tab.groupId, useNewTab, useKeepGroup);
                 await send.callMessage(callData);
-                window.close();
+                if (isAutocloseEnabled) {
+                    autocloseId = setTimeout(window.close, autocloseTimeSec * 1000);
+                }
                 break;
             }
             case "ArrowUp":
+                resetAutoclose();
                 if (resultsLooping) {
                     currentOptionIndex = currentOptionIndex > 0 ? currentOptionIndex - 1 : maxOptionIndex;
                 } else {
@@ -123,6 +131,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 render();
                 break;
             case "ArrowDown":
+                resetAutoclose();
                 if (resultsLooping) {
                     currentOptionIndex = currentOptionIndex < maxOptionIndex ? currentOptionIndex + 1 : 0;
                 } else {
@@ -131,18 +140,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 render();
                 break;
             case "ArrowRight":
+                resetAutoclose();
                 currentOptionIndex = 0;
                 currentPageIndex += currentPageIndex < maxPageIndex ? 1 : 0;
                 maxOptionIndex = pages[currentPageIndex].length - 1;
                 render();
                 break;
             case "ArrowLeft":
+                resetAutoclose();
                 currentOptionIndex = 0;
                 currentPageIndex -= currentPageIndex > 0 ? 1 : 0;
                 maxOptionIndex = pages[currentPageIndex].length - 1;
                 render();
                 break;
             default: {
+                resetAutoclose();
                 if (key.length == 1) {
                     query += key;
                 } else {

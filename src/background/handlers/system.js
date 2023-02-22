@@ -106,6 +106,16 @@ const updateDefaultValues = async () => {
     if (neighbour === undefined) {
         await Sync.set(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR, NEIGHBOUR.ALWAYS);
     }
+
+    const isAutocloseEnabled = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
+    if (isAutocloseEnabled === undefined) {
+        await Sync.set(OPTIONS.IS_AUTOCLOSE_ENABLED, true);
+    }
+
+    const autocloseTime = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
+    if (autocloseTime === undefined) {
+        await Sync.set(OPTIONS.AUTOCLOSE_TIME, 5);
+    }
 };
 
 const updateMenu = () => {

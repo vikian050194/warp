@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2023-02-22
+
+### Added
+
+- Configure popup autoclosing and autoclosing time
+
 ## [1.5.1] - 2023-02-20
 
 ### Changed
@@ -181,7 +187,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/vikian050194/warp/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/vikian050194/warp/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/vikian050194/warp/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/vikian050194/warp/compare/v1.3.2...v1.4.0

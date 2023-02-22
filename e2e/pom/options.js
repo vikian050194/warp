@@ -83,6 +83,18 @@ export class TabOptions extends BasePOM {
     }
 }
 
+export class AutocloseOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.enabled = new CheckboxOption(page, OPTIONS.IS_AUTOCLOSE_ENABLED);
+        this.time = new SelectOption(page, OPTIONS.AUTOCLOSE_TIME);
+    }
+}
+
 export class OptionsPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
@@ -93,6 +105,7 @@ export class OptionsPage extends BasePage {
         this.results = new ResultsOptions(page);
         this.ui = new UiOptions(page);
         this.tab = new TabOptions(page);
+        this.autoclose = new AutocloseOptions(page);
 
         this.saveButton = page.locator("#save");
     }
