@@ -108,6 +108,8 @@ export class OptionsPage extends BasePage {
         this.autoclose = new AutocloseOptions(page);
 
         this.saveButton = page.locator("#save");
+        this.pins = page.locator("div.pins");
+        this.tabs = page.locator("div.tabs");
     }
 
     async goto() {
@@ -116,5 +118,13 @@ export class OptionsPage extends BasePage {
 
     async save() {
         await this.saveButton.click();
+    }
+
+    getPin(index) {
+        return this.pins.locator(`button[pin-id="${index}"]`);
+    }
+
+    getTab(index) {
+        return this.tabs.locator(`div[tab-id="${index}"]`);
     }
 }

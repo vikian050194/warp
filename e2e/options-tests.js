@@ -63,17 +63,57 @@ test.describe("Options", () => {
         await expect(header).toHaveText("Options");
     });
 
-    test("Sections", async ({ page }) => {
-        // Arrange
-        const sections = page.locator("h2");
+    test.describe("Tabs and pins", () => {
+        test("Pins", async ({ page }) => {
+            // Arrange
+            const pom = new OptionsPage(page);
 
-        // Assert
-        await expect(sections.nth(0)).toHaveText("Bookmarks");
-        await expect(sections.nth(1)).toHaveText("History");
-        await expect(sections.nth(2)).toHaveText("Results");
-        await expect(sections.nth(3)).toHaveText("Appearance");
-        await expect(sections.nth(4)).toHaveText("Tabs");
-        await expect(sections.nth(5)).toHaveText("Autoclose");
+            // Assert
+            await expect(pom.getPin(1)).toHaveText("Bookmarks");
+            await expect(pom.getPin(2)).toHaveText("History");
+            await expect(pom.getPin(3)).toHaveText("Results");
+            await expect(pom.getPin(4)).toHaveText("Appearance");
+            await expect(pom.getPin(5)).toHaveText("Tabs");
+            await expect(pom.getPin(6)).toHaveText("Autoclose");
+        });
+
+        test("Tabs", async ({ page }) => {
+            // Arrange
+            const pom = new OptionsPage(page);
+
+            // Assert
+            await expect(pom.getTab(1).locator("h2")).toHaveText("Bookmarks");
+            await expect(pom.getTab(2).locator("h2")).toHaveText("History");
+            await expect(pom.getTab(3).locator("h2")).toHaveText("Results");
+            await expect(pom.getTab(4).locator("h2")).toHaveText("Appearance");
+            await expect(pom.getTab(5).locator("h2")).toHaveText("Tabs");
+            await expect(pom.getTab(6).locator("h2")).toHaveText("Autoclose");
+
+            for (let i = 1; i <= 6; i++) {
+                if (i === 1) {
+                    await expect(pom.getTab(i)).toBeVisible();
+                } else {
+                    await expect(pom.getTab(i)).toBeHidden();
+                }
+            }
+        });
+
+        test("Tabs visibility", async ({ page }) => {
+            // Arrange
+            const pom = new OptionsPage(page);
+
+            // Assert
+            for (let i = 1; i <= 6; i++) {
+                await pom.getPin(i).click();
+                for (let j = 1; j <= 6; j++) {
+                    if (i === j) {
+                        await expect(pom.getTab(j)).toBeVisible();
+                    } else {
+                        await expect(pom.getTab(j)).toBeHidden();
+                    }
+                }
+            }
+        });
     });
 
     test("Section: Bookmarks", async ({ page }) => {
@@ -109,6 +149,7 @@ test.describe("Options", () => {
         await expect(await expirationTime.inputValue()).toBe("31536000");
 
         // Act
+        await pom.getPin(2).click();
         await maxCount.fill("500");
         await expirationTime.selectOption("2678400");
 
@@ -129,6 +170,7 @@ test.describe("Options", () => {
         await pom.results.looping.isChecked(true);
 
         // Act
+        await pom.getPin(3).click();
         await pom.results.perPage.setValue("3");
         await pom.results.sorting.setValue("alphabet");
         await pom.results.looping.click();
@@ -152,6 +194,7 @@ test.describe("Options", () => {
         await pom.ui.selectedItemArrow.isChecked(true);
 
         // Act
+        await pom.getPin(4).click();
         await pom.ui.fontSize.setValue("8px");
         await pom.ui.selectedItemColor.setValue("#00A0DC");
         await pom.ui.selectedItemFontWeight.setValue("normal");
@@ -176,6 +219,7 @@ test.describe("Options", () => {
         await pom.tab.neighbour.hasValue("always");
 
         // Act
+        await pom.getPin(5).click();
         await pom.tab.action.click();
         await pom.tab.group.click();
         await pom.tab.neighbour.setValue("never");
@@ -197,6 +241,7 @@ test.describe("Options", () => {
         await pom.autoclose.time.hasValue("5");
 
         // Act
+        await pom.getPin(6).click();
         await pom.autoclose.enabled.click();
         await pom.autoclose.time.setValue("1");
 

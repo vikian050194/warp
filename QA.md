@@ -92,6 +92,12 @@
 
 16. **Icons?!**
 
-   Q: *Can retrieve and use favicons of bookmarks?*
+   Q: *Can I retrieve and use favicons of bookmarks?*
 
    A: Unfortunately, no, because of [bug in GC](https://crbug.com/104102). But new API should be awailable soon. Or it's available now. It's needed to be checked.
+
+16. **e2e code coverage**
+
+   Q: *Can I get code coverage of e2e tests?*
+
+   A: Yes, in theory it should be possible. But for now I was not able to configure it properly or [this feature](https://playwright.dev/docs/api/class-coverage) is not "ready".

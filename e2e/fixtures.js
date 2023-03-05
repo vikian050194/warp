@@ -21,7 +21,8 @@ export const test = base.extend({
             slowMo: 100,
             args: [
                 `--disable-extensions-except=${pathToExtension}`,
-                `--load-extension=${pathToExtension}`
+                `--load-extension=${pathToExtension}`,
+                "--start-maximized"
             ]
         });
 

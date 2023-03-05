@@ -16,6 +16,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const makeOption = dom.makeElementCreator("option");
 
+    // Pins and tabs
+    const pins = document.querySelectorAll("button.pin");
+    const tabs = document.querySelectorAll("div.tab");
+
+    const showTab = (showIndex) => {
+        for (let index = 0; index < tabs.length; index++) {
+            const tab = tabs[index];
+            const value = tab.getAttribute("tab-id") === showIndex ? "block" : "none";
+            tab.style.setProperty("display", value);
+        }
+
+        for (let index = 0; index < pins.length; index++) {
+            const pin = pins[index];
+            const value = pin.getAttribute("pin-id") === showIndex ? "underline" : "none";
+            pin.style.setProperty("text-decoration", value);
+        }
+    };
+
+    showTab("1");
+
+    for (let index = 0; index < pins.length; index++) {
+        const pin = pins[index];
+        pin.addEventListener("click", (e) => {
+            const showIndex = e.currentTarget.getAttribute("pin-id");
+            showTab(showIndex);
+        });
+    }
+
     // Bookmarks
     const $customDirectory = document.getElementById(OPTIONS.CUSTOM_DIRECTORY);
     $customDirectory.value = await Sync.get(OPTIONS.CUSTOM_DIRECTORY);

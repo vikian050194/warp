@@ -8,7 +8,7 @@ const config = {
     retries: 0,
     fullyParallel: false,
     use: {
-        viewport: { width: 1280, height: 720 },
+        viewport: null,
         browserName: "chromium",
         headless: false,
         screenshot: "only-on-failure"

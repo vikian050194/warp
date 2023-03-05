@@ -13,199 +13,221 @@
             <h1>Options</h1>
         </header>
         <main>
-            <h2>Bookmarks</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Use custom directory</td>
-                        <td><input id="is-custom-directory" type="checkbox"></td>
-                        <td><span>Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar")</span></td>
-                    </tr>
-                    <tr>
-                        <td>Custom directory</td>
-                        <td><input id="custom-directory"></td>
-                        <td><span>Directory with bookmarks to search for. Name should be unique!</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>History</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Maximum count of history items</td>
-                        <td><input id="history-max-count" type="number" min="1" max="100000" step="10"></td>
-                        <td><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
-                    </tr>
-                    <tr>
-                        <td>Expiration time of history items</td>
-                        <td>
-                            <select id="history-expiration-time">
-                                <option value="31536000">365 days</option>
-                                <option value="2678400">31 days</option>
-                                <option value="1209600">14 days</option>
-                                <option value="604800">7 days</option>
-                                <option value="86400">1 day</option>
-                            </select>
-                        </td>
-                        <td><span>All history items that are older than this threshold will be automatically deleted</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>Results</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Results per page</td>
-                        <td>
-                            <select id="results-per-page">
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                            </select>
-                        </td>
-                        <td><span>Results per page in the popup</span></td>
-                    </tr>
-                    <tr>
-                        <td>Results sorting</td>
-                        <td>
-                            <select id="results-sorting"></select>
-                        </td>
-                        <td><span>Results sorting order</span></td>
-                    </tr>
-                    <tr>
-                        <td>Results looping</td>
-                        <td><input id="results-looping" type="checkbox"></td>
-                        <td><span>Looping on attempt to move out of list boundaries</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>Appearance</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Font size</td>
-                        <td>
-                            <select id="ui-font-size"></select>
-                        </td>
-                        <td><span>Popup font size in pixels</span></td>
-                    </tr>
-                    <tr>
-                        <td>Selected item color</td>
-                        <td>
-                            <select id="ui-selected-item-color"></select>
-                        </td>
-                        <td><span>Color of selected item in results list</span></td>
-                    </tr>
-                    <tr>
-                        <td>Selected item font weight</td>
-                        <td>
-                            <select id="ui-selected-item-font-weight"></select>
-                        </td>
-                        <td><span>Font weight of selected item in results list</span></td>
-                    </tr>
-                    <tr>
-                        <td>Arrow pointer</td>
-                        <td>
-                            <input id="ui-selected-item-arrow" type="checkbox">
-                        </td>
-                        <td><span>Arrow appears in front of selected item</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>Tabs</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Additional action</td>
-                        <td>
-                            <input id="new-tab-on-shift" type="checkbox">
-                        </td>
-                        <td><span>Press additional "Shift" (in other words "Shift+Enter") to open new tab if enabled and to update current tab if disabled</span></td>
-                    </tr>
-                    <tr>
-                        <td>Keep group</td>
-                        <td>
-                            <input id="new-tab-keep-group" type="checkbox">
-                        </td>
-                        <td><span>Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour</span></td>
-                    </tr>
-                    <tr>
-                        <td>Keep neighbour</td>
-                        <td>
-                            <select id="new-tab-keep-neighbour" type="checkbox"></select>
-                        </td>
-                        <td><span>Open new tab next to active one</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>Autoclose</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Autoclose enabled<span class="new"></span></td>
-                        <td><input id="is-autoclose-enabled" type="checkbox"></td>
-                        <td><span>Is popup autoclose enabled</span></td>
-                    </tr>
-                    <tr>
-                        <td>Autoclose time<span class="new"></span></td>
-                        <td>
-                            <select id="autoclose-time">
-                                <option value="0">0 sec</option>
-                                <option value="1">1 sec</option>
-                                <option value="2">2 sec</option>
-                                <option value="3">3 sec</option>
-                                <option value="5">5 sec</option>
-                                <option value="10">10 sec</option>
-                            </select>
-                        </td>
-                        <td><span>Popup autoclose time in seconds</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="pins">
+                <button class="pin" pin-id="1">Bookmarks</button>
+                <button class="pin" pin-id="2">History</button>
+                <button class="pin" pin-id="3">Results</button>
+                <button class="pin" pin-id="4">Appearance</button>
+                <button class="pin" pin-id="5">Tabs</button>
+                <button class="pin" pin-id="6">Autoclose</button>
+            </div>
+            <div class="tabs">
+                <div class="tab" tab-id="1">
+                    <h2>Bookmarks</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Use custom directory</td>
+                                <td><input id="is-custom-directory" type="checkbox"></td>
+                                <td><span>Enable to be more specific (custom directory is in use) or disable for unlimited search (whole "Bookmarks bar")</span></td>
+                            </tr>
+                            <tr>
+                                <td>Custom directory</td>
+                                <td><input id="custom-directory"></td>
+                                <td><span>Directory with bookmarks to search for. Name should be unique!</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab" tab-id="2">
+                    <h2>History</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Maximum count of history items</td>
+                                <td><input id="history-max-count" type="number" min="1" max="100000" step="10"></td>
+                                <td><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
+                            </tr>
+                            <tr>
+                                <td>Expiration time of history items</td>
+                                <td>
+                                    <select id="history-expiration-time">
+                                        <option value="31536000">365 days</option>
+                                        <option value="2678400">31 days</option>
+                                        <option value="1209600">14 days</option>
+                                        <option value="604800">7 days</option>
+                                        <option value="86400">1 day</option>
+                                    </select>
+                                </td>
+                                <td><span>All history items that are older than this threshold will be automatically deleted</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab" tab-id="3">
+                    <h2>Results</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Results per page</td>
+                                <td>
+                                    <select id="results-per-page">
+                                        <option value="3">3</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </td>
+                                <td><span>Results per page in the popup</span></td>
+                            </tr>
+                            <tr>
+                                <td>Results sorting</td>
+                                <td>
+                                    <select id="results-sorting"></select>
+                                </td>
+                                <td><span>Results sorting order</span></td>
+                            </tr>
+                            <tr>
+                                <td>Results looping</td>
+                                <td><input id="results-looping" type="checkbox"></td>
+                                <td><span>Looping on attempt to move out of list boundaries</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab" tab-id="4">
+                    <h2>Appearance</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Font size</td>
+                                <td>
+                                    <select id="ui-font-size"></select>
+                                </td>
+                                <td><span>Popup font size in pixels</span></td>
+                            </tr>
+                            <tr>
+                                <td>Selected item color</td>
+                                <td>
+                                    <select id="ui-selected-item-color"></select>
+                                </td>
+                                <td><span>Color of selected item in results list</span></td>
+                            </tr>
+                            <tr>
+                                <td>Selected item font weight</td>
+                                <td>
+                                    <select id="ui-selected-item-font-weight"></select>
+                                </td>
+                                <td><span>Font weight of selected item in results list</span></td>
+                            </tr>
+                            <tr>
+                                <td>Arrow pointer</td>
+                                <td>
+                                    <input id="ui-selected-item-arrow" type="checkbox">
+                                </td>
+                                <td><span>Arrow appears in front of selected item</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab" tab-id="5">
+                    <h2>Tabs</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Additional action</td>
+                                <td>
+                                    <input id="new-tab-on-shift" type="checkbox">
+                                </td>
+                                <td><span>Press additional "Shift" (in other words "Shift+Enter") to open new tab if enabled and to update current tab if disabled</span></td>
+                            </tr>
+                            <tr>
+                                <td>Keep group</td>
+                                <td>
+                                    <input id="new-tab-keep-group" type="checkbox">
+                                </td>
+                                <td><span>Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour</span></td>
+                            </tr>
+                            <tr>
+                                <td>Keep neighbour</td>
+                                <td>
+                                    <select id="new-tab-keep-neighbour" type="checkbox"></select>
+                                </td>
+                                <td><span>Open new tab next to active one</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab" tab-id="6">
+                    <h2>Autoclose</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Autoclose enabled<span class="new"></span></td>
+                                <td><input id="is-autoclose-enabled" type="checkbox"></td>
+                                <td><span>Is popup autoclose enabled</span></td>
+                            </tr>
+                            <tr>
+                                <td>Autoclose time<span class="new"></span></td>
+                                <td>
+                                    <select id="autoclose-time">
+                                        <option value="0">0 sec</option>
+                                        <option value="1">1 sec</option>
+                                        <option value="2">2 sec</option>
+                                        <option value="3">3 sec</option>
+                                        <option value="5">5 sec</option>
+                                        <option value="10">10 sec</option>
+                                    </select>
+                                </td>
+                                <td><span>Popup autoclose time in seconds</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <button id="save" class="action">Save</button>
         </main>
         <footer>
