@@ -8,7 +8,7 @@ if [ "$PACKAGE_VERSION" != "$MANIFEST_VERSION" ]; then
     exit -1;
 fi
 
-GREP_CHANGELOG=$(grep -o "$PACKAGE_VERSION" CHANGELOG.md | wc -l)
+GREP_CHANGELOG=$(grep --fixed-strings -o "$PACKAGE_VERSION" CHANGELOG.md | wc -l)
 
 if [ "$GREP_CHANGELOG" != 4 ]; then
     echo "update CHANGELOG: $PACKAGE_VERSION was found $GREP_CHANGELOG times instead of 4";
