@@ -14,6 +14,7 @@ const getHistoryViews = async () => {
 document.addEventListener("DOMContentLoaded", async () => {
     const $root = document.getElementById("root");
 
+    // Table
     const descriptions = await getHistoryViews();
 
     const columns = [
@@ -25,8 +26,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $table = dom.makeTable(columns, descriptions);
     $root.append($table);
 
+    // No data
+    if (descriptions.length === 0) {
+        $root.append(dom.makeElement("div", { text: "There is no data yet. Use extension at least once to get it!", className: "message" }));
+    }
+
+    // Reset
     const $resetButton = document.getElementById("reset");
     $resetButton.addEventListener("click", async () => {
         await Local.set(STORE.HISTORY, []);
+
+        location.reload();
     });
 });

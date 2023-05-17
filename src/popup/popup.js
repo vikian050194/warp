@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const visibleArrow = isArrow ? `<span>${arrowChar}</span>` : "";
     const invisibleArrow = isArrow ? `<span style="color:white;">${arrowChar}</span>` : "";
     const placeholder = `${invisibleArrow}...`;
+    const queryPlaceholder = "start typing...";
 
     let query = "";
     let pages = [[]];
@@ -89,12 +90,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         $options.append(...elements);
 
-        $backPage.classList.toggle("animated", currentPageIndex > 0);
+        $backPage.classList.toggle("active", currentPageIndex > 0);
         $currentPage.innerText = getPager();
-        $nextPage.classList.toggle("animated", currentPageIndex < maxPageIndex);
+        $nextPage.classList.toggle("active", currentPageIndex < maxPageIndex);
     };
 
-    $query.innerText = "...";
+    $query.innerText = queryPlaceholder;
 
     const onKey = async () => {
         const options = await send.queryMessage(query);
@@ -170,6 +171,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
 
-        $query.innerText = query || "...";
+        $query.innerText = query || queryPlaceholder;
     });
 });

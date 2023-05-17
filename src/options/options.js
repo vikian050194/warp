@@ -117,12 +117,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     $keepTogether.value = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
 
+    // Autoclose
     const $isAutocloseEnabled = document.getElementById(OPTIONS.IS_AUTOCLOSE_ENABLED);
     $isAutocloseEnabled.checked = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
 
     const $autocloseTimeSec = document.getElementById(OPTIONS.AUTOCLOSE_TIME);
     $autocloseTimeSec.value = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
 
+    // Save
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
         await Sync.set(OPTIONS.CUSTOM_DIRECTORY, $customDirectory.value);

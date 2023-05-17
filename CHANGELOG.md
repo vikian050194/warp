@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2023-05-17
+
+### Added
+
+- reload page on history and frequency reset
+- history and frequency pages shows "no data" message
+- history expiration 90 days and 180 days options
+
+### Changed
+
+- new options marked as "new"
+- "back" and "next" pager signs are colored if action available
+- popup query placeholder is "start typing"
+- history items max count step is one
+
 ## [1.7.0] - 2023-03-05
 
 ### Added
@@ -193,7 +208,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/vikian050194/warp/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/vikian050194/warp/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/vikian050194/warp/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/vikian050194/warp/compare/v1.5.0...v1.5.1

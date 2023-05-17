@@ -161,11 +161,14 @@ test.describe("Frequency", () => {
 
             // Act
             await pom.goto();
+
+            await pom.isMessageVisible(true);
+
             await pom.reset();
-            await page.reload();
 
             // Assert
             await pom.empty();
+            await pom.isMessageVisible(true);
         });
 
         test("Single row", async ({ page, extensionId, context }) => {
@@ -180,11 +183,14 @@ test.describe("Frequency", () => {
             page = await context.newPage();
             const pom = new FrequencyPage(page, extensionId);
             await pom.goto();
+   
+            await pom.isMessageVisible(false);
+
             await pom.reset();
-            await page.reload();
 
             // Assert
             await pom.empty();
+            await pom.isMessageVisible(true);
         });
     });
 });

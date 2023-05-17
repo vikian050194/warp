@@ -32,9 +32,10 @@ body {
 }
 
 .arrow {
+    color: gray;
     display: inline-flex;
 }
 
-.animated {
-    animation: arrow 2s infinite alternate ease-in-out;
+.active {
+    color: var(--selected-item-color);
 }

@@ -9,6 +9,7 @@ export class HistoryPage extends BasePage {
         super(page, extensionId);
 
         this.resetButton = page.locator("#reset");
+        this.message = page.locator("div.message");
     }
 
     async goto() {
@@ -29,5 +30,13 @@ export class HistoryPage extends BasePage {
         const text = await row.textContent();
         const iso = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
         await this.expect(text).toMatch(new RegExp(`${count - index + 1}${iso.source}${name}`));
+    }
+
+    async isMessageVisible(visible = true) {
+        if (visible) {
+            await this.message.isVisible();
+        } else {
+            await this.message.isHidden();
+        }
     }
 }

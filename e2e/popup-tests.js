@@ -27,7 +27,7 @@ test.describe("Popup", () => {
             const pom = new PopupPage(page, extensionId);
 
             // Assert
-            await expect(pom.query).toHaveText("...");
+            await expect(pom.query).toHaveText("start typing...");
         });
 
         test("One word", async ({ page, extensionId }) => {
@@ -63,7 +63,7 @@ test.describe("Popup", () => {
             }
 
             // Assert
-            await expect(pom.query).toHaveText("...");
+            await expect(pom.query).toHaveText("start typing...");
         });
     });
 
@@ -343,9 +343,9 @@ test.describe("Popup", () => {
             const pom = new PopupPage(page, extensionId);
 
             // Assert
-            await expect(pom.back).not.toHaveClass("arrow animated");
+            await expect(pom.back).not.toHaveClass("arrow active");
             await expect(pom.pager).toHaveText("1/4");
-            await expect(pom.next).toHaveClass("arrow animated");
+            await expect(pom.next).toHaveClass("arrow active");
         });
 
         test("Middle page", async ({ page, extensionId }) => {
@@ -356,9 +356,9 @@ test.describe("Popup", () => {
             await pom.right();
 
             // Assert
-            await expect(pom.back).toHaveClass("arrow animated");
+            await expect(pom.back).toHaveClass("arrow active");
             await expect(pom.pager).toHaveText("2/4");
-            await expect(pom.next).toHaveClass("arrow animated");
+            await expect(pom.next).toHaveClass("arrow active");
         });
 
         test("Last page", async ({ page, extensionId }) => {
@@ -371,7 +371,7 @@ test.describe("Popup", () => {
             }
 
             // Assert
-            await expect(pom.back).toHaveClass("arrow animated");
+            await expect(pom.back).toHaveClass("arrow active");
             await expect(pom.pager).toHaveText("4/4");
             await expect(pom.next).toHaveClass("arrow");
         });
@@ -400,7 +400,7 @@ test.describe("Popup", () => {
             // Assert
             await expect(pom.back).toHaveClass("arrow");
             await expect(pom.pager).toHaveText("1/4");
-            await expect(pom.next).toHaveClass("arrow animated");
+            await expect(pom.next).toHaveClass("arrow active");
         });
     });
 

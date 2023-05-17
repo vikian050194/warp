@@ -1,1 +1,5 @@
 @import "../common.css";
+
+.message {
+    margin-top: 8px;
+}

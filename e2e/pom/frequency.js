@@ -9,6 +9,7 @@ export class FrequencyPage extends BasePage {
         super(page, extensionId);
 
         this.resetButton = page.locator("#reset");
+        this.message = page.locator("div.message");
     }
 
     async goto() {
@@ -27,5 +28,13 @@ export class FrequencyPage extends BasePage {
     async row(index, count, name) {
         const row = this.page.locator("tr").nth(index);
         await this.expect(row).toHaveText(`${index}${count}${name}`);
+    }
+
+    async isMessageVisible(visible = true) {
+        if (visible) {
+            await this.message.isVisible();
+        } else {
+            await this.message.isHidden();
+        }
     }
 }

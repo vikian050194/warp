@@ -59,7 +59,7 @@
                         <tbody>
                             <tr>
                                 <td>Maximum count of history items</td>
-                                <td><input id="history-max-count" type="number" min="1" max="100000" step="10"></td>
+                                <td><input id="history-max-count" type="number" min="1" max="100000" step="1"></td>
                                 <td><span>All history items (starting from the oldest) that are above this threshold by count will be automatically deleted</span></td>
                             </tr>
                             <tr>
@@ -67,6 +67,8 @@
                                 <td>
                                     <select id="history-expiration-time">
                                         <option value="31536000">365 days</option>
+                                        <option value="15552000">180 days</option>
+                                        <option value="7776000">90 days</option>
                                         <option value="2678400">31 days</option>
                                         <option value="1209600">14 days</option>
                                         <option value="604800">7 days</option>
