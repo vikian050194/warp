@@ -88,6 +88,13 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | Keep group | Open new tab in the current group if it exists and additionaly press "Ctrl" to get opposite behaviour |
 | Keep neighbour | Open new tab next to active one |
 
+**Autoclosing**
+
+| Name | Description |
+| :--- | :--- |
+| Autoclose enabled | Is popup autoclose enabled |
+| Autoclose time | Popup autoclose time in seconds |
+
 ## Tests
 
 `mocha` is used for unit testing and `c8` for coverage
