@@ -3,6 +3,25 @@ body {
     font-size: var(--font-size);
 }
 
+#query::after {
+    content: "|";
+    font-weight: bold;
+    color: var(--selected-item-color);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
 .selected {
     color: var(--selected-item-color);
     font-weight: var(--selected-item-font-weight);
@@ -19,16 +38,6 @@ body {
 
 .pager {
     margin: auto;
-}
-
-@keyframes arrow {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.4;
-    }
 }
 
 .arrow {

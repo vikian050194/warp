@@ -8,37 +8,52 @@ import {
 import { splitByPages } from "./paging.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // Get options
     const isAutocloseEnabled = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
     const autocloseTimeSec = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
-    let autocloseId = null;
-    const resetAutoclose = () => clearTimeout(autocloseId);
 
     const isArrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
-    const arrowChar = "&#10148;";
-    const visibleArrow = isArrow ? `<span>${arrowChar}</span>` : "";
-    const invisibleArrow = isArrow ? `<span style="color:white;">${arrowChar}</span>` : "";
-    const placeholder = `${invisibleArrow}...`;
-    const queryPlaceholder = "start typing...";
-
-    let query = "";
-    let pages = [[]];
-
     const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
-
     const resultsLooping = await Sync.get(OPTIONS.RESULTS_LOOPING);
 
+    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
+    const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
+    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
+
+    const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
+    const newOnShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
+
+    // Autoclose
+    let autocloseId = null;
+    const resetAutoclose = () => clearTimeout(autocloseId);
+
+    // Indexes
     let currentOptionIndex = 0;
     let maxOptionIndex = 0;
 
     let currentPageIndex = 0;
     let maxPageIndex = 0;
 
+    // Input and output
+    let query = "";
+    let pages = [[]];
+
+    // UI items
+    const arrowChar = "&#10148;";
+    const visibleArrow = isArrow ? `<span>${arrowChar}</span>` : "";
+    const invisibleArrow = isArrow ? `<span style="color:white;">${arrowChar}</span>` : "";
+    const placeholder = `${invisibleArrow}...`;
+    const queryPlaceholder = "";
+
+    // UI builders
     const makeDiv = dom.makeElementCreator("div");
     const makeSpan = dom.makeElementCreator("span");
 
     const getPager = () => `${currentPageIndex + 1}/${pages.length}`;
+    const makeId = (id) => `opt-${id}`;
 
+    // DOM elements creating and updating
     const $rootElement = document.documentElement;
     const $root = document.getElementById("root");
 
@@ -54,20 +69,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $paging.append($backPage, $currentPage, $nextPage);
 
-    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
     $rootElement.style.setProperty("--selected-item-color", color);
-
-    const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
     $rootElement.style.setProperty("--selected-item-font-weight", weight);
-
-    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
     $rootElement.style.setProperty("--font-size", fontSize);
 
-    const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
-    const newOnShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
-
-    const makeId = (id) => `opt-${id}`;
-
+    // Render
     const render = () => {
         const elements = [];
 
@@ -93,9 +99,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         $backPage.classList.toggle("active", currentPageIndex > 0);
         $currentPage.innerText = getPager();
         $nextPage.classList.toggle("active", currentPageIndex < maxPageIndex);
-    };
 
-    $query.innerText = queryPlaceholder;
+        $query.innerText = query || queryPlaceholder;
+    };
 
     const onKey = async () => {
         const options = await send.queryMessage(query);
@@ -170,7 +176,5 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
         }
-
-        $query.innerText = query || queryPlaceholder;
     });
 });

@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const createPercent = total > 0 ? (100.00 - parseFloat(updatePercent)).toFixed(2) : "0.00";
     $createPercent.innerText = ` (${createPercent}%)`;
 
+    // Reset
     const $resetButton = document.getElementById("reset");
     $resetButton.addEventListener("click", async () => {
         await Local.set(COUNTERS.SINCE, new Date().toISOString());
