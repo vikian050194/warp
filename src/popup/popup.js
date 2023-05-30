@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const onKey = async () => {
         const options = await send.queryMessage(query);
         currentPageIndex = 0;
+        currentOptionIndex = 0;
         pages = splitByPages(options, resultsPerPage);
         maxPageIndex = pages.length - 1;
         maxOptionIndex = pages[currentPageIndex].length - 1;

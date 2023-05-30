@@ -183,21 +183,22 @@ test.describe("Popup", () => {
             }
         });
 
-        test("Start from beginning on the next page", async ({ page, extensionId }) => {
+        test("Adjust on list updating", async ({ page, extensionId }) => {
             // Arrange
             const pom = new PopupPage(page, extensionId);
 
             // Act
+            await pom.search("f");
             await pom.down();
-            await pom.right();
+            await pom.press("l");
 
             // Assert
-            await expect(pom.selected).toHaveText("Warp/Google:Keep");
-            await expect(pom.nth(0)).toHaveText("Warp/Google:Keep");
+            await expect(pom.selected).toHaveText("Warp/Chrome:Flags");
+            await expect(pom.nth(0)).toHaveText("Warp/Chrome:Flags");
 
             for (let index = 1; index < 10; index++) {
                 await expect(pom.nth(index)).not.toHaveClass("selected");
-                await expect(pom.nth(index)).not.toHaveText("...");
+                await expect(pom.nth(index)).toHaveText("...");
             }
         });
     });
