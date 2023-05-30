@@ -183,7 +183,7 @@ test.describe("Popup", () => {
             }
         });
 
-        test("Adjust on list updating", async ({ page, extensionId }) => {
+        test("Adjust on real list updating (first item)", async ({ page, extensionId }) => {
             // Arrange
             const pom = new PopupPage(page, extensionId);
 
@@ -199,6 +199,51 @@ test.describe("Popup", () => {
             for (let index = 1; index < 10; index++) {
                 await expect(pom.nth(index)).not.toHaveClass("selected");
                 await expect(pom.nth(index)).toHaveText("...");
+            }
+        });
+
+        test("Adjust on real list update (second item)", async ({ page, extensionId }) => {
+            // Arrange
+            const pom = new PopupPage(page, extensionId);
+
+            // Act
+            await pom.search("g m");
+            await pom.down();
+            await pom.down();
+            await pom.press("a");
+
+            // Assert
+            await expect(pom.selected).toHaveText("Warp/Google:Maps");
+            await expect(pom.nth(1)).toHaveText("Warp/Google:Maps");
+
+            for (let index = 0; index < 10; index++) {
+                if (index === 1) {
+                    continue;
+                }
+
+                await expect(pom.nth(index)).not.toHaveClass("selected");
+            }
+        });
+
+        test("Not adjust on formal list update", async ({ page, extensionId }) => {
+            // Arrange
+            const pom = new PopupPage(page, extensionId);
+
+            // Act
+            await pom.search("g");
+            await pom.down();
+            await pom.press(" ");
+
+            // Assert
+            await expect(pom.selected).toHaveText("Warp/Google:Drive");
+            await expect(pom.nth(1)).toHaveText("Warp/Google:Drive");
+
+            for (let index = 0; index < 10; index++) {
+                if (index === 1) {
+                    continue;
+                }
+
+                await expect(pom.nth(index)).not.toHaveClass("selected");
             }
         });
     });
