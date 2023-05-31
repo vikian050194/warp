@@ -246,6 +246,24 @@ test.describe("Popup", () => {
                 await expect(pom.nth(index)).not.toHaveClass("selected");
             }
         });
+
+        test("First is active after empty list", async ({ page, extensionId }) => {
+            // Arrange
+            const pom = new PopupPage(page, extensionId);
+
+            // Act
+            await pom.search("ggg");
+            await pom.backspace();
+            await pom.backspace();
+            await pom.backspace();
+
+            // Assert
+            await expect(pom.selected).toHaveText("Warp/Chat:Discord");
+
+            for (let index = 1; index < 10; index++) {
+                await expect(pom.nth(index)).not.toHaveClass("selected");
+            }
+        });
     });
 
     test.describe("Actions", () => {

@@ -109,6 +109,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         pages = splitByPages(options, resultsPerPage);
         maxPageIndex = pages.length - 1;
         maxOptionIndex = pages[currentPageIndex].length - 1;
+        if(maxOptionIndex < 0) {
+            maxOptionIndex = 0;
+        }
         if (currentOptionIndex > maxOptionIndex) {
             currentOptionIndex = maxOptionIndex;
         }

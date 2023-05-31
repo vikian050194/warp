@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.3] - 2023-05-31
+
+### Fixed
+
+- active option index after empty list
+
 ## [1.9.2] - 2023-05-30
 
 ### Fixed
@@ -226,7 +232,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.9.2...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.9.3...HEAD
+[1.9.3]: https://github.com/vikian050194/warp/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/vikian050194/warp/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/vikian050194/warp/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/vikian050194/warp/compare/v1.8.0...v1.9.0
