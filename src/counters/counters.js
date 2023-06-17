@@ -34,5 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Local.set(COUNTERS.OPEN_UPDATE, 0);
         await Local.set(COUNTERS.OPEN_CREATE, 0);
+
+        location.reload();
     });
 });

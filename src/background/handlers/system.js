@@ -1,13 +1,12 @@
 import {
-    ui,
     Sync,
     Local,
     OPTIONS,
+    DEFAULTS,
     STORE,
     MENU,
     COUNTERS,
-    SORTING,
-    NEIGHBOUR
+    EXPIRATION
 } from "../../common/index.js";
 import { getBookmarksList } from "../scan.js";
 
@@ -25,41 +24,6 @@ const getRoot = async () => {
 };
 
 const updateDefaultValues = async () => {
-    const customDirectory = await Sync.get(OPTIONS.CUSTOM_DIRECTORY);
-    if (customDirectory === undefined) {
-        await Sync.set(OPTIONS.CUSTOM_DIRECTORY, "Warp");
-    }
-
-    const isCustomDirectory = await Sync.get(OPTIONS.IS_CUSTOM_DIRECTORY);
-    if (isCustomDirectory === undefined) {
-        await Sync.set(OPTIONS.IS_CUSTOM_DIRECTORY, false);
-    }
-
-    const maxCount = await Sync.get(OPTIONS.HISTORY_MAX_COUNT);
-    if (maxCount === undefined) {
-        await Sync.set(OPTIONS.HISTORY_MAX_COUNT, 100000);
-    }
-
-    const expirationTime = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
-    if (expirationTime === undefined) {
-        await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, 31536000);
-    }
-
-    const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
-    if (resultsPerPage === undefined) {
-        await Sync.set(OPTIONS.RESULTS_PER_PAGE, 10);
-    }
-
-    const resultsSorting = await Sync.get(OPTIONS.RESULTS_SORTING);
-    if (resultsSorting === undefined) {
-        await Sync.set(OPTIONS.RESULTS_SORTING, SORTING.FREQUENCY);
-    }
-
-    const resultsLooping = await Sync.get(OPTIONS.RESULTS_LOOPING);
-    if (resultsLooping === undefined) {
-        await Sync.set(OPTIONS.RESULTS_LOOPING, true);
-    }
-
     const history = await Local.get(STORE.HISTORY);
     if (history === undefined) {
         await Local.set(STORE.HISTORY, []);
@@ -72,49 +36,70 @@ const updateDefaultValues = async () => {
         await Local.set(COUNTERS.OPEN_CREATE, 0);
     }
 
+    const customHandledOptions = [
+        "HISTORY_EXPIRATION_TIME",
+        "UI_FONT_SIZE"
+    ];
+
+    for (const key in OPTIONS) {
+        if (customHandledOptions.includes(key)) {
+            continue;
+        }
+
+        const currentValue = await Sync.get(OPTIONS[key]);
+        if (currentValue === undefined) {
+            await Sync.set(OPTIONS[key], DEFAULTS[OPTIONS[key]]);
+        }
+    }
+
+    const expirationTime = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
+    if (expirationTime === undefined) {
+        await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, DEFAULTS[OPTIONS.HISTORY_EXPIRATION_TIME]);
+    } else {
+        let newValue = 0;
+        switch (expirationTime) {
+            case 31536000: {
+                newValue = EXPIRATION.D365;
+                break;
+            }
+            case 15552000: {
+                newValue = EXPIRATION.D180;
+                break;
+            }
+            case 7776000: {
+                newValue = EXPIRATION.D90;
+                break;
+            }
+            case 2678400: {
+                newValue = EXPIRATION.D31;
+                break;
+            }
+            case 1209600: {
+                newValue = EXPIRATION.D14;
+                break;
+            }
+            case 604800: {
+                newValue = EXPIRATION.D7;
+                break;
+            }
+            case 86400: {
+                newValue = EXPIRATION.D1;
+                break;
+            }
+        }
+        if (newValue !== 0) {
+            await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, newValue);
+        }
+    }
+
     const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
     if (fontSize === undefined) {
-        await Sync.set(OPTIONS.UI_FONT_SIZE, ui.defaultSize);
-    }
-
-    const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
-    if (color === undefined) {
-        await Sync.set(OPTIONS.UI_SELECTED_ITEM_COLOR, ui.defaultColor.value);
-    }
-
-    const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
-    if (weight === undefined) {
-        await Sync.set(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT, ui.defaultWeight);
-    }
-
-    const arrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
-    if (arrow === undefined) {
-        await Sync.set(OPTIONS.UI_SELECTED_ITEM_ARROW, true);
-    }
-
-    const group = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
-    if (group === undefined) {
-        await Sync.set(OPTIONS.NEW_TAB_KEEP_GROUP, true);
-    }
-
-    const onShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
-    if (onShift === undefined) {
-        await Sync.set(OPTIONS.NEW_TAB_ON_SHIFT, true);
-    }
-
-    const neighbour = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
-    if (neighbour === undefined) {
-        await Sync.set(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR, NEIGHBOUR.ALWAYS);
-    }
-
-    const isAutocloseEnabled = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
-    if (isAutocloseEnabled === undefined) {
-        await Sync.set(OPTIONS.IS_AUTOCLOSE_ENABLED, true);
-    }
-
-    const autocloseTime = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
-    if (autocloseTime === undefined) {
-        await Sync.set(OPTIONS.AUTOCLOSE_TIME, 5);
+        await Sync.set(OPTIONS.UI_FONT_SIZE, DEFAULTS[OPTIONS.UI_FONT_SIZE]);
+    } else {
+        if (fontSize.includes("px")) {
+            const newValue = parseInt(fontSize.replace("px", ""));
+            await Sync.set(OPTIONS.UI_FONT_SIZE, newValue);
+        }
     }
 };
 

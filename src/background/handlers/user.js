@@ -30,7 +30,8 @@ const filterHistory = async () => {
 
     const expirationTime = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
     let timeThreshold = new Date();
-    timeThreshold = new Date(timeThreshold.getTime() - expirationTime * 1000);
+    const msInDay = 24 * 60 * 60 * 1000;
+    timeThreshold = new Date(timeThreshold.getTime() - expirationTime * msInDay);
     const filteredByTime = filterHistoryByTime(filteredByCount, timeThreshold);
 
     await Local.set(STORE.HISTORY, filteredByTime);

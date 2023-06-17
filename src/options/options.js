@@ -1,15 +1,54 @@
 import {
-    ui,
     dom,
     Sync,
     send,
     OPTIONS,
     SORTING,
-    NEIGHBOUR
+    NEIGHBOUR,
+    FONTS,
+    WEIGHTS,
+    COLORS,
+    AUTOCLOSE,
+    EXPIRATION,
+    PAGE
 } from "../common/index.js";
+import { descriptions } from "./description.js";
+import { getTranslation } from "./translation.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const $rootElement = document.documentElement;
+    const $modal = document.getElementById("modal-one");
+
+    const icon = "{ &#8505; }";
+
+    const openModal = (optionid) => {
+        const description = descriptions.find(({ id }) => id === optionid);
+        $modal.querySelector("h1").innerHTML = description.title;
+        $modal.querySelector("div.description").innerHTML = description.paragraphs.map(p => `<p>${p}</p>`).join("");
+        $modal.classList.add("open");
+        const exits = $modal.querySelectorAll(".modal-exit");
+        exits.forEach(function (exit) {
+            exit.addEventListener("click", function (event) {
+                event.preventDefault();
+                $modal.classList.remove("open");
+            });
+        });
+    };
+
+    document.querySelectorAll("span.title").forEach(function (element) {
+        const optionId = element.getAttribute("data-info-id");
+        const description = descriptions.find(({ id }) => id === optionId);
+        element.innerHTML = description.title;
+    });
+
+    document.querySelectorAll("span.info").forEach(function (trigger) {
+        trigger.innerHTML = icon;
+        trigger.addEventListener("click", function (event) {
+            event.preventDefault();
+            const optionId = event.target.getAttribute("data-info-id");
+            openModal(optionId);
+        });
+    });
 
     const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
     $rootElement.style.setProperty("--new", color);
@@ -56,18 +95,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     $maxCount.value = await Sync.get(OPTIONS.HISTORY_MAX_COUNT);
 
     const $expirationTime = document.getElementById(OPTIONS.HISTORY_EXPIRATION_TIME);
+    for (const value of EXPIRATION.ORDERED) {
+        $expirationTime.append(
+            makeOption({ text: value, value }),
+        );
+    }
     $expirationTime.value = await Sync.get(OPTIONS.HISTORY_EXPIRATION_TIME);
 
     // Results
     const $resultsPerPage = document.getElementById(OPTIONS.RESULTS_PER_PAGE);
+    for (const value of PAGE.ORDERED) {
+        $resultsPerPage.append(
+            makeOption({ text: value, value }),
+        );
+    }
     $resultsPerPage.value = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
 
     const $resultsSorting = document.getElementById(OPTIONS.RESULTS_SORTING);
     $resultsSorting.append(
-        makeOption({ text: "as is", value: SORTING.AS_IS }),
-        makeOption({ text: "alphabet", value: SORTING.ALPHABET }),
-        makeOption({ text: "frequency", value: SORTING.FREQUENCY }),
-        makeOption({ text: "history", value: SORTING.HISTORY })
+        makeOption({ text: getTranslation(SORTING.AS_IS), value: SORTING.AS_IS }),
+        makeOption({ text: getTranslation(SORTING.ALPHABET), value: SORTING.ALPHABET }),
+        makeOption({ text: getTranslation(SORTING.FREQUENCY), value: SORTING.FREQUENCY }),
+        makeOption({ text: getTranslation(SORTING.HISTORY), value: SORTING.HISTORY })
     );
     $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
 
@@ -76,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Appearance
     const $fontSize = document.getElementById(OPTIONS.UI_FONT_SIZE);
-    for (const value of ui.sizes) {
+    for (const value of FONTS.ORDERED) {
         $fontSize.append(
             makeOption({ text: value, value }),
         );
@@ -84,15 +133,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     $fontSize.value = await Sync.get(OPTIONS.UI_FONT_SIZE);
 
     const $selectedItemColor = document.getElementById(OPTIONS.UI_SELECTED_ITEM_COLOR);
-    for (const { value, name } of ui.colors) {
+    for (const value of COLORS.ORDERED) {
         $selectedItemColor.append(
-            makeOption({ text: name, value }),
+            makeOption({ text: getTranslation(value), value }),
         );
     }
     $selectedItemColor.value = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
 
     const $selectedItemFontWeight = document.getElementById(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
-    for (const value of ui.weights) {
+    for (const value of WEIGHTS.ORDERED) {
         $selectedItemFontWeight.append(
             makeOption({ text: value, value }),
         );
@@ -110,10 +159,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const $keepTogether = document.getElementById(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
     $keepTogether.append(
-        makeOption({ text: "never", value: NEIGHBOUR.NEVER }),
-        makeOption({ text: "only in group", value: NEIGHBOUR.ONLY_IN_GROUP }),
-        makeOption({ text: "only without group", value: NEIGHBOUR.ONLY_WITHOUT_GROUP }),
-        makeOption({ text: "always", value: NEIGHBOUR.ALWAYS })
+        makeOption({ text: getTranslation(NEIGHBOUR.NEVER), value: NEIGHBOUR.NEVER }),
+        makeOption({ text: getTranslation(NEIGHBOUR.ONLY_IN_GROUP), value: NEIGHBOUR.ONLY_IN_GROUP }),
+        makeOption({ text: getTranslation(NEIGHBOUR.ONLY_WITHOUT_GROUP), value: NEIGHBOUR.ONLY_WITHOUT_GROUP }),
+        makeOption({ text: getTranslation(NEIGHBOUR.ALWAYS), value: NEIGHBOUR.ALWAYS })
     );
     $keepTogether.value = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
 
@@ -122,6 +171,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     $isAutocloseEnabled.checked = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
 
     const $autocloseTimeSec = document.getElementById(OPTIONS.AUTOCLOSE_TIME);
+    for (const value of AUTOCLOSE.ORDERED) {
+        $autocloseTimeSec.append(
+            makeOption({ text: value, value }),
+        );
+    }
     $autocloseTimeSec.value = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
 
     // Save

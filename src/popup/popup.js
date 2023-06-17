@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $rootElement.style.setProperty("--selected-item-color", color);
     $rootElement.style.setProperty("--selected-item-font-weight", weight);
-    $rootElement.style.setProperty("--font-size", fontSize);
+    $rootElement.style.setProperty("--font-size", `${fontSize}px`);
 
     // Render
     const render = () => {
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         pages = splitByPages(options, resultsPerPage);
         maxPageIndex = pages.length - 1;
         maxOptionIndex = pages[currentPageIndex].length - 1;
-        if(maxOptionIndex < 0) {
+        if (maxOptionIndex < 0) {
             maxOptionIndex = 0;
         }
         if (currentOptionIndex > maxOptionIndex) {

@@ -1,4 +1,5 @@
 @import "../common.css";
+@import "modal.css";
 
 .new {
     color: var(--new);
@@ -20,4 +21,13 @@
     100% {
         opacity: 0;
     }
+}
+
+.info {
+    /* cursor: help; */
+    cursor: pointer;
+}
+
+.modal-container {
+    border: 1px dotted gray;
 }

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2023-06-07
+
+### Added
+
+- full options description available in modal popup box
+- automatic page reload on counters reset
+
+### Changed
+
+- font size options without "px"
+- history expiration time options without "day(s)"
+
+### Removed
+
+- short inline description of options
+
 ## [1.9.3] - 2023-05-31
 
 ### Fixed
@@ -232,7 +248,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.9.3...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/vikian050194/warp/compare/v1.9.3...v1.10.0
 [1.9.3]: https://github.com/vikian050194/warp/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/vikian050194/warp/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/vikian050194/warp/compare/v1.9.0...v1.9.1

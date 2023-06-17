@@ -1,12 +1,12 @@
-import { test, expect } from "./fixtures.js";
+import { test, expect, timeout } from "../fixtures.js";
 import {
     CountersPage,
     PopupPage
-} from "./pom/index.js";
+} from "../pom/index.js";
 
 test.describe("Counters", () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(timeout * 2);
 
         const pom = new CountersPage(page, extensionId);
         await pom.goto();
@@ -134,6 +134,41 @@ test.describe("Counters", () => {
             await pom.total(1);
             await pom.update(0, 0.00);
             await pom.create(1, 100.00);
+        });
+
+        test("Reset", async ({ page, extensionId, context }) => {
+            // Arrange
+            const popup = new PopupPage(page, extensionId);
+
+            // Act
+            page = await context.newPage();
+            popup.page = page;
+            await popup.goto();
+            await popup.search("extensions");
+            await popup.shiftEnter();
+
+            page = await context.newPage();
+            popup.page = page;
+            await popup.goto();
+            await popup.search("extensions");
+            await popup.enter();
+
+            page = await context.newPage();
+            popup.page = page;
+            await popup.goto();
+            await popup.search("extensions");
+            await popup.shiftEnter();
+
+            page = await context.newPage();
+            const pom = new CountersPage(page, extensionId);
+            await pom.goto();
+            await pom.reset();
+
+            // Assert
+            await pom.since();
+            await pom.total(0);
+            await pom.update(0, 0.00);
+            await pom.create(0, 0.00);
         });
     });
 });

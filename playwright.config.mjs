@@ -4,7 +4,7 @@
 const config = {
     testDir: "e2e",
     testMatch: /.*-tests\.js/,
-    workers: 1,
+    workers: 4,
     retries: 0,
     fullyParallel: false,
     use: {
@@ -12,6 +12,9 @@ const config = {
         browserName: "chromium",
         headless: false,
         screenshot: "only-on-failure"
+    },
+    expect: {
+        timeout: 1000
     }
 };
 
