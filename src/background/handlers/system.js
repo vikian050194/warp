@@ -37,8 +37,7 @@ const updateDefaultValues = async () => {
     }
 
     const customHandledOptions = [
-        "HISTORY_EXPIRATION_TIME",
-        "UI_FONT_SIZE"
+        "HISTORY_EXPIRATION_TIME"
     ];
 
     for (const key in OPTIONS) {
@@ -89,16 +88,6 @@ const updateDefaultValues = async () => {
         }
         if (newValue !== 0) {
             await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, newValue);
-        }
-    }
-
-    const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
-    if (fontSize === undefined) {
-        await Sync.set(OPTIONS.UI_FONT_SIZE, DEFAULTS[OPTIONS.UI_FONT_SIZE]);
-    } else {
-        if (fontSize.includes("px")) {
-            const newValue = parseInt(fontSize.replace("px", ""));
-            await Sync.set(OPTIONS.UI_FONT_SIZE, newValue);
         }
     }
 };
