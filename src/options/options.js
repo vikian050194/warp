@@ -112,12 +112,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     $resultsPerPage.value = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
 
     const $resultsSorting = document.getElementById(OPTIONS.RESULTS_SORTING);
-    $resultsSorting.append(
-        makeOption({ text: getTranslation(SORTING.AS_IS), value: SORTING.AS_IS }),
-        makeOption({ text: getTranslation(SORTING.ALPHABET), value: SORTING.ALPHABET }),
-        makeOption({ text: getTranslation(SORTING.FREQUENCY), value: SORTING.FREQUENCY }),
-        makeOption({ text: getTranslation(SORTING.HISTORY), value: SORTING.HISTORY })
-    );
+    for (const value of SORTING.ORDERED) {
+        $resultsSorting.append(
+            makeOption({ text: getTranslation(value), value }),
+        );
+    }
     $resultsSorting.value = await Sync.get(OPTIONS.RESULTS_SORTING);
 
     const $resultsLooping = document.getElementById(OPTIONS.RESULTS_LOOPING);
@@ -158,12 +157,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     $newTabKeepGroup.checked = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
 
     const $keepTogether = document.getElementById(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
-    $keepTogether.append(
-        makeOption({ text: getTranslation(NEIGHBOUR.NEVER), value: NEIGHBOUR.NEVER }),
-        makeOption({ text: getTranslation(NEIGHBOUR.ONLY_IN_GROUP), value: NEIGHBOUR.ONLY_IN_GROUP }),
-        makeOption({ text: getTranslation(NEIGHBOUR.ONLY_WITHOUT_GROUP), value: NEIGHBOUR.ONLY_WITHOUT_GROUP }),
-        makeOption({ text: getTranslation(NEIGHBOUR.ALWAYS), value: NEIGHBOUR.ALWAYS })
-    );
+    for (const value of NEIGHBOUR.ORDERED) {
+        $keepTogether.append(
+            makeOption({ text: getTranslation(value), value }),
+        );
+    }
     $keepTogether.value = await Sync.get(OPTIONS.NEW_TAB_KEEP_NEIGHBOUR);
 
     // Autoclose
@@ -173,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $autocloseTimeSec = document.getElementById(OPTIONS.AUTOCLOSE_TIME);
     for (const value of AUTOCLOSE.ORDERED) {
         $autocloseTimeSec.append(
-            makeOption({ text: value, value }),
+            makeOption({ text: value.toString(), value }),
         );
     }
     $autocloseTimeSec.value = await Sync.get(OPTIONS.AUTOCLOSE_TIME);

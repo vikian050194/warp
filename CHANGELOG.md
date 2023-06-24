@@ -7,66 +7,72 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.2] - 2023-06-24
+
+### Fixed
+
+- Show value of 0 seconds autoclose time
+
 ## [1.10.1] - 2023-06-20
 
 ### Fixed
 
-- do not try to adjust autoclose time on version update
+- Do not try to adjust autoclose time on version update
 
 ## [1.10.0] - 2023-06-17
 
 ### Added
 
-- full options description available in modal popup box
-- automatic page reload on counters reset
+- Full options description available in modal popup box
+- Automatic page reload on counters reset
 
 ### Changed
 
-- font size options without "px"
-- history expiration time options without "day(s)"
+- Font size options without "px"
+- History expiration time options without "day(s)"
 
 ### Removed
 
-- short inline description of options
+- Short inline description of options
 
 ## [1.9.3] - 2023-05-31
 
 ### Fixed
 
-- active option index after empty list
+- Active option index after empty list
 
 ## [1.9.2] - 2023-05-30
 
 ### Fixed
 
-- adjust active option on list update
+- Adjust active option on list update
 
 ## [1.9.1] - 2023-05-30
 
 ### Fixed
 
-- reset active option on list update
+- Reset active option on list update
 
 ## [1.9.0] - 2023-05-27
 
 ### Changed
 
-- popup query has not placeholder but has blinking cursor
+- Popup query has not placeholder but has blinking cursor
 
 ## [1.8.0] - 2023-05-17
 
 ### Added
 
-- reload page on history and frequency reset
-- history and frequency pages shows "no data" message
-- history expiration 90 days and 180 days options
+- Reload page on history and frequency reset
+- History and frequency pages shows "no data" message
+- History expiration 90 days and 180 days options
 
 ### Changed
 
-- new options marked as "new"
+- New options marked as "new"
 - "back" and "next" pager signs are colored if action available
-- popup query placeholder is "start typing"
-- history items max count step is one
+- Popup query placeholder is "start typing"
+- History items max count step is one
 
 ## [1.7.0] - 2023-03-05
 
@@ -254,7 +260,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.10.1...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.10.2...HEAD
+[1.10.2]: https://github.com/vikian050194/warp/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/vikian050194/warp/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/vikian050194/warp/compare/v1.9.3...v1.10.0
 [1.9.3]: https://github.com/vikian050194/warp/compare/v1.9.2...v1.9.3
