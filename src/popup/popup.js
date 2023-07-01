@@ -121,6 +121,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     render();
 
     document.addEventListener("keydown", async ({ key, shiftKey, ctrlKey }) => {
+        resetAutoclose();
+
         switch (key) {
             case "Enter": {
                 const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -135,7 +137,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 break;
             }
             case "ArrowUp":
-                resetAutoclose();
                 if (resultsLooping) {
                     currentOptionIndex = currentOptionIndex > 0 ? currentOptionIndex - 1 : maxOptionIndex;
                 } else {
@@ -144,7 +145,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 render();
                 break;
             case "ArrowDown":
-                resetAutoclose();
                 if (resultsLooping) {
                     currentOptionIndex = currentOptionIndex < maxOptionIndex ? currentOptionIndex + 1 : 0;
                 } else {
@@ -153,21 +153,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 render();
                 break;
             case "ArrowRight":
-                resetAutoclose();
                 currentOptionIndex = 0;
                 currentPageIndex += currentPageIndex < maxPageIndex ? 1 : 0;
                 maxOptionIndex = pages[currentPageIndex].length - 1;
                 render();
                 break;
             case "ArrowLeft":
-                resetAutoclose();
                 currentOptionIndex = 0;
                 currentPageIndex -= currentPageIndex > 0 ? 1 : 0;
                 maxOptionIndex = pages[currentPageIndex].length - 1;
                 render();
                 break;
             default: {
-                resetAutoclose();
                 if (key.length == 1) {
                     query += key;
                 } else {

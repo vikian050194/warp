@@ -9,32 +9,36 @@ test.describe("Tabs", () => {
         await pom.goto();
     });
 
+    const COUNT = 6;
+
     test("Pins", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
+        let index = 1;
 
         // Assert
-        await expect(pom.getPin(1)).toHaveText("Bookmarks");
-        await expect(pom.getPin(2)).toHaveText("History");
-        await expect(pom.getPin(3)).toHaveText("Results");
-        await expect(pom.getPin(4)).toHaveText("Appearance");
-        await expect(pom.getPin(5)).toHaveText("Tabs");
-        await expect(pom.getPin(6)).toHaveText("Autoclose");
+        await expect(pom.getPin(index++)).toHaveText("Bookmarks");
+        await expect(pom.getPin(index++)).toHaveText("History");
+        await expect(pom.getPin(index++)).toHaveText("Results");
+        await expect(pom.getPin(index++)).toHaveText("Appearance");
+        await expect(pom.getPin(index++)).toHaveText("Tabs");
+        await expect(pom.getPin(index++)).toHaveText("Autoclose");
     });
 
     test("Tabs", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
+        let index = 1;
 
         // Assert
-        await expect(pom.getTab(1).locator("h2")).toHaveText("Bookmarks");
-        await expect(pom.getTab(2).locator("h2")).toHaveText("History");
-        await expect(pom.getTab(3).locator("h2")).toHaveText("Results");
-        await expect(pom.getTab(4).locator("h2")).toHaveText("Appearance");
-        await expect(pom.getTab(5).locator("h2")).toHaveText("Tabs");
-        await expect(pom.getTab(6).locator("h2")).toHaveText("Autoclose");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Bookmarks");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("History");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Results");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Appearance");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Tabs");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Autoclose");
 
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= COUNT; i++) {
             if (i === 1) {
                 await expect(pom.getTab(i)).toBeVisible();
             } else {
@@ -48,9 +52,9 @@ test.describe("Tabs", () => {
         const pom = new OptionsPage(page);
 
         // Assert
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= COUNT; i++) {
             await pom.getPin(i).click();
-            for (let j = 1; j <= 6; j++) {
+            for (let j = 1; j <= COUNT; j++) {
                 if (i === j) {
                     await expect(pom.getTab(j)).toBeVisible();
                 } else {
@@ -65,7 +69,7 @@ test.describe("Tabs", () => {
         const pom = new OptionsPage(page);
 
         // Assert
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= COUNT; i++) {
             await pom.getPin(i).click();
 
             const titles = await pom.getTab(i).locator("span.title").allInnerTexts();
@@ -88,7 +92,7 @@ test.describe("Tabs", () => {
         await modal.hidden();
 
         // Assert
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= COUNT; i++) {
             await pom.getPin(i).click();
 
             const icons = await pom.getTab(i).locator("span.info").all();
