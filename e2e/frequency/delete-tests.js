@@ -1,15 +1,15 @@
 import { test, timeout } from "../fixtures.js";
 import {
-    HistoryPage,
+    FrequencyPage,
     PopupPage,
     BookmarksPage
 } from "../pom/index.js";
 
-test.describe("Values", () => {
+test.describe("Delete", () => {
     test.beforeEach(async ({ page, extensionId }) => {
         await page.waitForTimeout(timeout * 2);
 
-        const pom = new HistoryPage(page, extensionId);
+        const pom = new FrequencyPage(page, extensionId);
         await pom.goto();
     });
 
@@ -23,14 +23,15 @@ test.describe("Values", () => {
         await popup.enter();
 
         page = await context.newPage();
-        const pom = new HistoryPage(page, extensionId);
+        const pom = new FrequencyPage(page, extensionId);
         await pom.goto();
 
-        // Assert
         const row = await pom.getRowPom(1);
-        await row.isValidIndex(1, 1);
-        await row.isValidDate();
-        await row.isValidName("Warp:Example Domain");
+        row.delete.click();
+
+        // Assert
+        await pom.empty();
+        await pom.isMessageVisible(true);
     });
 
     test("Two and one", async ({ page, extensionId, context }) => {
@@ -55,24 +56,17 @@ test.describe("Values", () => {
         await popup.enter();
 
         page = await context.newPage();
-        const pom = new HistoryPage(page, extensionId);
+        const pom = new FrequencyPage(page, extensionId);
         await pom.goto();
+
+        const row = await pom.getRowPom(1);
+        row.delete.click();
 
         // Assert
         const row1 = await pom.getRowPom(1);
-        await row1.isValidIndex(3, 1);
-        await row1.isValidDate();
-        await row1.isValidName("Warp:Example Domain");
-
-        const row2 = await pom.getRowPom(2);
-        await row2.isValidIndex(3, 2);
-        await row2.isValidDate();
-        await row2.isValidName("Warp/Chrome:Extensions");
-
-        const row3 = await pom.getRowPom(3);
-        await row3.isValidIndex(3, 3);
-        await row3.isValidDate();
-        await row3.isValidName("Warp:Example Domain");
+        await row1.isValidIndex(1);
+        await row1.isValidCount(1);
+        await row1.isValidName("Warp/Chrome:Extensions");
     });
 
     test("Removed bookmark", async ({ page, extensionId, context }) => {
@@ -105,23 +99,16 @@ test.describe("Values", () => {
         await page.waitForTimeout(timeout);
 
         page = await context.newPage();
-        const pom = new HistoryPage(page, extensionId);
+        const pom = new FrequencyPage(page, extensionId);
         await pom.goto();
+
+        const row = await pom.getRowPom(1);
+        row.delete.click();
 
         // Assert
         const row1 = await pom.getRowPom(1);
-        await row1.isValidIndex(3, 1);
-        await row1.isValidDate();
-        await row1.isValidName("<NOT FOUND BOOKMARK #43>");
-
-        const row2 = await pom.getRowPom(2);
-        await row2.isValidIndex(3, 2);
-        await row2.isValidDate();
-        await row2.isValidName("Warp/Chrome:Extensions");
-
-        const row3 = await pom.getRowPom(3);
-        await row3.isValidIndex(3, 3);
-        await row3.isValidDate();
-        await row3.isValidName("<NOT FOUND BOOKMARK #43>");
+        await row1.isValidIndex(1);
+        await row1.isValidCount(1);
+        await row1.isValidName("Warp/Chrome:Extensions");
     });
 });

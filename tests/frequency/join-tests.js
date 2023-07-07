@@ -41,7 +41,7 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 1, "title1")
+            new FreakItemView(1, 1, 1, "title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -64,9 +64,9 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 3, "title1"),
-            new FreakItemView(2, 1, "title2"),
-            new FreakItemView(3, 1, "title3")
+            new FreakItemView(1, 1, 3, "title1"),
+            new FreakItemView(2, 2, 1, "title2"),
+            new FreakItemView(3, 3, 1, "title3")
         ];
 
         const actual = join(history, bookmarks);
@@ -84,8 +84,8 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 1, "title1"),
-            new FreakItemView(2, 1, "<NOT FOUND BOOKMARK #2>")
+            new FreakItemView(1, 1, 1, "title1"),
+            new FreakItemView(2, 2, 1, "<NOT FOUND BOOKMARK #2>")
         ];
 
         const actual = join(history, bookmarks);
@@ -102,7 +102,7 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 1, "dir1:title1")
+            new FreakItemView(1, 1, 1, "dir1:title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -119,7 +119,7 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 1, "dir1/dir2:title1")
+            new FreakItemView(1, 1, 1, "dir1/dir2:title1")
         ];
 
         const actual = join(history, bookmarks);

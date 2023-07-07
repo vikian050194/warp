@@ -32,12 +32,12 @@ export const join = (history, bookmarks) => {
     return frequency.map((element, index) => {
         const bookmark = bookmarks.find(({ id }) => id === element.id);
 
-        if(bookmark === undefined){
-            return new FreakItemView(index + 1, element.count, `<NOT FOUND BOOKMARK #${element.id}>`);
+        if (bookmark === undefined) {
+            return new FreakItemView(element.id, index + 1, element.count, `<NOT FOUND BOOKMARK #${element.id}>`);
         }
 
         const dirs = bookmark.dirs && bookmark.dirs.length !== 0 ? (bookmark.dirs.join("/") + ":") : "";
         const name = `${dirs}${bookmark.title}`;
-        return new FreakItemView(index +1, element.count, name);
+        return new FreakItemView(element.id, index + 1, element.count, name);
     });
 };

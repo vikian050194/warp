@@ -5,8 +5,9 @@ export class FreakItem {
     }
 }
 
-export class FreakItemView{
-    constructor(index, count, name){
+export class FreakItemView {
+    constructor(id, index, count, name) {
+        this.id = id;
         this.index = index;
         this.count = count;
         this.name = name;

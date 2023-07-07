@@ -15,19 +15,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $root = document.getElementById("root");
 
     // Table
-    const descriptions = await getFreakViews();
+    const data = await getFreakViews();
+
+    const onDelete = async (id) => {
+        const history = await Local.get(STORE.HISTORY);
+        const remainingHistory = history.filter(r => r.id !== id);
+        await Local.set(STORE.HISTORY, remainingHistory);
+        location.reload();
+    };
 
     const columns = [
-        new dom.Column("index", "#"),
-        new dom.Column("count", "count"),
-        new dom.Column("name", "full name")
+        new dom.DataColumn("#", "index", false),
+        new dom.DataColumn("count", "count", false),
+        new dom.DataColumn("full name", "name", false),
+        new dom.ActionColumn("delete", "X", onDelete)
     ];
 
-    const $table = dom.makeTable(columns, descriptions);
+    const $table = dom.makeTable(columns, data);
     $root.append($table);
 
     // No data
-    if (descriptions.length === 0) {
+    if (data.length === 0) {
         $root.append(dom.makeElement("div", { text: "There is no data yet. Use extension at least once to get it!", className: "message" }));
     }
 

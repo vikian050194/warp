@@ -15,6 +15,40 @@ export class BasePOM {
     }
 }
 
+export class TextOption extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.locator = page;
+    }
+
+    async hasValue(value) {
+        await this.expect(this.locator).toContainText(value);
+    }
+}
+
+export class ButtonAction extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.locator = page.locator("input");
+    }
+
+    async click() {
+        await this.locator.click();
+    }
+
+    async hasValue(value) {
+        await this.expect(this.locator).toHaveValue(value);
+    }
+}
+
 export class BasePage extends BasePOM {
     /**
      * @param {import('@playwright/test').Page} page

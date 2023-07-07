@@ -6,7 +6,8 @@ export class HistoryItem {
 }
 
 export class HistoryItemView {
-    constructor(index, date, name) {
+    constructor(id, index, date, name) {
+        this.id = id;
         this.index = index;
         this.date = date;
         this.name = name;

@@ -27,7 +27,10 @@ test.describe("Values", () => {
         await pom.goto();
 
         // Assert
-        await pom.row(1, 1, "Warp:Example Domain");
+        const row = await pom.getRowPom(1);
+        await row.isValidIndex(1);
+        await row.isValidCount(1);
+        await row.isValidName("Warp:Example Domain");
     });
 
     test("Two and one", async ({ page, extensionId, context }) => {
@@ -56,8 +59,15 @@ test.describe("Values", () => {
         await pom.goto();
 
         // Assert
-        await pom.row(1, 2, "Warp:Example Domain");
-        await pom.row(2, 1, "Warp/Chrome:Extensions");
+        const row1 = await pom.getRowPom(1);
+        await row1.isValidIndex(2);
+        await row1.isValidCount(2);
+        await row1.isValidName("Warp:Example Domain");
+
+        const row2 = await pom.getRowPom(2);
+        await row2.isValidIndex(1);
+        await row2.isValidCount(1);
+        await row2.isValidName("Warp/Chrome:Extensions");
     });
 
     test("Removed bookmark", async ({ page, extensionId, context }) => {
@@ -94,7 +104,14 @@ test.describe("Values", () => {
         await pom.goto();
 
         // Assert
-        await pom.row(1, 2, "<NOT FOUND BOOKMARK #43>");
-        await pom.row(2, 1, "Warp/Chrome:Extensions");
+        const row1 = await pom.getRowPom(1);
+        await row1.isValidIndex(2);
+        await row1.isValidCount(2);
+        await row1.isValidName("<NOT FOUND BOOKMARK #43>");
+
+        const row2 = await pom.getRowPom(2);
+        await row2.isValidIndex(1);
+        await row2.isValidCount(1);
+        await row2.isValidName("Warp/Chrome:Extensions");
     });
 });

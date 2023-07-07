@@ -1,4 +1,30 @@
-import { BasePage } from "./base.js";
+import { BasePage, BasePOM, TextOption, ButtonAction } from "./base.js";
+
+class FrequencyRow extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.index = new TextOption(page.locator("td").nth(0));
+        this.count = new TextOption(page.locator("td").nth(1));
+        this.name = new TextOption(page.locator("td").nth(2));
+        this.delete = new ButtonAction(page.locator("td").nth(3));
+    }
+
+    async isValidIndex(expected) {
+        await this.count.hasValue(`${expected}`);
+    }
+
+    async isValidCount(expected) {
+        await this.count.hasValue(`${expected}`);
+    }
+
+    async isValidName(expected) {
+        await this.name.hasValue(expected);
+    }
+}
 
 export class FrequencyPage extends BasePage {
 
@@ -25,9 +51,10 @@ export class FrequencyPage extends BasePage {
         await this.expect(row).toHaveCount(0);
     }
 
-    async row(index, count, name) {
+    getRowPom(index) {
         const row = this.page.locator("tr").nth(index);
-        await this.expect(row).toHaveText(`${index}${count}${name}`);
+        const rowPom = new FrequencyRow(row);
+        return rowPom;
     }
 
     async isMessageVisible(visible = true) {
