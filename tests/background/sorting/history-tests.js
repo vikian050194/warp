@@ -5,7 +5,7 @@ import {
 } from "../../../src/background/sorting/history.js";
 import {
     BookmarkModel,
-    HistoryItem
+    HistoryModel
 } from "../../../src/common/index.js";
 
 describe("sorting by history", function () {
@@ -75,7 +75,7 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("1")
+            new HistoryModel("1")
         ];
 
         const expected = [
@@ -94,7 +94,7 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("1")
+            new HistoryModel("1")
         ];
 
         const expected = [
@@ -114,7 +114,7 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("2")
+            new HistoryModel("2")
         ];
 
         const expected = [
@@ -135,7 +135,7 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("2")
+            new HistoryModel("2")
         ];
 
         const expected = [
@@ -156,9 +156,9 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("3"),
-            new HistoryItem("2"),
-            new HistoryItem("1")
+            new HistoryModel("3"),
+            new HistoryModel("2"),
+            new HistoryModel("1")
         ];
 
         const expected = [
@@ -179,9 +179,9 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("3"),
-            new HistoryItem("2"),
-            new HistoryItem("1")
+            new HistoryModel("3"),
+            new HistoryModel("2"),
+            new HistoryModel("1")
         ];
 
         const expected = [
@@ -201,11 +201,11 @@ describe("sorting by history", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const history = [
-            new HistoryItem("2"),
-            new HistoryItem("1"),
-            new HistoryItem("2"),
-            new HistoryItem("1"),
-            new HistoryItem("2")
+            new HistoryModel("2"),
+            new HistoryModel("1"),
+            new HistoryModel("2"),
+            new HistoryModel("1"),
+            new HistoryModel("2")
         ];
 
         const expected = [

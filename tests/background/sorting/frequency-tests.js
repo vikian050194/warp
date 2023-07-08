@@ -5,7 +5,7 @@ import {
 } from "../../../src/background/sorting/frequency.js";
 import {
     BookmarkModel,
-    FreakItem
+    FrequencyModel
 } from "../../../src/common/index.js";
 
 describe("sorting by frequency", function () {
@@ -75,7 +75,7 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("1", 1)
+            new FrequencyModel("1", 1)
         ];
 
         const expected = [
@@ -94,7 +94,7 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("1", 1)
+            new FrequencyModel("1", 1)
         ];
 
         const expected = [
@@ -114,7 +114,7 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("2", 2)
+            new FrequencyModel("2", 2)
         ];
 
         const expected = [
@@ -135,7 +135,7 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("2", 2)
+            new FrequencyModel("2", 2)
         ];
 
         const expected = [
@@ -156,9 +156,9 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("3", 3),
-            new FreakItem("2", 2),
-            new FreakItem("1", 1)
+            new FrequencyModel("3", 3),
+            new FrequencyModel("2", 2),
+            new FrequencyModel("1", 1)
         ];
 
         const expected = [
@@ -179,9 +179,9 @@ describe("sorting by frequency", function () {
             new BookmarkModel("2", "url2", "bm2", [])
         ];
         const frequency = [
-            new FreakItem("3", 3),
-            new FreakItem("2", 2),
-            new FreakItem("1", 1)
+            new FrequencyModel("3", 3),
+            new FrequencyModel("2", 2),
+            new FrequencyModel("1", 1)
         ];
 
         const expected = [
@@ -202,9 +202,9 @@ describe("sorting by frequency", function () {
             new BookmarkModel("3", "url3", "bm3", [])
         ];
         const frequency = [
-            new FreakItem("2", 3),
-            new FreakItem("1", 3),
-            new FreakItem("3", 1)
+            new FrequencyModel("2", 3),
+            new FrequencyModel("1", 3),
+            new FrequencyModel("3", 1)
         ];
 
         const expected = [
@@ -225,9 +225,9 @@ describe("sorting by frequency", function () {
             new BookmarkModel("3", "url3", "bm3", [])
         ];
         const frequency = [
-            new FreakItem("2", 3),
-            new FreakItem("1", 3),
-            new FreakItem("3", 1)
+            new FrequencyModel("2", 3),
+            new FrequencyModel("1", 3),
+            new FrequencyModel("3", 1)
         ];
 
         const expected = [

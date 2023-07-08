@@ -3,8 +3,8 @@ import assert from "node:assert";
 import { join } from "../../src/frequency/join.js";
 import {
     BookmarkModel,
-    HistoryItem,
-    FreakItemView
+    HistoryModel,
+    FrequencyView
 } from "../../src/common/index.js";
 
 describe("frequency: join history items and bookmarks", function () {
@@ -34,14 +34,14 @@ describe("frequency: join history items and bookmarks", function () {
 
     it("one history item", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", [])
         ];
 
         const expected = [
-            new FreakItemView(1, 1, 1, "title1")
+            new FrequencyView(1, 1, 1, "title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -51,11 +51,11 @@ describe("frequency: join history items and bookmarks", function () {
 
     it("tree items in reverse order", () => {
         const history = [
-            new HistoryItem("1", "date1"),
-            new HistoryItem("2", "date2"),
-            new HistoryItem("1", "date3"),
-            new HistoryItem("3", "date4"),
-            new HistoryItem("1", "date5")
+            new HistoryModel("1", "date1"),
+            new HistoryModel("2", "date2"),
+            new HistoryModel("1", "date3"),
+            new HistoryModel("3", "date4"),
+            new HistoryModel("1", "date5")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", []),
@@ -64,9 +64,9 @@ describe("frequency: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new FreakItemView(1, 1, 3, "title1"),
-            new FreakItemView(2, 2, 1, "title2"),
-            new FreakItemView(3, 3, 1, "title3")
+            new FrequencyView(1, 1, 3, "title1"),
+            new FrequencyView(2, 2, 1, "title2"),
+            new FrequencyView(3, 3, 1, "title3")
         ];
 
         const actual = join(history, bookmarks);
@@ -76,16 +76,16 @@ describe("frequency: join history items and bookmarks", function () {
 
     it("missed bookmark", () => {
         const history = [
-            new HistoryItem("1", "date1"),
-            new HistoryItem("2", "date2")
+            new HistoryModel("1", "date1"),
+            new HistoryModel("2", "date2")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", [])
         ];
 
         const expected = [
-            new FreakItemView(1, 1, 1, "title1"),
-            new FreakItemView(2, 2, 1, "<NOT FOUND BOOKMARK #2>")
+            new FrequencyView(1, 1, 1, "title1"),
+            new FrequencyView(2, 2, 1, "<NOT FOUND BOOKMARK #2>")
         ];
 
         const actual = join(history, bookmarks);
@@ -95,14 +95,14 @@ describe("frequency: join history items and bookmarks", function () {
 
     it("second level", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", ["dir1"])
         ];
 
         const expected = [
-            new FreakItemView(1, 1, 1, "dir1:title1")
+            new FrequencyView(1, 1, 1, "dir1:title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -112,14 +112,14 @@ describe("frequency: join history items and bookmarks", function () {
 
     it("third level", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", ["dir1", "dir2"])
         ];
 
         const expected = [
-            new FreakItemView(1, 1, 1, "dir1/dir2:title1")
+            new FrequencyView(1, 1, 1, "dir1/dir2:title1")
         ];
 
         const actual = join(history, bookmarks);

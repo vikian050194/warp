@@ -3,8 +3,8 @@ import assert from "node:assert";
 import { join } from "../../src/history/join.js";
 import {
     BookmarkModel,
-    HistoryItem,
-    HistoryItemView
+    HistoryModel,
+    HistoryView
 } from "../../src/common/index.js";
 
 describe("history: join history items and bookmarks", function () {
@@ -34,14 +34,14 @@ describe("history: join history items and bookmarks", function () {
 
     it("one history item", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", [])
         ];
 
         const expected = [
-            new HistoryItemView(0, 1, "date1", "title1")
+            new HistoryView(0, 1, "date1", "title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -51,8 +51,8 @@ describe("history: join history items and bookmarks", function () {
 
     it("two items in reverse order", () => {
         const history = [
-            new HistoryItem("1", "date1"),
-            new HistoryItem("2", "date2")
+            new HistoryModel("1", "date1"),
+            new HistoryModel("2", "date2")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", []),
@@ -60,8 +60,8 @@ describe("history: join history items and bookmarks", function () {
         ];
 
         const expected = [
-            new HistoryItemView(1, 2, "date2", "title2"),
-            new HistoryItemView(0, 1, "date1", "title1")
+            new HistoryView(1, 2, "date2", "title2"),
+            new HistoryView(0, 1, "date1", "title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -71,14 +71,14 @@ describe("history: join history items and bookmarks", function () {
 
     it("bookmark is not found", () => {
         const history = [
-            new HistoryItem("2", "date2")
+            new HistoryModel("2", "date2")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url", "title", [])
         ];
 
         const expected = [
-            new HistoryItemView(0, 1, "date2", "<NOT FOUND BOOKMARK #2>")
+            new HistoryView(0, 1, "date2", "<NOT FOUND BOOKMARK #2>")
         ];
 
         const actual = join(history, bookmarks);
@@ -88,14 +88,14 @@ describe("history: join history items and bookmarks", function () {
 
     it("second level", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", ["dir1"])
         ];
 
         const expected = [
-            new HistoryItemView(0, 1, "date1", "dir1:title1")
+            new HistoryView(0, 1, "date1", "dir1:title1")
         ];
 
         const actual = join(history, bookmarks);
@@ -105,14 +105,14 @@ describe("history: join history items and bookmarks", function () {
 
     it("third level", () => {
         const history = [
-            new HistoryItem("1", "date1")
+            new HistoryModel("1", "date1")
         ];
         const bookmarks = [
             new BookmarkModel("1", "url1", "title1", ["dir1", "dir2"])
         ];
 
         const expected = [
-            new HistoryItemView(0, 1, "date1", "dir1/dir2:title1")
+            new HistoryView(0, 1, "date1", "dir1/dir2:title1")
         ];
 
         const actual = join(history, bookmarks);

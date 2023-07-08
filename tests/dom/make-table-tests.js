@@ -152,6 +152,9 @@ describe("dom: makeTable", function () {
         assert.equal(bodyCell.children.length, 1);
 
         const [bodyCellInput] = bodyCell.children;
+        bodyCellInput.onchange({ target: { checked: false } });
+
+        assert.equal(collection[0].key1, false);
 
         assert.equal(bodyCellInput.tag, "input");
         assert.equal(bodyCellInput.type, "checkbox");
@@ -196,6 +199,9 @@ describe("dom: makeTable", function () {
         assert.equal(bodyCell.children.length, 1);
 
         const [bodyCellText] = bodyCell.children;
+        bodyCellText.onchange({ target: { value: "33" } });
+
+        assert.equal(collection[0].key1, "33");
 
         assert.equal(bodyCellText.tag, "input");
         assert.equal(bodyCellText.type, "text");
