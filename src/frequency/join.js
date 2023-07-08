@@ -1,6 +1,6 @@
 import {
-    FreakItem,
-    FreakItemView
+    FrequencyModel,
+    FrequencyView
 } from "../common/index.js";
 
 export const groupByIdAndOrderDesc = (history) => {
@@ -18,7 +18,7 @@ export const groupByIdAndOrderDesc = (history) => {
     for (const id in frequency) {
         if (Object.hasOwnProperty.call(frequency, id)) {
             const count = frequency[id];
-            orderedFrequency.push(new FreakItem(id, count));
+            orderedFrequency.push(new FrequencyModel(id, count));
         }
     }
 
@@ -33,11 +33,11 @@ export const join = (history, bookmarks) => {
         const bookmark = bookmarks.find(({ id }) => id === element.id);
 
         if (bookmark === undefined) {
-            return new FreakItemView(element.id, index + 1, element.count, `<NOT FOUND BOOKMARK #${element.id}>`);
+            return new FrequencyView(element.id, index + 1, element.count, `<NOT FOUND BOOKMARK #${element.id}>`);
         }
 
         const dirs = bookmark.dirs && bookmark.dirs.length !== 0 ? (bookmark.dirs.join("/") + ":") : "";
         const name = `${dirs}${bookmark.title}`;
-        return new FreakItemView(element.id, index + 1, element.count, name);
+        return new FrequencyView(element.id, index + 1, element.count, name);
     });
 };

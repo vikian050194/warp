@@ -3,7 +3,7 @@ import {
     Local,
     OPTIONS,
     STORE,
-    HistoryItem,
+    HistoryModel,
     SORTING,
     COUNTERS,
     NEIGHBOUR
@@ -105,7 +105,7 @@ export const onCall = async (data) => {
     }
 
     const now = new Date().toISOString();
-    const newItem = new HistoryItem(data.bookmarkId, now);
+    const newItem = new HistoryModel(data.bookmarkId, now);
     const history = await Local.get(STORE.HISTORY);
     history.push(newItem);
     await Local.set(STORE.HISTORY, history);
