@@ -22,6 +22,12 @@ body {
     }
 }
 
+.option {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .selected {
     color: var(--selected-item-color);
     font-weight: var(--selected-item-font-weight);

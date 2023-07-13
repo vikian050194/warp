@@ -36,6 +36,13 @@ describe("dom: makeElement", function () {
         assert.equal(actual.className, "456");
     });
 
+    it("div with classList", () => {
+        const actual = dom.makeElement("div", { classList: ["456", "abc"] });
+
+        assert.equal(actual.tag, "div");
+        assert.equal(actual.className, "456 abc");
+    });
+
     it("div with text", () => {
         const actual = dom.makeElement("div", { text: "789" });
         const [child] = actual.children;

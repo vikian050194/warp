@@ -32,10 +32,27 @@ describe("dom: makeElementCreator", function () {
             text: "789"
         });
         const [child] = actual.children;
-        
+
         assert.equal(actual.tag, "div");
         assert.equal(actual.id, "123");
         assert.equal(actual.className, "456");
+        assert.equal(child.tag, "text");
+        assert.equal(child.value, "789");
+    });
+
+    it("div with id, classList and text", () => {
+        const makeDiv = dom.makeElementCreator("div");
+
+        const actual = makeDiv({
+            id: "123",
+            classList: ["456", "abc"],
+            text: "789"
+        });
+        const [child] = actual.children;
+
+        assert.equal(actual.tag, "div");
+        assert.equal(actual.id, "123");
+        assert.equal(actual.className, "456 abc");
         assert.equal(child.tag, "text");
         assert.equal(child.value, "789");
     });

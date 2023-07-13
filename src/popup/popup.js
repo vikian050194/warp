@@ -82,12 +82,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const isSelected = index == currentOptionIndex;
             const titlePrefix = isSelected ? visibleArrow : invisibleArrow;
             const title = titlePrefix + (option.dirs.length ? (option.dirs.join("/") + ":") : "") + option.title;
-            const className = isSelected ? "selected" : null;
-            elements.push(makeDiv({ id: makeId(index), innerHTML: title, className }));
+            const classList = ["option"];
+            if (isSelected) {
+                classList.push("selected");
+            }
+            elements.push(makeDiv({ id: makeId(index), innerHTML: title, classList }));
         }
 
+        const emptyClassList = ["option", "empty"];
         for (let index = pages[currentPageIndex].length; index < resultsPerPage; index++) {
-            elements.push(makeDiv({ id: makeId(index), innerHTML: placeholder, className: "empty" }));
+            elements.push(makeDiv({ id: makeId(index), innerHTML: placeholder, classList: emptyClassList }));
         }
 
         while ($options.firstChild) {

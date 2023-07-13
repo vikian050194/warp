@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.0] - 2023-07-13
+
+### Added
+
+- Truncate options with ellipsis
+
 ## [1.11.0] - 2023-07-07
 
 ### Added
@@ -272,7 +278,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.12.0...HEAD
+[1.12.0]: https://github.com/vikian050194/warp/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/vikian050194/warp/compare/v1.10.3...v1.11.0
 [1.10.3]: https://github.com/vikian050194/warp/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/vikian050194/warp/compare/v1.10.1...v1.10.2
