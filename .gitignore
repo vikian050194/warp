@@ -1,4 +1,5 @@
 *.zip
+src/changelog/changelog.html
 
 # Logs
 logs

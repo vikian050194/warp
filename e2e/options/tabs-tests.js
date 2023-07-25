@@ -2,8 +2,12 @@ import { test, expect, timeout } from "../fixtures.js";
 import { OptionsPage } from "../pom/index.js";
 
 test.describe("Tabs", () => {
-    test.beforeEach(async ({ page, extensionId }) => {
+    test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(timeout * 2);
+
+        // TODO handle changelog automatic opening somehow else
+        await context.pages()[0].close();
+        await context.pages()[1].close();
 
         const pom = new OptionsPage(page, extensionId);
         await pom.goto();

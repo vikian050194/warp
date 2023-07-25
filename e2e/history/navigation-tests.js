@@ -4,8 +4,12 @@ import {
 } from "../pom/index.js";
 
 test.describe("Navigation", () => {
-    test.beforeEach(async ({ page, extensionId }) => {
+    test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(timeout * 2);
+
+        // TODO handle changelog automatic opening somehow else
+        await context.pages()[0].close();
+        await context.pages()[1].close();
 
         const pom = new HistoryPage(page, extensionId);
         await pom.goto();
@@ -61,5 +65,16 @@ test.describe("Navigation", () => {
 
         // Assert
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
+    });
+
+    test("Changelog", async ({ page }) => {
+        // Arrange
+        const link = page.locator("footer > span", { hasText: "changelog" });
+
+        // Act
+        await link.click();
+
+        // Assert
+        await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
     });
 });

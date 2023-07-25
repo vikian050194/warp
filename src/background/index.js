@@ -50,6 +50,11 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
                 url: "counters/counters.html"
             });
             break;
+        case MENU.CHANGELOG:
+            await chrome.tabs.create({
+                url: "changelog/changelog.html"
+            });
+            break;
         default:
             break;
     }

@@ -5,19 +5,15 @@ import {
 } from "../pom/index.js";
 
 test.describe("Counters", () => {
-    test.beforeEach(async ({ page, extensionId }) => {
+    test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(timeout * 2);
+
+        // TODO handle changelog automatic opening somehow else
+        await context.pages()[0].close();
+        await context.pages()[1].close();
 
         const pom = new CountersPage(page, extensionId);
         await pom.goto();
-    });
-
-    test("Header", async ({ page }) => {
-        // Arrange
-        const header = page.locator("h1");
-
-        // Assert
-        await expect(header).toHaveText("Counters");
     });
 
     test("Sections", async ({ page }) => {

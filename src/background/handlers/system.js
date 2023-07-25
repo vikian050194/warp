@@ -92,8 +92,8 @@ const updateDefaultValues = async () => {
     }
 };
 
-const updateMenu = () => {
-    chrome.contextMenus.create({
+const updateMenu = async () => {
+    await chrome.contextMenus.create({
         id: MENU.HISTORY,
         title: "History",
         contexts: ["action"],
@@ -101,7 +101,7 @@ const updateMenu = () => {
         enabled: true
     });
 
-    chrome.contextMenus.create({
+    await chrome.contextMenus.create({
         id: MENU.FREQUENCY,
         title: "Frequency",
         contexts: ["action"],
@@ -109,21 +109,39 @@ const updateMenu = () => {
         enabled: true
     });
 
-    chrome.contextMenus.create({
+    await chrome.contextMenus.create({
         id: MENU.COUNTERS,
         title: "Counters",
         contexts: ["action"],
         type: "normal",
         enabled: true
     });
+
+    await chrome.contextMenus.create({
+        id: MENU.CHANGELOG,
+        title: "Changelog",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
 };
 
-export const onInstall = async () => {
-    updateMenu();
+const showChangelog = async (reason) => {
+    if (reason === "install" || reason === "update") {
+        await chrome.tabs.create({
+            url: `changelog/changelog.html?reason=${reason}`
+        });
+    }
+};
+
+export const onInstall = async ({ reason }) => {
+    await updateMenu();
 
     await updateDefaultValues();
 
     await onUpdate();
+
+    await showChangelog(reason);
 };
 
 export const onUpdate = async () => {

@@ -17,8 +17,12 @@ fi
 
 set -e
 
+source venv/bin/activate
+python mdConverter.py
+
 npm run lint
 npm run test
 npm run test:ui
 
-zip -r "warp-$MANIFEST_VERSION.zip" src
+rm "warp-$MANIFEST_VERSION.zip"
+zip -r "warp-$MANIFEST_VERSION.zip" src -x src/changelog/template.html 

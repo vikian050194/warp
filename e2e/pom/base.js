@@ -59,8 +59,15 @@ export class BasePage extends BasePOM {
         this.extensionId = extensionId;
     }
 
-    async goto(name) {
-        await this.page.goto(`chrome-extension://${this.extensionId}/${name}/${name}.html`);
+    async goto(name, params = {}) {
+        let q = "";
+        for (const key in params) {
+            const value = params[key];
+            if (value !== null) {
+                q += `${key}=${value}`;
+            }
+        }
+        await this.page.goto(`chrome-extension://${this.extensionId}/${name}/${name}.html${q ? "?" + q : ""}`);
     }
 
     async reload() {

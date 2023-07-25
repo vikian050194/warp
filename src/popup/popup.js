@@ -12,14 +12,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isAutocloseEnabled = await Sync.get(OPTIONS.IS_AUTOCLOSE_ENABLED);
     const autocloseTimeSec = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
 
-    const isArrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
-
     const resultsPerPage = await Sync.get(OPTIONS.RESULTS_PER_PAGE);
     const resultsLooping = await Sync.get(OPTIONS.RESULTS_LOOPING);
 
     const color = await Sync.get(OPTIONS.UI_SELECTED_ITEM_COLOR);
     const weight = await Sync.get(OPTIONS.UI_SELECTED_ITEM_FONT_WEIGHT);
     const fontSize = await Sync.get(OPTIONS.UI_FONT_SIZE);
+    const isArrow = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
     const keepGroup = await Sync.get(OPTIONS.NEW_TAB_KEEP_GROUP);
     const newOnShift = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);

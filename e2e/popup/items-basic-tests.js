@@ -8,6 +8,23 @@ test.describe("Items - basic", () => {
     test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(timeout);
 
+        // TODO handle changelog automatic opening somehow else
+        await context.pages()[0].close();
+        await context.pages()[1].close();
+
+        const options = new OptionsPage(page, extensionId);
+        await options.goto();
+
+        await options.getPin(4).click();
+        await options.ui.selectedItemArrow.click();
+        await options.save();
+
+        const pom = new PopupPage(page, extensionId);
+        await pom.goto();
+    });
+
+    test("Arrow is visible", async ({ page, extensionId }) => {
+        // Arrange
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
@@ -18,7 +35,9 @@ test.describe("Items - basic", () => {
         const pom = new PopupPage(page, extensionId);
         await pom.goto();
 
-        await context.pages()[0].close();
+        // Assert
+        await expect(pom.selected).toHaveText("➤Warp/Chat:Discord");
+        await expect(pom.nth(0)).toHaveText("➤Warp/Chat:Discord");
     });
 
     test("Up for down", async ({ page, extensionId }) => {

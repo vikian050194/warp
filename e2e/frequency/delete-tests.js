@@ -6,8 +6,12 @@ import {
 } from "../pom/index.js";
 
 test.describe("Delete", () => {
-    test.beforeEach(async ({ page, extensionId }) => {
+    test.beforeEach(async ({ page, extensionId, context }) => {
         await page.waitForTimeout(timeout * 2);
+
+        // TODO handle changelog automatic opening somehow else
+        await context.pages()[0].close();
+        await context.pages()[1].close();
 
         const pom = new FrequencyPage(page, extensionId);
         await pom.goto();

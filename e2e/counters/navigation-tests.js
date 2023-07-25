@@ -1,5 +1,7 @@
 import { test, expect, timeout } from "../fixtures.js";
-import { OptionsPage } from "../pom/index.js";
+import {
+    CountersPage
+} from "../pom/index.js";
 
 test.describe("Navigation", () => {
     test.beforeEach(async ({ page, extensionId, context }) => {
@@ -9,16 +11,16 @@ test.describe("Navigation", () => {
         await context.pages()[0].close();
         await context.pages()[1].close();
 
-        const pom = new OptionsPage(page, extensionId);
+        const pom = new CountersPage(page, extensionId);
         await pom.goto();
     });
 
     test("Header", async ({ page }) => {
         // Arrange
-        const header = page.locator("header > h1");
+        const header = page.locator("h1");
 
         // Assert
-        await expect(header).toHaveText("Options");
+        await expect(header).toHaveText("Counters");
     });
 
     test("Options", async ({ page }) => {

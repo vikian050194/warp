@@ -1,5 +1,5 @@
 @import "../common.css";
-@import "modal.css";
+@import "../modal.css";
 
 .new {
     color: var(--new);
