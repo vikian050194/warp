@@ -127,6 +127,12 @@ const updateMenu = async () => {
 };
 
 const showChangelog = async (reason) => {
+    const show = await Sync.get(OPTIONS.CHANGELOG_SHOW);
+
+    if (!show) {
+        return;
+    }
+
     if (reason === "install" || reason === "update") {
         await chrome.tabs.create({
             url: `changelog/changelog.html?reason=${reason}`

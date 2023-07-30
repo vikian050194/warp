@@ -1,4 +1,4 @@
-import { test, expect, timeout } from "../fixtures.js";
+import { test, timeout } from "../fixtures.js";
 import { OptionsPage } from "../pom/index.js";
 
 test.describe("Sections", () => {
@@ -17,57 +17,53 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        const isCustomDir = page.locator("#is-custom-directory");
-        await expect(isCustomDir).toBeChecked({ checked: false });
-        const customDir = page.locator("#custom-directory");
-        await expect(customDir).toHaveValue("Warp");
+        await pom.bookmarks.isCustomDir.isChecked(false);
+        await pom.bookmarks.customDir.hasValue("Warp");
 
         // Act
-        await isCustomDir.click();
-
-        await customDir.fill("Hello");
-        await expect(customDir).toHaveValue("Hello");
+        await pom.bookmarks.isCustomDir.click();
+        await pom.bookmarks.customDir.setValue("Hello");
 
         await pom.save();
         await pom.reload();
 
         // Assert
-        await expect(isCustomDir).toBeChecked({ checked: true });
-        await expect(customDir).toHaveValue("Hello");
+        await pom.bookmarks.isCustomDir.isChecked(true);
+        await pom.bookmarks.customDir.hasValue("Hello");
     });
 
     test("History", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        const maxCount = page.locator("#history-max-count");
-        await expect(maxCount).toHaveValue("100000");
-        const expirationTime = page.locator("#history-expiration-time");
-        await expect(await expirationTime.inputValue()).toBe("365");
+        await pom.getPin(2).click();
+
+        await pom.history.maxCount.hasValue("100000");
+        await pom.history.expirationTime.hasValue("365");
 
         // Act
-        await pom.getPin(2).click();
-        await maxCount.fill("500");
-        await expirationTime.selectOption("180");
+        await pom.history.maxCount.setValue("500");
+        await pom.history.expirationTime.setValue("180");
 
         await pom.save();
         await pom.reload();
 
         // Assert
-        await expect(maxCount).toHaveValue("500");
-        await expect(await expirationTime.inputValue()).toBe("180");
+        await pom.history.maxCount.hasValue("500");
+        await pom.history.expirationTime.hasValue("180");
     });
 
     test("Results", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
 
+        await pom.getPin(3).click();
+
         await pom.results.perPage.hasValue("10");
         await pom.results.sorting.hasValue("frequency");
         await pom.results.looping.isChecked(true);
 
         // Act
-        await pom.getPin(3).click();
         await pom.results.perPage.setValue("3");
         await pom.results.sorting.setValue("alphabet");
         await pom.results.looping.click();
@@ -85,13 +81,14 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
+        await pom.getPin(4).click();
+
         await pom.ui.fontSize.hasValue("12");
         await pom.ui.selectedItemColor.hasValue("#EC4339");
         await pom.ui.selectedItemFontWeight.hasValue("bold");
         await pom.ui.selectedItemArrow.isChecked(true);
 
         // Act
-        await pom.getPin(4).click();
         await pom.ui.fontSize.setValue("8");
         await pom.ui.selectedItemColor.setValue("#00A0DC");
         await pom.ui.selectedItemFontWeight.setValue("normal");
@@ -111,12 +108,13 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
+        await pom.getPin(5).click();
+
         await pom.tab.action.isChecked(true);
         await pom.tab.group.isChecked(true);
         await pom.tab.neighbour.hasValue("always");
 
         // Act
-        await pom.getPin(5).click();
         await pom.tab.action.click();
         await pom.tab.group.click();
         await pom.tab.neighbour.setValue("never");
@@ -134,11 +132,12 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
+        await pom.getPin(6).click();
+
         await pom.autoclose.enabled.isChecked(true);
         await pom.autoclose.time.hasValue("5");
 
         // Act
-        await pom.getPin(6).click();
         await pom.autoclose.enabled.click();
         await pom.autoclose.time.setValue("1");
 
@@ -148,5 +147,23 @@ test.describe("Sections", () => {
         // Assert
         await pom.autoclose.enabled.isChecked(false);
         await pom.autoclose.time.hasValue("1");
+    });
+
+    test("Changelog", async ({ page }) => {
+        // Arrange
+        const pom = new OptionsPage(page);
+
+        await pom.getPin(7).click();
+
+        await pom.changelog.show.isChecked(true);
+
+        // Act
+        await pom.changelog.show.click();
+
+        await pom.save();
+        await pom.reload();
+
+        // Assert
+        await pom.changelog.show.isChecked(false);
     });
 });

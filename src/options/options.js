@@ -176,6 +176,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     $autocloseTimeSec.value = await Sync.get(OPTIONS.AUTOCLOSE_TIME);
 
+    // Changelog
+    const $changelogShow = document.getElementById(OPTIONS.CHANGELOG_SHOW);
+    $changelogShow.checked = await Sync.get(OPTIONS.CHANGELOG_SHOW);
+
     // Save
     const $saveButton = document.getElementById("save");
     $saveButton.addEventListener("click", async () => {
@@ -200,6 +204,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Sync.set(OPTIONS.IS_AUTOCLOSE_ENABLED, $isAutocloseEnabled.checked);
         await Sync.set(OPTIONS.AUTOCLOSE_TIME, $autocloseTimeSec.value);
+
+        await Sync.set(OPTIONS.CHANGELOG_SHOW, $changelogShow.checked);
 
         await send.updateMessage();
     });

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.0] - 2023-07-30
+
+### Added
+
+- Option to prevent changelog automatic showing
+
 ## [1.13.0] - 2023-07-25
 
 ### Added
@@ -286,7 +292,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.13.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.14.0...HEAD
+[1.14.0]: https://github.com/vikian050194/warp/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/vikian050194/warp/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/vikian050194/warp/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/vikian050194/warp/compare/v1.10.3...v1.11.0

@@ -19,3 +19,5 @@ export const NEW_TAB_ON_SHIFT = "new-tab-on-shift";
 
 export const IS_AUTOCLOSE_ENABLED = "is-autoclose-enabled";
 export const AUTOCLOSE_TIME = "autoclose-time";
+
+export const CHANGELOG_SHOW = "changelog-show";

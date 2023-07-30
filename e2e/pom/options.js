@@ -2,6 +2,25 @@ import { OPTIONS } from "../../src/common/constants/index.js";
 import { BasePage, BasePOM } from "./base.js";
 import { ModalPopup } from "./modal.js";
 
+class InputOption extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page, id) {
+        super(page);
+
+        this.locator = page.locator(`#${id}`);
+    }
+
+    async setValue(value) {
+        await this.locator.fill(value);
+    }
+
+    async hasValue(value) {
+        await this.expect(this.locator).toHaveValue(value);
+    }
+}
+
 class CheckboxOption extends BasePOM {
     /**
      * @param {import('@playwright/test').Page} page
@@ -44,6 +63,30 @@ class SelectOption extends BasePOM {
     }
 }
 
+export class BookmarksOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.isCustomDir = new CheckboxOption(page, OPTIONS.IS_CUSTOM_DIRECTORY);
+        this.customDir = new InputOption(page, OPTIONS.CUSTOM_DIRECTORY);
+    }
+}
+
+export class HistoryOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.maxCount = new InputOption(page, OPTIONS.HISTORY_MAX_COUNT);
+        this.expirationTime = new SelectOption(page, OPTIONS.HISTORY_EXPIRATION_TIME);
+    }
+}
+
 export class ResultsOptions extends BasePOM {
     /**
      * @param {import('@playwright/test').Page} page
@@ -51,9 +94,9 @@ export class ResultsOptions extends BasePOM {
     constructor(page) {
         super(page);
 
-        this.perPage = new SelectOption(page, OPTIONS.RESULTS_PER_PAGE, page);
+        this.perPage = new SelectOption(page, OPTIONS.RESULTS_PER_PAGE);
         this.sorting = new SelectOption(page, OPTIONS.RESULTS_SORTING);
-        this.looping = new CheckboxOption(page, OPTIONS.RESULTS_LOOPING, page);
+        this.looping = new CheckboxOption(page, OPTIONS.RESULTS_LOOPING);
     }
 }
 
@@ -96,6 +139,17 @@ export class AutocloseOptions extends BasePOM {
     }
 }
 
+export class ChangelogOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.show = new CheckboxOption(page, OPTIONS.CHANGELOG_SHOW);
+    }
+}
+
 export class OptionsPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
@@ -103,10 +157,13 @@ export class OptionsPage extends BasePage {
     constructor(page, extensionId) {
         super(page, extensionId);
 
+        this.bookmarks = new BookmarksOptions(page);
+        this.history = new HistoryOptions(page);
         this.results = new ResultsOptions(page);
         this.ui = new UiOptions(page);
         this.tab = new TabOptions(page);
         this.autoclose = new AutocloseOptions(page);
+        this.changelog = new ChangelogOptions(page);
 
         this.saveButton = page.locator("#save");
         this.pins = page.locator("div.pins");

@@ -24,5 +24,5 @@ npm run lint
 npm run test
 npm run test:ui
 
-rm "warp-$MANIFEST_VERSION.zip"
+rm "warp-$MANIFEST_VERSION.zip" --force
 zip -r "warp-$MANIFEST_VERSION.zip" src -x src/changelog/template.html 

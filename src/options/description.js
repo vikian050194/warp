@@ -155,5 +155,13 @@ export const descriptions = [
         [
             "Popup autoclose time in seconds."
         ]
+    ),
+
+    makeDescription(
+        OPTIONS.CHANGELOG_SHOW,
+        "Show on update",
+        [
+            "If enabled then changelog page will be shown automatically on extension version update."
+        ]
     )
 ];
