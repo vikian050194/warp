@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "warp",
     "description": "Open frequently used bookmarks fast without a single mouse click",
-    "version": "1.14.0",
+    "version": "1.15.0",
     "permissions": [
         "storage",
         "bookmarks",
@@ -36,5 +36,5 @@
         "32": "icons/icon_32.png",
         "128": "icons/icon_128.png"
     },
-    "homepage_url": "https://github.com/vikian050194/warp"
+    "homepage_url": "https://warp.vikian050194.dev"
 }
