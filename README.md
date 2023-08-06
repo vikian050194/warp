@@ -13,15 +13,17 @@
 
 **warp** is Google Chrome extension for rapid jump to required bookmark.
 
+You can take a look at [list of questions and problems](./QA.md) that I faced during development.
+
 ## Motivation
 
-It's a bit strange, but I did not found Google Chrome extension that can do something like "Ctrl+P" in VS Code or "Ctrl+T" in Slack. OK, I just will make it by my own. You can take a look at [list of questions and problems](./QA.md) that I faced during development.
+It's a bit strange, but I did not found Google Chrome extension that can do something like "Ctrl+P" in VS Code or "Ctrl+T" in Slack. OK, I just will make it by my own.
 
 UPD: There are few competitors, but all of them (that I have tested) have a bit different features, restrictions and main goal. **warp** will evolve further.
 
 ## Requirements
 
-Developed and tested on `Version 109.0.5414.119 (Official Build) (64-bit)`
+Developed and tested on `Version 115.0.5790.170 (Official Build) (64-bit)`
 
 ## Installation
 
@@ -31,11 +33,12 @@ Just go [here][store-version-url] and click "Add to Chrome"
 
 **From sources**
 
-1. Clone repo
-2. Open Chrome and navigate [here](chrome://extensions/)
-3. Enable `Developer mode` via toggle
-4. `Load unpacked` and select `src` directory of the cloned repo
-5. Reboot Chrome - probably is not required step
+1. Clone repo `git clone https://github.com/vikian050194/warp.git`
+2. Create and activate Python virtual environment
+3. Install dependencies `pip install -r requirements.txt` and run `python mdConverter.py`
+4. Open Chrome and navigate [here](chrome://extensions/)
+5. Enable `Developer mode` via toggle
+6. `Load unpacked` and select `src` directory of the cloned repo
 
 ## Usage
 
@@ -94,6 +97,12 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | :--- | :--- |
 | Autoclose enabled | Is popup autoclose enabled |
 | Autoclose time | Popup autoclose time in seconds |
+
+**Changelog**
+
+| Name | Description |
+| :--- | :--- |
+| Show on update | If enabled then changelog page will be shown automatically on extension version update |
 
 ## Tests
 
