@@ -1,6 +1,6 @@
 import assert from "node:assert";
 
-import { filterBookmarks } from "../../../src/background/filters/index.js";
+import { filterBookmarks as filter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("complex filter by title", function () {
@@ -9,7 +9,7 @@ describe("complex filter by title", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +23,7 @@ describe("complex filter by title", function () {
         ];
         const expected = [];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -36,11 +36,12 @@ describe("complex filter by title", function () {
             new BookmarkModel("3", "url3", "test123", [])
         ];
         const expected = [
-            new BookmarkModel("3", "url3", "test123", []),
-            new BookmarkModel("2", "url2", "TEST - test - 456", [])
+            new BookmarkModel("1", "url1", "foo - test - 123", []),
+            new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("3", "url3", "test123", [])
         ];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -54,10 +55,11 @@ describe("complex filter by title", function () {
         ];
         const expected = [
             new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("1", "url1", "foo - test - 123", []),
             new BookmarkModel("3", "url3", "test123", [])
         ];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

@@ -4,12 +4,14 @@ const startsWith = (line, pattern, caseSensitive) => {
 };
 
 export const filterBookmarksByTitle = (query, bookmarks, caseSensitive) => {
-    return bookmarks.filter(b => startsWith(b.title, query, caseSensitive));
+    return bookmarks.filter(b => {
+        return b.title.split(" ").some(d => startsWith(d, query, caseSensitive));
+    });
 };
 
 export const filterBookmarksByDirs = (query, bookmarks, caseSensitive) => {
     return bookmarks.filter(b => {
-        return b.dirs.some(d => startsWith(d, query, caseSensitive));
+        return b.dirs.some(d => d.split(" ").some(c => startsWith(c, query, caseSensitive)));
     });
 };
 
@@ -64,9 +66,65 @@ export const getCombinatios = function* (n, k) {
     }
 };
 
-export const filterBookmarksByAbbreviation = (query, bookmarks, caseSensitive) => {
-    const patterns = query.indexOf(" ") === -1 ? query.split("") : query.split(" ");
+export const filterBookmarksBySplit = (query, bookmarks, caseSensitive) => {
+    const patterns = query.split(" ");
     const k = patterns.length;
+
+    if (k < 2) {
+        return [];
+    }
+
+    const flatBookmarks = bookmarks.map(b => {
+        const chunks = [];
+
+        for (const dir of b.dirs) {
+            chunks.push(...dir.split(" "));
+        }
+
+        chunks.push(...b.title.split(" "));
+
+        return new ChunkedBookmarkModel(b.id, chunks);
+    });
+
+    const possibleBookmarks = flatBookmarks.filter(b => b.chunks.length >= patterns.length);
+
+    const mathedBookmarkIds = [];
+
+    for (const bookmark of possibleBookmarks) {
+        const n = bookmark.chunks.length;
+
+        for (const combination of getCombinatios(n, k)) {
+            let isMatched = true;
+
+            for (let index = 0; index < k; index++) {
+                const pattern = patterns[index];
+                const foo = bookmark.chunks[combination[index]];
+
+                if (startsWith(foo, pattern, caseSensitive)) {
+                    continue;
+                }
+
+                isMatched = false;
+                break;
+            }
+
+            if (isMatched) {
+                mathedBookmarkIds.push(bookmark.id);
+                break;
+            }
+        }
+    }
+
+    return bookmarks.filter(b => mathedBookmarkIds.includes(b.id));
+};
+
+export const filterBookmarksByAbbreviation = (query, bookmarks, caseSensitive) => {
+    const patterns = query.split("");
+    const k = patterns.length;
+
+    if (k < 2) {
+        return [];
+    }
 
     const flatBookmarks = bookmarks.map(b => {
         const chunks = [];
@@ -113,30 +171,27 @@ export const filterBookmarksByAbbreviation = (query, bookmarks, caseSensitive) =
 };
 
 export const filterBookmarks = (query, bookmarks) => {
+    let bookmarksPool = [...bookmarks];
     const result = [];
 
-    const titleSensitive = filterBookmarksByTitle(query, bookmarks, true);
-    result.push(...titleSensitive);
+    const filterList = [
+        filterBookmarksByTitle,
+        filterBookmarksByDirs,
+        filterBookmarksBySplit,
+        filterBookmarksByAbbreviation
+    ];
 
-    const titleInsensitive = filterBookmarksByTitle(query.toLowerCase(), bookmarks, false);
-    const titleInsensitiveUnique = titleInsensitive.filter(b => result.indexOf(b) == -1);
-    result.push(...titleInsensitiveUnique);
+    const caseSensitiveList = [true, false];
 
-    const dirsSensitive = filterBookmarksByDirs(query, bookmarks, true);
-    const dirsSensitiveUnique = dirsSensitive.filter(b => result.indexOf(b) == -1);
-    result.push(...dirsSensitiveUnique);
-
-    const dirsInsensitive = filterBookmarksByDirs(query.toLowerCase(), bookmarks, false);
-    const dirsInsensitiveUnique = dirsInsensitive.filter(b => result.indexOf(b) == -1);
-    result.push(...dirsInsensitiveUnique);
-
-    const abbreviationSensitive = filterBookmarksByAbbreviation(query, bookmarks, true);
-    const abbreviationSensitiveUnique = abbreviationSensitive.filter(b => result.indexOf(b) == -1);
-    result.push(...abbreviationSensitiveUnique);
-
-    const abbreviationInsensitive = filterBookmarksByAbbreviation(query.toLowerCase(), bookmarks, false);
-    const abbreviationInsensitiveUnique = abbreviationInsensitive.filter(b => result.indexOf(b) == -1);
-    result.push(...abbreviationInsensitiveUnique);
+    for (const filter of filterList) {
+        for (const caseSensitive of caseSensitiveList) {
+            const q = caseSensitive ? query : query.toLowerCase();
+            const filteredBookmarks = filter(q, bookmarksPool, caseSensitive);
+            const uniqueBookmarks = filteredBookmarks.filter(b => result.indexOf(b) == -1);
+            bookmarksPool = bookmarksPool.filter(b => uniqueBookmarks.indexOf(b) == -1);
+            result.push(...uniqueBookmarks);
+        }
+    }
 
     return result;
 };

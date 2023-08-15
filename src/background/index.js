@@ -16,6 +16,7 @@ chrome.bookmarks.onRemoved.addListener(System.onUpdate);
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // message listener is not async/await because of
     // bug in GC https://crbug.com/1304272
+    // TODO issue is closed so it's time to update the code
     switch (message.type) {
         case MESSAGE.QUERY:
             User.onFilter(message.value).then(options => {
@@ -34,6 +35,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.contextMenus.onClicked.addListener(async (info) => {
+    // TODO is it possible to remove following switch?
     switch (info.menuItemId) {
         case MENU.HISTORY:
             await chrome.tabs.create({

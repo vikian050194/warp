@@ -1,6 +1,6 @@
 import assert from "node:assert";
 
-import { filterBookmarks } from "../../../src/background/filters/index.js";
+import { filterBookmarks as filter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("complex filter by dirs", function () {
@@ -9,7 +9,7 @@ describe("complex filter by dirs", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +23,7 @@ describe("complex filter by dirs", function () {
         ];
         const expected = [];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -40,7 +40,7 @@ describe("complex filter by dirs", function () {
             new BookmarkModel("3", "url3", "baz", ["dir2", "subdir"])
         ];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -57,7 +57,7 @@ describe("complex filter by dirs", function () {
             new BookmarkModel("3", "url3", "baz", ["foo", "Dir"])
         ];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -73,7 +73,7 @@ describe("complex filter by dirs", function () {
             new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
         ];
 
-        const actual = filterBookmarks(query, bookmarks);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

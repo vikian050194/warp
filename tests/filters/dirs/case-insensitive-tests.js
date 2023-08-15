@@ -1,6 +1,6 @@
 import assert from "node:assert";
 
-import { filterBookmarksByDirs } from "../../../src/background/filters/index.js";
+import { filterBookmarksByDirs as filter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
 describe("filter by dirs - case insensitive", function () {
@@ -13,7 +13,7 @@ describe("filter by dirs - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterBookmarksByDirs(query, bookmarks, false);
+        const actual = filter(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -30,7 +30,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir"])
         ];
 
-        const actual = filterBookmarksByDirs(query, bookmarks, false);
+        const actual = filter(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -46,7 +46,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["bdir", "Cdir"])
         ];
 
-        const actual = filterBookmarksByDirs(query, bookmarks, false);
+        const actual = filter(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -62,7 +62,7 @@ describe("filter by dirs - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["BDIR", "cdir"])
         ];
 
-        const actual = filterBookmarksByDirs(query, bookmarks, false);
+        const actual = filter(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });
@@ -76,7 +76,24 @@ describe("filter by dirs - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filterBookmarksByDirs(query, bookmarks, false);
+        const actual = filter(query, bookmarks, false);
+
+        assert.deepEqual(actual, expected);
+    });
+
+    it("second word", function () {
+        const query = "zo";
+        const bookmarks = [
+            new BookmarkModel("1", "url1", "foo", []),
+            new BookmarkModel("2", "url2", "bar", ["Dir1 zoo"]),
+            new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir Zoo"])
+        ];
+        const expected = [
+            new BookmarkModel("2", "url2", "bar", ["Dir1 zoo"]),
+            new BookmarkModel("3", "url3", "baz", ["DIR2", "subdir Zoo"])
+        ];
+
+        const actual = filter(query, bookmarks, false);
 
         assert.deepEqual(actual, expected);
     });

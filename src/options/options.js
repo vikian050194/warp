@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
+    // TODO remove magic number
     showTab("1");
 
     for (let index = 0; index < pins.length; index++) {
@@ -82,6 +83,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             showTab(showIndex);
         });
     }
+
+    // TODO make generic mechanism to get and save values
 
     // Bookmarks
     const $customDirectory = document.getElementById(OPTIONS.CUSTOM_DIRECTORY);

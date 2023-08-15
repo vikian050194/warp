@@ -1,9 +1,9 @@
 import assert from "node:assert";
 
-import { filterBookmarksByAbbreviation as filter } from "../../../src/background/filters/index.js";
+import { filterBookmarksBySplit as filter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
-describe("filter by abbreviation - case sensitive", function () {
+describe("filter by split - case sensitive", function () {
     it("no bookmarks", function () {
         const query = "FB";
         const bookmarks = [];
@@ -29,7 +29,7 @@ describe("filter by abbreviation - case sensitive", function () {
     });
 
     it("title only", function () {
-        const query = "FB";
+        const query = "Fo Ba";
         const bookmarks = [
             new BookmarkModel("1", "url1", "Foo Bar", []),
             new BookmarkModel("2", "url2", "foo Bar", []),

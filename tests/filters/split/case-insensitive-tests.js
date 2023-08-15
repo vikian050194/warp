@@ -1,9 +1,9 @@
 import assert from "node:assert";
 
-import { filterBookmarksByAbbreviation as filter } from "../../../src/background/filters/index.js";
+import { filterBookmarksBySplit as filter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
-describe("filter by abbreviation - case insensitive", function () {
+describe("filter by split - case insensitive", function () {
     it("no bookmarks", function () {
         const query = "fb";
         const bookmarks = [];
@@ -29,7 +29,7 @@ describe("filter by abbreviation - case insensitive", function () {
     });
 
     it("no results", function () {
-        const query = "b";
+        const query = "ba";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo bar", []),
             new BookmarkModel("2", "url2", "Test", []),
@@ -43,7 +43,7 @@ describe("filter by abbreviation - case insensitive", function () {
     });
 
     it("titles only", function () {
-        const query = "mm";
+        const query = "ma me";
         const bookmarks = [
             new BookmarkModel("1", "url1", "match me", ["foo", "bar"]),
             new BookmarkModel("2", "url2", "Test", []),
@@ -59,7 +59,7 @@ describe("filter by abbreviation - case insensitive", function () {
     });
 
     it("dirs only", function () {
-        const query = "fb";
+        const query = "fo ba";
         const bookmarks = [
             new BookmarkModel("1", "url1", "match", ["foo", "bar"]),
             new BookmarkModel("2", "url2", "Test", []),
@@ -75,7 +75,7 @@ describe("filter by abbreviation - case insensitive", function () {
     });
 
     it("title and dirs", function () {
-        const query = "fm";
+        const query = "fo ma";
         const bookmarks = [
             new BookmarkModel("1", "url1", "match", ["foo", "bar"]),
             new BookmarkModel("2", "url2", "Test", []),
@@ -91,7 +91,7 @@ describe("filter by abbreviation - case insensitive", function () {
     });
 
     it("title and dirs - all levels", function () {
-        const query = "fbm";
+        const query = "fo ba ma";
         const bookmarks = [
             new BookmarkModel("1", "url1", "match", ["foo", "bar"]),
             new BookmarkModel("2", "url2", "Test", []),
