@@ -1,6 +1,7 @@
 import {
     Local,
-    COUNTERS
+    COUNTERS,
+    getVersion
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -37,4 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         location.reload();
     });
+
+    // Version
+    document.getElementById("version").innerText = getVersion();
 });

@@ -17,6 +17,7 @@ test.describe("Navigation", () => {
 
     test("Header", async ({ page }) => {
         // Arrange
+        // TODO extract header locator
         const header = page.locator("h1");
 
         // Assert
@@ -25,10 +26,10 @@ test.describe("Navigation", () => {
 
     test("Options", async ({ page }) => {
         // Arrange
-        const link = page.locator("footer > span", { hasText: "options" });
+        const pom = new HistoryPage(page);
 
         // Act
-        await link.click();
+        await pom.navigation.options.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("options/options.html"));
@@ -36,10 +37,10 @@ test.describe("Navigation", () => {
 
     test("History", async ({ page }) => {
         // Arrange
-        const link = page.locator("footer > span", { hasText: "history" });
+        const pom = new HistoryPage(page);
 
         // Act
-        await link.click();
+        await pom.navigation.history.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("history/history.html"));
@@ -47,10 +48,10 @@ test.describe("Navigation", () => {
 
     test("Frequency", async ({ page }) => {
         // Arrange
-        const link = page.locator("footer > span", { hasText: "frequency" });
+        const pom = new HistoryPage(page);
 
         // Act
-        await link.click();
+        await pom.navigation.frequency.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("frequency/frequency.html"));
@@ -58,10 +59,10 @@ test.describe("Navigation", () => {
 
     test("Counters", async ({ page }) => {
         // Arrange
-        const link = page.locator("footer > span", { hasText: "counters" });
+        const pom = new HistoryPage(page);
 
         // Act
-        await link.click();
+        await pom.navigation.counters.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
@@ -69,12 +70,20 @@ test.describe("Navigation", () => {
 
     test("Changelog", async ({ page }) => {
         // Arrange
-        const link = page.locator("footer > span", { hasText: "changelog" });
+        const pom = new HistoryPage(page);
 
         // Act
-        await link.click();
+        await pom.navigation.changelog.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
+    });
+
+    test("Version", async ({ page }) => {
+        // Arrange
+        const pom = new HistoryPage(page);
+
+        // Assert
+        await pom.checkVersion();
     });
 });

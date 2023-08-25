@@ -1,9 +1,9 @@
+import { getVersion } from "../common/index.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
     const $modal = document.getElementById("modal-one");
 
-    var manifestData = chrome.runtime.getManifest();
-
-    const version = `v${manifestData.version}`;
+    const version = getVersion();
     const params = new URLSearchParams(window.location.search);
     const reason = params.get("reason");
 
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Inspect changelog notes and try latest extension features!"
     ];
 
-    $modal.querySelector("h1").innerHTML =  header;
+    $modal.querySelector("h1").innerHTML = header;
     $modal.querySelector("div.description").innerHTML = description.map(p => `<p>${p}</p>`).join("");
     $modal.classList.add("open");
     const exits = $modal.querySelectorAll(".modal-exit");
@@ -33,4 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             $modal.classList.remove("open");
         });
     });
+
+    // Version
+    document.getElementById("version").innerText = version;
 });

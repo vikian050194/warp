@@ -1,7 +1,8 @@
 import {
     Local,
     STORE,
-    dom
+    dom,
+    getVersion
 } from "../common/index.js";
 import { join } from "./join.js";
 
@@ -46,4 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         location.reload();
     });
+
+    // Version
+    document.getElementById("version").innerText = getVersion();
 });

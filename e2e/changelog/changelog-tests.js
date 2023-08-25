@@ -60,10 +60,9 @@ test.describe("Misc", () => {
         const page = context.pages()[1];
         const pom = new ChangelogPage(page);
         await pom.modal.close();
-        const link = page.locator("footer > span", { hasText: "options" });
 
         // Act
-        await link.click();
+        await pom.navigation.options.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("options/options.html"));
@@ -74,10 +73,9 @@ test.describe("Misc", () => {
         const page = context.pages()[1];
         const pom = new ChangelogPage(page);
         await pom.modal.close();
-        const link = page.locator("footer > span", { hasText: "history" });
 
         // Act
-        await link.click();
+        await pom.navigation.history.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("history/history.html"));
@@ -88,10 +86,9 @@ test.describe("Misc", () => {
         const page = context.pages()[1];
         const pom = new ChangelogPage(page);
         await pom.modal.close();
-        const link = page.locator("footer > span", { hasText: "frequency" });
 
         // Act
-        await link.click();
+        await pom.navigation.frequency.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("frequency/frequency.html"));
@@ -102,10 +99,9 @@ test.describe("Misc", () => {
         const page = context.pages()[1];
         const pom = new ChangelogPage(page);
         await pom.modal.close();
-        const link = page.locator("footer > span", { hasText: "counters" });
 
         // Act
-        await link.click();
+        await pom.navigation.counters.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
@@ -116,12 +112,20 @@ test.describe("Misc", () => {
         const page = context.pages()[1];
         const pom = new ChangelogPage(page);
         await pom.modal.close();
-        const link = page.locator("footer > span", { hasText: "changelog" });
 
         // Act
-        await link.click();
+        await pom.navigation.changelog.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
+    });
+
+    test("Version", async ({ context }) => {
+        // Arrange
+        const page = context.pages()[1];
+        const pom = new ChangelogPage(page);
+
+        // Assert
+        await pom.checkVersion();
     });
 });

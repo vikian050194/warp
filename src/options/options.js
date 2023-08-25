@@ -10,7 +10,8 @@ import {
     COLORS,
     AUTOCLOSE,
     EXPIRATION,
-    PAGE
+    PAGE,
+    getVersion
 } from "../common/index.js";
 import { descriptions } from "./description.js";
 import { getTranslation } from "./translation.js";
@@ -182,6 +183,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Changelog
     const $changelogShow = document.getElementById(OPTIONS.CHANGELOG_SHOW);
     $changelogShow.checked = await Sync.get(OPTIONS.CHANGELOG_SHOW);
+
+    // Version
+    document.getElementById("version").innerText = getVersion();
 
     // Save
     const $saveButton = document.getElementById("save");

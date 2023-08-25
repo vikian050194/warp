@@ -45,4 +45,6 @@ footer {
     bottom: 0px;
     padding: 8px 0;
     background: white;
+    display: flex;
+    justify-content: space-between;
 }
