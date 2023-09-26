@@ -15,15 +15,15 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@babel/cli": "7.22.15",
-    "@babel/core": "7.22.17",
+    "@babel/cli": "7.23.0",
+    "@babel/core": "7.23.0",
     "@babel/eslint-parser": "7.22.15",
     "@babel/eslint-plugin": "7.22.10",
-    "@playwright/test": "1.37.1",
+    "@playwright/test": "1.38.1",
     "c8": "8.0.1",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-plugin-import": "2.28.1",
     "mocha": "10.2.0",
-    "playwright": "1.37.1"
+    "playwright": "1.38.1"
   }
 }
