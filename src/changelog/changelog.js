@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const reason = params.get("reason");
 
+    // Version
+    document.getElementById("version").innerText = version;
+
     if (reason === null) {
         return;
     }
@@ -33,7 +36,4 @@ document.addEventListener("DOMContentLoaded", async () => {
             $modal.classList.remove("open");
         });
     });
-
-    // Version
-    document.getElementById("version").innerText = version;
 });

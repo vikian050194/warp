@@ -120,10 +120,11 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
     });
 
-    test("Version", async ({ context }) => {
+    test("Version", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Assert
         await pom.checkVersion();
