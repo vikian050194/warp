@@ -1,6 +1,6 @@
 import { test, expect, timeout } from "../fixtures.js";
 import {
-    FrequencyPage
+    DownloadPage
 } from "../pom/index.js";
 
 test.describe("Navigation", () => {
@@ -11,7 +11,7 @@ test.describe("Navigation", () => {
         await context.pages()[0].close();
         await context.pages()[1].close();
 
-        const pom = new FrequencyPage(page, extensionId);
+        const pom = new DownloadPage(page, extensionId);
         await pom.goto();
     });
 
@@ -20,12 +20,12 @@ test.describe("Navigation", () => {
         const header = page.locator("h1");
 
         // Assert
-        await expect(header).toHaveText("Frequency");
+        await expect(header).toHaveText("Download");
     });
 
     test("Options", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.options.click();
@@ -36,7 +36,7 @@ test.describe("Navigation", () => {
 
     test("History", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.history.click();
@@ -47,7 +47,7 @@ test.describe("Navigation", () => {
 
     test("Frequency", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.frequency.click();
@@ -58,7 +58,7 @@ test.describe("Navigation", () => {
 
     test("Counters", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.counters.click();
@@ -69,7 +69,7 @@ test.describe("Navigation", () => {
 
     test("Download", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.download.click();
@@ -80,7 +80,7 @@ test.describe("Navigation", () => {
 
     test("Changelog", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Act
         await pom.navigation.changelog.click();
@@ -91,7 +91,7 @@ test.describe("Navigation", () => {
 
     test("Version", async ({ page }) => {
         // Arrange
-        const pom = new FrequencyPage(page);
+        const pom = new DownloadPage(page);
 
         // Assert
         await pom.checkVersion();

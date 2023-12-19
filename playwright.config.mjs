@@ -6,7 +6,7 @@ const config = {
     testMatch: /.*-tests\.js/,
     workers: 4,
     retries: 0,
-    fullyParallel: false,
+    fullyParallel: true,
     use: {
         viewport: null,
         browserName: "chromium",

@@ -52,6 +52,11 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
                 url: "counters/counters.html"
             });
             break;
+        case MENU.DOWNLOAD:
+            await chrome.tabs.create({
+                url: "download/download.html"
+            });
+            break;
         case MENU.CHANGELOG:
             await chrome.tabs.create({
                 url: "changelog/changelog.html"

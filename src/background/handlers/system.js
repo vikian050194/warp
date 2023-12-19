@@ -118,6 +118,14 @@ const updateMenu = async () => {
     });
 
     await chrome.contextMenus.create({
+        id: MENU.DOWNLOAD,
+        title: "Download",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
+
+    await chrome.contextMenus.create({
         id: MENU.CHANGELOG,
         title: "Changelog",
         contexts: ["action"],

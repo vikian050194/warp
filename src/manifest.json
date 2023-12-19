@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "warp",
     "description": "Open frequently used bookmarks fast without a single mouse click",
-    "version": "1.16.1",
+    "version": "1.17.0",
     "permissions": [
         "storage",
         "bookmarks",

@@ -65,6 +65,17 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
     });
 
+    test("Download", async ({ page }) => {
+        // Arrange
+        const pom = new OptionsPage(page);
+
+        // Act
+        await pom.navigation.download.click();
+
+        // Assert
+        await expect(page).toHaveURL(new RegExp("download/download.html"));
+    });
+
     test("Changelog", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);

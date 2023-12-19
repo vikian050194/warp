@@ -1,5 +1,5 @@
 import { test, expect, timeout } from "../fixtures.js";
-import { ChangelogPage } from "../pom/changelog.js";
+import { ChangelogPage } from "../pom/index.js";
 
 test.describe("Misc", () => {
     test.beforeEach(async ({ page, context }) => {
@@ -105,6 +105,19 @@ test.describe("Misc", () => {
 
         // Assert
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
+    });
+
+    test("Download", async ({ context }) => {
+        // Arrange
+        const page = context.pages()[1];
+        const pom = new ChangelogPage(page);
+        await pom.modal.close();
+
+        // Act
+        await pom.navigation.download.click();
+
+        // Assert
+        await expect(page).toHaveURL(new RegExp("download/download.html"));
     });
 
     test("Changelog", async ({ context }) => {
