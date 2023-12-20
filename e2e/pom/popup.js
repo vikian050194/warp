@@ -21,7 +21,7 @@ export class PopupPage extends BasePage {
     }
 
     async search(query) {
-        await this.page.type("body", query);
+        await this.page.locator("body").pressSequentially(query);
     }
 
     async press(button) {
