@@ -132,16 +132,31 @@ const updateMenu = async () => {
         type: "normal",
         enabled: true
     });
+
+    await chrome.contextMenus.create({
+        id: MENU.HELP,
+        title: "Help",
+        contexts: ["action"],
+        type: "normal",
+        enabled: true
+    });
 };
 
-const showChangelog = async (reason) => {
+const showPage = async (reason) => {
+    if (reason === "install") {
+        await chrome.tabs.create({
+            url: "help/help.html"
+        });
+        return;
+    }
+
     const show = await Sync.get(OPTIONS.CHANGELOG_SHOW);
 
     if (!show) {
         return;
     }
 
-    if (reason === "install" || reason === "update") {
+    if (reason === "update") {
         await chrome.tabs.create({
             url: `changelog/changelog.html?reason=${reason}`
         });
@@ -155,7 +170,7 @@ export const onInstall = async ({ reason }) => {
 
     await onUpdate();
 
-    await showChangelog(reason);
+    await showPage(reason);
 };
 
 export const onUpdate = async () => {

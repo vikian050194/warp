@@ -1,5 +1,7 @@
+# Custom
 *.zip
 src/changelog/changelog.html
+src/help/help.html
 
 # Logs
 logs

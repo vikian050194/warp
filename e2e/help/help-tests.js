@@ -1,31 +1,26 @@
 import { test, expect, timeout } from "../fixtures.js";
-import {
-    CountersPage
-} from "../pom/index.js";
+import { HelpPage } from "../pom/index.js";
 
-test.describe("Navigation", () => {
-    test.beforeEach(async ({ page, extensionId, context }) => {
+test.describe("Misc", () => {
+    test.beforeEach(async ({ page, context }) => {
         await page.waitForTimeout(timeout * 2);
 
-        // TODO handle changelog automatic opening somehow else
         await context.pages()[0].close();
-        await context.pages()[1].close();
-
-        const pom = new CountersPage(page, extensionId);
-        await pom.goto();
     });
 
-    test("Header", async ({ page }) => {
+    test("Header", async ({ context }) => {
         // Arrange
-        const header = page.locator("h1");
+        const page = context.pages()[1];
+        const header = page.locator("header > h1");
 
         // Assert
-        await expect(header).toHaveText("Counters");
+        await expect(header).toHaveText("Help");
     });
 
-    test("Options", async ({ page }) => {
+    test("Options", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.options.click();
@@ -34,9 +29,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("options/options.html"));
     });
 
-    test("History", async ({ page }) => {
+    test("History", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.history.click();
@@ -45,9 +41,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("history/history.html"));
     });
 
-    test("Frequency", async ({ page }) => {
+    test("Frequency", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.frequency.click();
@@ -56,9 +53,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("frequency/frequency.html"));
     });
 
-    test("Counters", async ({ page }) => {
+    test("Counters", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.counters.click();
@@ -67,9 +65,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
     });
 
-    test("Download", async ({ page }) => {
+    test("Download", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.download.click();
@@ -78,9 +77,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("download/download.html"));
     });
 
-    test("Changelog", async ({ page }) => {
+    test("Changelog", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.changelog.click();
@@ -89,9 +89,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
     });
 
-    test("Help", async ({ page }) => {
+    test("Help", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Act
         await pom.navigation.help.click();
@@ -100,9 +101,10 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("help/help.html"));
     });
 
-    test("Version", async ({ page }) => {
+    test("Version", async ({ context }) => {
         // Arrange
-        const pom = new CountersPage(page);
+        const page = context.pages()[1];
+        const pom = new HelpPage(page);
 
         // Assert
         await pom.checkVersion();

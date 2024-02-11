@@ -60,6 +60,7 @@ class Navigation extends BasePOM {
         this.counters = container.locator("span", { hasText: "counters" });
         this.download = container.locator("span", { hasText: "download" });
         this.changelog = container.locator("span", { hasText: "changelog" });
+        this.help = container.locator("span", { hasText: "help" });
     }
 }
 

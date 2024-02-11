@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.18.0] - 2023-02-11
+
+### Added
+
+- Help page
+- Help extension menu item
+
+### Changed
+
+- Help page is automatically opened on initial install instead of Changelog page
 
 ## [1.17.0] - 2023-12-19
 
@@ -50,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changelog page as-is
 - Changelog page is automatically opened on version update
-- Changelog has extension menu item
+- Changelog extension menu item
 
 ## [1.12.0] - 2023-07-13
 
@@ -323,7 +333,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.17.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.18.0...HEAD
+[1.18.0]: https://github.com/vikian050194/warp/compare/v1.17.0...v1.18.0
 [1.17.0]: https://github.com/vikian050194/warp/compare/v1.16.1...v1.17.0
 [1.16.1]: https://github.com/vikian050194/warp/compare/v1.16.0...v1.16.1
 [1.16.0]: https://github.com/vikian050194/warp/compare/v1.15.1...v1.16.0

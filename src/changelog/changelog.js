@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let header = null;
 
-    if (reason === "install" || reason === "update") {
+    if (reason === "update") {
         header = `${version} is installed!`;
     } else {
         return;

@@ -8,11 +8,11 @@ test.describe("Misc", () => {
         await context.pages()[0].close();
     });
 
-    test("Header", async ({ context }) => {
+    test("Header", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
         const header = page.locator("header > h1");
 
         // Assert
@@ -55,11 +55,11 @@ test.describe("Misc", () => {
         await pom.modal.hidden();
     });
 
-    test("Options", async ({ context }) => {
+    test("Options", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.options.click();
@@ -68,11 +68,11 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("options/options.html"));
     });
 
-    test("History", async ({ context }) => {
+    test("History", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.history.click();
@@ -81,11 +81,11 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("history/history.html"));
     });
 
-    test("Frequency", async ({ context }) => {
+    test("Frequency", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.frequency.click();
@@ -94,11 +94,11 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("frequency/frequency.html"));
     });
 
-    test("Counters", async ({ context }) => {
+    test("Counters", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.counters.click();
@@ -107,11 +107,11 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("counters/counters.html"));
     });
 
-    test("Download", async ({ context }) => {
+    test("Download", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.download.click();
@@ -120,17 +120,30 @@ test.describe("Misc", () => {
         await expect(page).toHaveURL(new RegExp("download/download.html"));
     });
 
-    test("Changelog", async ({ context }) => {
+    test("Changelog", async ({ context, extensionId }) => {
         // Arrange
         const page = context.pages()[1];
-        const pom = new ChangelogPage(page);
-        await pom.modal.close();
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
 
         // Act
         await pom.navigation.changelog.click();
 
         // Assert
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
+    });
+
+    test("Help", async ({ context, extensionId }) => {
+        // Arrange
+        const page = context.pages()[1];
+        const pom = new ChangelogPage(page, extensionId);
+        await pom.goto();
+
+        // Act
+        await pom.navigation.help.click();
+
+        // Assert
+        await expect(page).toHaveURL(new RegExp("help/help.html"));
     });
 
     test("Version", async ({ context, extensionId }) => {

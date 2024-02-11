@@ -1,20 +1,50 @@
 import markdown
 
 
-placeholder = "{{content}}"
+PLACEHOLDER = "{{content}}"
 
-with open("src/changelog/template.html", "r") as f:
-    template = f.read()
+def md_to_html(name: str, start_from_line: int):
+    source = f"{name.upper()}.md"
+    template_path = f"src/{name}/template.html"
+    output_path = f"src/{name}/{name}.html"
 
-with open("CHANGELOG.md", "r") as f:
-    sourceMd= f.readlines()
+    print(f"source is {source}")
+    print(f"template is {template_path}")
+    print(f"output is {output_path}")
 
-sourceMd = sourceMd[9:]
+    with open(template_path, "r") as f:
+        template = f.read()
 
-sourceMd = "\n".join(sourceMd)
+    print("teamplate is read")
 
-htmlContent = markdown.markdown(sourceMd)
+    with open(source, "r") as f:
+        sourceMd= f.readlines()
 
-with open("src/changelog/changelog.html", "w") as f:
-    result = template.replace(placeholder, htmlContent)
-    f.write(result)
+    print("source is read")
+
+    sourceMd = sourceMd[start_from_line:]
+    sourceMd = "\n".join(sourceMd)
+    htmlContent = markdown.markdown(sourceMd)
+
+    print("MD is converted to HTML")
+
+    with open(output_path, "w") as f:
+        result = template.replace(PLACEHOLDER, htmlContent)
+        f.write(result)
+
+    print("output is saved")
+    print()
+
+
+files = [
+    ("changelog", 9),
+    ("help", 2)
+]
+
+print("MD converting is started")
+print()
+
+for name, start in files:
+    md_to_html(name, start)
+
+print("MD converting is ended")
