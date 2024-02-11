@@ -90,6 +90,17 @@ test.describe("Navigation", () => {
         await expect(page).toHaveURL(new RegExp("changelog/changelog.html"));
     });
 
+    test("Help", async ({ page }) => {
+        // Arrange
+        const pom = new HistoryPage(page);
+
+        // Act
+        await pom.navigation.help.click();
+
+        // Assert
+        await expect(page).toHaveURL(new RegExp("help/help.html"));
+    });
+
     test("Version", async ({ page }) => {
         // Arrange
         const pom = new HistoryPage(page);

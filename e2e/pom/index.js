@@ -5,5 +5,6 @@ export { HistoryPage } from "./history.js";
 export { CountersPage } from "./counters.js";
 export { DownloadPage } from "./download.js";
 export { ChangelogPage } from "./changelog.js";
+export { HelpPage } from "./help.js";
 
 export { BookmarksPage } from "./bookmarks.js";
