@@ -2,8 +2,8 @@ import {
     Local,
     STORE,
     dom,
-    getVersion,
-    fs
+    fs,
+    Footer
 } from "../common/index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $table = dom.makeTable(columns, data);
     $root.append($table);
 
-    // Version
-    document.getElementById("version").innerText = getVersion();
+    // Footer
+    const footer = new Footer();
+    footer.mount();
 });

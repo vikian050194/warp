@@ -6,3 +6,5 @@ export * from "./message/index.js";
 export * from "./constants/index.js";
 export * as dom from "./dom/index.js";
 export * as fs from "./fs.js";
+
+export * from "./footer.js";

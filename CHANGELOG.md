@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.18.1] - 2024-03-17
+
+### Changed
+
+- Footer rendering optimisation
+
 ## [1.18.0] - 2024-02-11
 
 ### Added
@@ -333,7 +339,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.18.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.18.1...HEAD
+[1.18.1]: https://github.com/vikian050194/warp/compare/v1.18.0...v1.18.1
 [1.18.0]: https://github.com/vikian050194/warp/compare/v1.17.0...v1.18.0
 [1.17.0]: https://github.com/vikian050194/warp/compare/v1.16.1...v1.17.0
 [1.16.1]: https://github.com/vikian050194/warp/compare/v1.16.0...v1.16.1
