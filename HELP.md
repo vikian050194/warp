@@ -24,26 +24,23 @@ Some understanding of searching process internals is required to build efficient
 
 ### Steps
 
-Search process has 8 steps. Each one has different priority or "weight". Each time all of them are applied one by one. Ascending priority order:
+Search process has 4 steps. Each one has different priority or "weight". Each time all of them are applied one by one. Ascending priority order:
 
-1. Case sensitive bookmark name beginning matching;
-2. Case insensitive bookmark name beginning matching;
-3. Case sensitive folder beginning matching;
-4. Case insensitive folder beginning matching;
-5. Case sensitive full bookmark path including name splitted by whitespace to splitted by whitespace query matching;
-6. Case insensitive full bookmark path including name splitted by whitespace to splitted by whitespace query matching;
-7. Case sensitive abbreviation mathing;
-8. Case insensitive abbreviation mathing.
+1. Bookmark name beginning matching;
+2. Folder beginning matching;
+3. Full bookmark path including name splitted by whitespace to splitted by whitespace query matching;
+4. Abbreviation mathing;
 
-In some cases that is not so straightforward it make sense to take time to think about best way (best query that is easy to type in other words) to get required bookmark as high as possible in results list.
+Case sensitivity (that is in use) is configurable. In some cases that is not so straightforward it make sense to take time to think about best way (best query that is easy to type in other words) to get required bookmark as high as possible in results list.
 
 ### Examples
 
-There are not full list of examples, but most complex:
+To find "logs/rc/admin service" via each algorithm:
 
-5. "lo r ad" matches "logs/rc/admin service";
-6. The same as previous, but "r" part may stands for "rc", "RC" or even "Rc";
-7. "lra" matches "logs/rc/admin service" - just like 5th does.
+1. "ad";
+2. "rc";
+3. "lo r ad";
+4. "lra".
 
 ## Results ordering
 

@@ -1,3 +1,4 @@
+// TODO replace as_is by as-is
 export const AS_IS = "as_is";
 export const ALPHABET = "alphabet";
 export const FREQUENCY = "frequency";

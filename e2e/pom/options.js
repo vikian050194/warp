@@ -87,6 +87,17 @@ export class HistoryOptions extends BasePOM {
     }
 }
 
+export class SearchOptions extends BasePOM {
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        super(page);
+
+        this.isCaseSensitive = new CheckboxOption(page, OPTIONS.SEARCH_IS_CASE_SENSITIVE);
+    }
+}
+
 export class ResultsOptions extends BasePOM {
     /**
      * @param {import('@playwright/test').Page} page
@@ -159,6 +170,7 @@ export class OptionsPage extends BasePage {
 
         this.bookmarks = new BookmarksOptions(page);
         this.history = new HistoryOptions(page);
+        this.search = new SearchOptions(page);
         this.results = new ResultsOptions(page);
         this.ui = new UiOptions(page);
         this.tab = new TabOptions(page);

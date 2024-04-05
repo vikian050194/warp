@@ -15,7 +15,7 @@ test.describe("Items - advanced", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        await options.getPin(4).click();
+        await options.getPin(5).click();
         await options.ui.selectedItemArrow.click();
         await options.save();
 

@@ -170,7 +170,7 @@ export const filterBookmarksByAbbreviation = (query, bookmarks, caseSensitive) =
     return bookmarks.filter(b => mathedBookmarkIds.includes(b.id));
 };
 
-export const filterBookmarks = (query, bookmarks) => {
+export const filterBookmarks = (query, bookmarks, isCaseSensitive) => {
     let bookmarksPool = [...bookmarks];
     const result = [];
 
@@ -181,16 +181,12 @@ export const filterBookmarks = (query, bookmarks) => {
         filterBookmarksByAbbreviation
     ];
 
-    const caseSensitiveList = [true, false];
-
     for (const filter of filterList) {
-        for (const caseSensitive of caseSensitiveList) {
-            const q = caseSensitive ? query : query.toLowerCase();
-            const filteredBookmarks = filter(q, bookmarksPool, caseSensitive);
-            const uniqueBookmarks = filteredBookmarks.filter(b => result.indexOf(b) == -1);
-            bookmarksPool = bookmarksPool.filter(b => uniqueBookmarks.indexOf(b) == -1);
-            result.push(...uniqueBookmarks);
-        }
+        const q = isCaseSensitive ? query : query.toLowerCase();
+        const filteredBookmarks = filter(q, bookmarksPool, isCaseSensitive);
+        const uniqueBookmarks = filteredBookmarks.filter(b => result.indexOf(b) == -1);
+        bookmarksPool = bookmarksPool.filter(b => uniqueBookmarks.indexOf(b) == -1);
+        result.push(...uniqueBookmarks);
     }
 
     return result;

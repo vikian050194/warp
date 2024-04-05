@@ -4,6 +4,8 @@ import {
     NEIGHBOUR
 } from "../common/index.js";
 
+// TODO remove unnecessary locales if possible
+// probably something like .replace("_", " ") helps
 const translations = {
     [SORTING.AS_IS]: "as is",
     [SORTING.ALPHABET]: "alphabet",

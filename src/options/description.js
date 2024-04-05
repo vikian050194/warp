@@ -56,6 +56,14 @@ export const descriptions = [
     ),
 
     makeDescription(
+        OPTIONS.SEARCH_IS_CASE_SENSITIVE,
+        "Case sensitivity",
+        [
+            "Search algorithms work taking into account (or not) case sensitivity."
+        ]
+    ),
+
+    makeDescription(
         OPTIONS.RESULTS_PER_PAGE,
         "Page size",
         [

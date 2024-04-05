@@ -61,7 +61,8 @@ const sortBookmarks = async (bookmarks) => {
 
 export const onFilter = async (query) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
-    const filteredBookmarks = filterBookmarks(query, bookmarks);
+    const isCaseSensitive = await Sync.get(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
+    const filteredBookmarks = filterBookmarks(query, bookmarks, isCaseSensitive);
     const sortedBookmarks = await sortBookmarks(filteredBookmarks);
     return sortedBookmarks;
 };

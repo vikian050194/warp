@@ -1,7 +1,9 @@
 import assert from "node:assert";
 
-import { filterBookmarks as filter } from "../../../src/background/filters/index.js";
+import { filterBookmarks } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const filter = (q, b) => filterBookmarks(q, b, false);
 
 describe("complex filter by dirs", function () {
     it("no bookmarks", function () {
@@ -31,7 +33,7 @@ describe("complex filter by dirs", function () {
     it("lower", function () {
         const query = "dir";
         const bookmarks = [
-            new BookmarkModel("1", "url1", "foo", [] ),
+            new BookmarkModel("1", "url1", "foo", []),
             new BookmarkModel("2", "url2", "bar", ["dir1"]),
             new BookmarkModel("3", "url3", "baz", ["dir2", "subdir"])
         ];

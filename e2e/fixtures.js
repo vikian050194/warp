@@ -3,7 +3,7 @@ import path from "path";
 import os from "os";
 import fs from "fs";
 
-const PWD = process.env.PWD;
+const PWD = process.cwd();
 
 export const test = base.extend({
     // eslint-disable-next-line no-empty-pattern

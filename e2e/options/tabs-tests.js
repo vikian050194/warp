@@ -13,7 +13,7 @@ test.describe("Tabs", () => {
         await pom.goto();
     });
 
-    const COUNT = 7;
+    const COUNT = 8;
 
     test("Pins", async ({ page }) => {
         // Arrange
@@ -23,6 +23,7 @@ test.describe("Tabs", () => {
         // Assert
         await expect(pom.getPin(index++)).toHaveText("Bookmarks");
         await expect(pom.getPin(index++)).toHaveText("History");
+        await expect(pom.getPin(index++)).toHaveText("Search");
         await expect(pom.getPin(index++)).toHaveText("Results");
         await expect(pom.getPin(index++)).toHaveText("Appearance");
         await expect(pom.getPin(index++)).toHaveText("Tabs");
@@ -38,6 +39,7 @@ test.describe("Tabs", () => {
         // Assert
         await expect(pom.getTab(index++).locator("h2")).toHaveText("Bookmarks");
         await expect(pom.getTab(index++).locator("h2")).toHaveText("History");
+        await expect(pom.getTab(index++).locator("h2")).toHaveText("Search");
         await expect(pom.getTab(index++).locator("h2")).toHaveText("Results");
         await expect(pom.getTab(index++).locator("h2")).toHaveText("Appearance");
         await expect(pom.getTab(index++).locator("h2")).toHaveText("Tabs");

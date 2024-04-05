@@ -53,11 +53,29 @@ test.describe("Sections", () => {
         await pom.history.expirationTime.hasValue("180");
     });
 
-    test("Results", async ({ page }) => {
+    test("Search", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
 
         await pom.getPin(3).click();
+
+        await pom.search.isCaseSensitive.isChecked(false);
+
+        // Act
+        await pom.search.isCaseSensitive.click();
+
+        await pom.save();
+        await pom.reload();
+
+        // Assert
+        await pom.search.isCaseSensitive.isChecked(true);
+    });
+
+    test("Results", async ({ page }) => {
+        // Arrange
+        const pom = new OptionsPage(page);
+
+        await pom.getPin(4).click();
 
         await pom.results.perPage.hasValue("10");
         await pom.results.sorting.hasValue("frequency");
@@ -81,7 +99,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(4).click();
+        await pom.getPin(5).click();
 
         await pom.ui.fontSize.hasValue("12");
         await pom.ui.selectedItemColor.hasValue("#EC4339");
@@ -108,7 +126,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(5).click();
+        await pom.getPin(6).click();
 
         await pom.tab.action.isChecked(true);
         await pom.tab.group.isChecked(true);
@@ -132,7 +150,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(6).click();
+        await pom.getPin(7).click();
 
         await pom.autoclose.enabled.isChecked(true);
         await pom.autoclose.time.hasValue("5");
@@ -153,7 +171,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(7).click();
+        await pom.getPin(8).click();
 
         await pom.changelog.show.isChecked(true);
 

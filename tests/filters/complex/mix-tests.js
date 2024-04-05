@@ -1,7 +1,9 @@
 import assert from "node:assert";
 
-import { filterBookmarks as filter } from "../../../src/background/filters/index.js";
+import { filterBookmarks } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const filter = (q, b) => filterBookmarks(q, b, false);
 
 describe("complex mix filter", function () {
     it("abbreviation - first level dir and title", function () {

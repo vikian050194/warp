@@ -1,7 +1,9 @@
 import assert from "node:assert";
 
-import { filterBookmarks as filter } from "../../../src/background/filters/index.js";
+import { filterBookmarks } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const filter = (q, b) => filterBookmarks(q, b, false);
 
 describe("complex filter by title", function () {
     it("no bookmarks", function () {
@@ -14,7 +16,7 @@ describe("complex filter by title", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("no matches", function () {
+    it("single chunk - no matches", function () {
         const query = "test";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
@@ -28,7 +30,7 @@ describe("complex filter by title", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("lower", function () {
+    it("multiple chunks - lower", function () {
         const query = "test";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo - test - 123", []),
@@ -46,16 +48,16 @@ describe("complex filter by title", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("capital", function () {
-        const query = "TEST";
+    it("single chunk - lower", function () {
+        const query = "test";
         const bookmarks = [
-            new BookmarkModel("1", "url1", "foo - test - 123", []),
-            new BookmarkModel("2", "url2", "TEST - test - 456", []),
+            new BookmarkModel("1", "url1", "Test789", []),
+            new BookmarkModel("2", "url2", "TEST456", []),
             new BookmarkModel("3", "url3", "test123", [])
         ];
         const expected = [
-            new BookmarkModel("2", "url2", "TEST - test - 456", []),
-            new BookmarkModel("1", "url1", "foo - test - 123", []),
+            new BookmarkModel("1", "url1", "Test789", []),
+            new BookmarkModel("2", "url2", "TEST456", []),
             new BookmarkModel("3", "url3", "test123", [])
         ];
 
