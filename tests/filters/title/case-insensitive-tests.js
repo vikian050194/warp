@@ -1,9 +1,15 @@
 import assert from "node:assert";
 
-import { filterBookmarksByTitle as filter } from "../../../src/background/filters/index.js";
+import { Behavior, TitleFilter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
-describe("filter by title - case insensitive", function () {
+const behavior = new Behavior();
+behavior.caseSensitive = false;
+behavior.startsWith = true;
+const testFilter = new TitleFilter(behavior);
+const filter = testFilter.filter;
+
+describe("class filter by title - case insensitive", function () {
     it("capital - first", function () {
         const query = "test";
         const bookmarks = [
@@ -15,7 +21,7 @@ describe("filter by title - case insensitive", function () {
             new BookmarkModel("2", "url2", "Test", [])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -31,7 +37,7 @@ describe("filter by title - case insensitive", function () {
             new BookmarkModel("2", "url2", "TEST", [])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -45,7 +51,7 @@ describe("filter by title - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -62,7 +68,7 @@ describe("filter by title - case insensitive", function () {
             new BookmarkModel("3", "url3", "baz hi zoro", [])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

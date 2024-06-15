@@ -1,7 +1,13 @@
 import assert from "node:assert";
 
-import { filterBookmarksByAbbreviation as filter } from "../../../src/background/filters/index.js";
+import { AbbreviationFilter, Behavior } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const behavior = new Behavior();
+behavior.caseSensitive = true;
+behavior.startsWith = true;
+const testFilter = new AbbreviationFilter(behavior);
+const filter = testFilter.filter;
 
 describe("filter by abbreviation - case sensitive", function () {
     it("no bookmarks", function () {
@@ -9,7 +15,7 @@ describe("filter by abbreviation - case sensitive", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +29,7 @@ describe("filter by abbreviation - case sensitive", function () {
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -39,7 +45,7 @@ describe("filter by abbreviation - case sensitive", function () {
             new BookmarkModel("1", "url1", "Foo Bar", [])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

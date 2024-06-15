@@ -110,6 +110,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $searchIsCaseSensitive = document.getElementById(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
     $searchIsCaseSensitive.checked = await Sync.get(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
 
+    const $searchIsStartsWith = document.getElementById(OPTIONS.SEARCH_IS_STARTS_WITH);
+    $searchIsStartsWith.checked = await Sync.get(OPTIONS.SEARCH_IS_STARTS_WITH);
+
     // Results
     const $resultsPerPage = document.getElementById(OPTIONS.RESULTS_PER_PAGE);
     for (const value of PAGE.ORDERED) {
@@ -201,6 +204,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Sync.set(OPTIONS.HISTORY_EXPIRATION_TIME, parseInt($expirationTime.value));
 
         await Sync.set(OPTIONS.SEARCH_IS_CASE_SENSITIVE, $searchIsCaseSensitive.checked);
+        await Sync.set(OPTIONS.SEARCH_IS_STARTS_WITH, $searchIsStartsWith.checked);
 
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
         await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);

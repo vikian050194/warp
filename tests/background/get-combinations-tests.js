@@ -1,6 +1,9 @@
 import assert from "node:assert";
 
-import { getCombinatios } from "../../src/background/filters/bookmarks.js";
+import { BaseCombinationFilter, FilteringConfiguration } from "../../src/background/filters/bookmarks.js";
+
+const filter = new BaseCombinationFilter(new FilteringConfiguration());
+const getCombinatios = filter.getCombinatios;
 
 const getAllCombinations = (n, k) => {
     const combinations = [];

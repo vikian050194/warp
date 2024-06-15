@@ -24,14 +24,15 @@ Some understanding of searching process internals is required to build efficient
 
 ### Steps
 
-Search process has 4 steps. Each one has different priority or "weight". Each time all of them are applied one by one. Ascending priority order:
+Search process has 4 steps (or algorithms). Algorithms are applied one by one. Each one has different priority or "weight". Ascending priority order:
 
-1. Bookmark name beginning matching;
-2. Folder beginning matching;
+1. Bookmark name matching;
+2. Directory name matching;
 3. Full bookmark path including name splitted by whitespace to splitted by whitespace query matching;
 4. Abbreviation mathing;
 
 Case sensitivity (that is in use) is configurable. In some cases that is not so straightforward it make sense to take time to think about best way (best query that is easy to type in other words) to get required bookmark as high as possible in results list.
+Sub-searching algorithm can be "starts with" or "contains" - it's also configurable.
 
 ### Examples
 

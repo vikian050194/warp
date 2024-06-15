@@ -1,7 +1,13 @@
 import assert from "node:assert";
 
-import { filterBookmarksByDirs as filter } from "../../../src/background/filters/index.js";
+import { Behavior, DirsFilter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const behavior = new Behavior();
+behavior.caseSensitive = true;
+behavior.startsWith = true;
+const testFilter = new DirsFilter(behavior);
+const filter = testFilter.filter;
 
 describe("filter by dirs - case sensitive", function () {
     it("no bookmarks", function () {
@@ -9,7 +15,7 @@ describe("filter by dirs - case sensitive", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +29,7 @@ describe("filter by dirs - case sensitive", function () {
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -39,7 +45,7 @@ describe("filter by dirs - case sensitive", function () {
             new BookmarkModel("2", "url2", "bar", ["adir"])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -56,7 +62,7 @@ describe("filter by dirs - case sensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["dir2", "subdir"])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -72,7 +78,7 @@ describe("filter by dirs - case sensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -89,7 +95,7 @@ describe("filter by dirs - case sensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["Dir", "subdir"])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -105,7 +111,7 @@ describe("filter by dirs - case sensitive", function () {
             new BookmarkModel("3", "url3", "baz", ["bdir", "Cdir"])
         ];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -114,12 +120,12 @@ describe("filter by dirs - case sensitive", function () {
         const query = "BDIR";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
-            new BookmarkModel("2", "url2", "bar",["adir"]),
+            new BookmarkModel("2", "url2", "bar", ["adir"]),
             new BookmarkModel("3", "url3", "baz", ["bdir", "cdir"])
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, true);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });

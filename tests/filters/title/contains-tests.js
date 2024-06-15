@@ -5,11 +5,11 @@ import { BookmarkModel } from "../../../src/common/models/index.js";
 
 const behavior = new Behavior();
 behavior.caseSensitive = true;
-behavior.startsWith = true;
+behavior.startsWith = false;
 const testFilter = new TitleFilter(behavior);
 const filter = testFilter.filter;
 
-describe("filter by title - case sensitive", function () {
+describe("filter by title - contains", function () {
     it("no bookmarks", function () {
         const query = "test";
         const bookmarks = [];
@@ -35,7 +35,7 @@ describe("filter by title - case sensitive", function () {
     });
 
     it("lower", function () {
-        const query = "test";
+        const query = "es";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
             new BookmarkModel("2", "url2", "test", []),
@@ -50,15 +50,15 @@ describe("filter by title - case sensitive", function () {
         assert.deepEqual(actual, expected);
     });
 
-    it("capital - first", function () {
-        const query = "Test";
+    it("capital - middle", function () {
+        const query = "ES";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
-            new BookmarkModel("2", "url2", "Test", []),
+            new BookmarkModel("2", "url2", "tESt", []),
             new BookmarkModel("3", "url3", "baz", [])
         ];
         const expected = [
-            new BookmarkModel("2", "url2", "Test", [])
+            new BookmarkModel("2", "url2", "tESt", [])
         ];
 
         const actual = filter(query, bookmarks);
@@ -67,7 +67,7 @@ describe("filter by title - case sensitive", function () {
     });
 
     it("capital - all", function () {
-        const query = "TEST";
+        const query = "ES";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
             new BookmarkModel("2", "url2", "TEST", []),
@@ -83,7 +83,7 @@ describe("filter by title - case sensitive", function () {
     });
 
     it("CAPS", function () {
-        const query = "TEST";
+        const query = "ES";
         const bookmarks = [
             new BookmarkModel("1", "url1", "foo", []),
             new BookmarkModel("2", "url2", "test", []),

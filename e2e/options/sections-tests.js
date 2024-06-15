@@ -57,18 +57,22 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
+        // TODO remove magic number
         await pom.getPin(3).click();
 
         await pom.search.isCaseSensitive.isChecked(false);
+        await pom.search.isStartsWith.isChecked(true);
 
         // Act
         await pom.search.isCaseSensitive.click();
+        await pom.search.isStartsWith.click();
 
         await pom.save();
         await pom.reload();
 
         // Assert
         await pom.search.isCaseSensitive.isChecked(true);
+        await pom.search.isStartsWith.isChecked(false);
     });
 
     test("Results", async ({ page }) => {

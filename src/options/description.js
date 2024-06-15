@@ -64,6 +64,15 @@ export const descriptions = [
     ),
 
     makeDescription(
+        OPTIONS.SEARCH_IS_STARTS_WITH,
+        "Starts with",
+        [
+            "Search algorithms use \"starts with\" for sub-searching if enabled.",
+            "Otherwise \"contains\" is used."
+        ]
+    ),
+
+    makeDescription(
         OPTIONS.RESULTS_PER_PAGE,
         "Page size",
         [

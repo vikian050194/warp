@@ -5,11 +5,11 @@ import { BookmarkModel } from "../../../src/common/models/index.js";
 
 const behavior = new Behavior();
 behavior.caseSensitive = true;
-behavior.startsWith = true;
+behavior.startsWith = false;
 const testFilter = new SplitFilter(behavior);
 const filter = testFilter.filter;
 
-describe("filter by split - case sensitive", function () {
+describe("filter by split - contains", function () {
     it("no bookmarks", function () {
         const query = "FB";
         const bookmarks = [];
@@ -35,14 +35,14 @@ describe("filter by split - case sensitive", function () {
     });
 
     it("title only", function () {
-        const query = "Fo Ba";
+        const query = "oo 3";
         const bookmarks = [
-            new BookmarkModel("1", "url1", "Foo Bar", []),
-            new BookmarkModel("2", "url2", "foo Bar", []),
+            new BookmarkModel("1", "url1", "foo 123", []),
+            new BookmarkModel("2", "url2", "foo bar", []),
             new BookmarkModel("3", "url3", "baz", [])
         ];
         const expected = [
-            new BookmarkModel("1", "url1", "Foo Bar", [])
+            new BookmarkModel("1", "url1", "foo 123", [])
         ];
 
         const actual = filter(query, bookmarks);

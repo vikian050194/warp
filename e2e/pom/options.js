@@ -95,6 +95,7 @@ export class SearchOptions extends BasePOM {
         super(page);
 
         this.isCaseSensitive = new CheckboxOption(page, OPTIONS.SEARCH_IS_CASE_SENSITIVE);
+        this.isStartsWith = new CheckboxOption(page, OPTIONS.SEARCH_IS_STARTS_WITH);
     }
 }
 

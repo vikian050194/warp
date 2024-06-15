@@ -1,7 +1,13 @@
 import assert from "node:assert";
 
-import { filterBookmarksByAbbreviation as filter } from "../../../src/background/filters/index.js";
+import { AbbreviationFilter, Behavior } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const behavior = new Behavior();
+behavior.caseSensitive = false;
+behavior.startsWith = true;
+const testFilter = new AbbreviationFilter(behavior);
+const filter = testFilter.filter;
 
 describe("filter by abbreviation - case insensitive", function () {
     it("no bookmarks", function () {

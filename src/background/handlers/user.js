@@ -9,7 +9,8 @@ import {
     NEIGHBOUR
 } from "../../common/index.js";
 import {
-    filterBookmarks,
+    ComplexFilter,
+    FilteringConfiguration,
     filterHistoryByCount,
     filterHistoryByTime
 } from "../filters/index.js";
@@ -61,8 +62,12 @@ const sortBookmarks = async (bookmarks) => {
 
 export const onFilter = async (query) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
-    const isCaseSensitive = await Sync.get(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
-    const filteredBookmarks = filterBookmarks(query, bookmarks, isCaseSensitive);
+    const configuration = new FilteringConfiguration();
+    configuration.behavior.caseSensitive = await Sync.get(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
+    configuration.behavior.startsWith = await Sync.get(OPTIONS.SEARCH_IS_STARTS_WITH);
+    // TODO setup configuration.filters.* values
+    const complexFilter = new ComplexFilter(configuration);
+    const filteredBookmarks = complexFilter.filter(query, bookmarks);
     const sortedBookmarks = await sortBookmarks(filteredBookmarks);
     return sortedBookmarks;
 };

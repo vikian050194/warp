@@ -1,9 +1,13 @@
 import assert from "node:assert";
 
-import { filterBookmarks } from "../../../src/background/filters/index.js";
+import { ComplexFilter, FilteringConfiguration } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
 
-const filter = (q, b) => filterBookmarks(q, b, true);
+const configuration = new FilteringConfiguration();
+configuration.behavior.caseSensitive = true;
+configuration.behavior.startsWith = true;
+const testFilter = new ComplexFilter(configuration);
+const filter = testFilter.filter;
 
 describe("complex filter by title", function () {
     it("single chunk - lower", function () {

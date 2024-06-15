@@ -1,7 +1,13 @@
 import assert from "node:assert";
 
-import { filterBookmarksBySplit as filter } from "../../../src/background/filters/index.js";
+import { Behavior, SplitFilter } from "../../../src/background/filters/index.js";
 import { BookmarkModel } from "../../../src/common/models/index.js";
+
+const behavior = new Behavior();
+behavior.caseSensitive = false;
+behavior.startsWith = true;
+const testFilter = new SplitFilter(behavior);
+const filter = testFilter.filter;
 
 describe("filter by split - case insensitive", function () {
     it("no bookmarks", function () {
@@ -9,7 +15,7 @@ describe("filter by split - case insensitive", function () {
         const bookmarks = [];
         const expected = [];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -23,7 +29,7 @@ describe("filter by split - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -37,7 +43,7 @@ describe("filter by split - case insensitive", function () {
         ];
         const expected = [];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -53,7 +59,7 @@ describe("filter by split - case insensitive", function () {
             new BookmarkModel("1", "url1", "match me", ["foo", "bar"])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -69,7 +75,7 @@ describe("filter by split - case insensitive", function () {
             new BookmarkModel("1", "url1", "match", ["foo", "bar"])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -85,7 +91,7 @@ describe("filter by split - case insensitive", function () {
             new BookmarkModel("1", "url1", "match", ["foo", "bar"])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
@@ -101,7 +107,7 @@ describe("filter by split - case insensitive", function () {
             new BookmarkModel("1", "url1", "match", ["foo", "bar"])
         ];
 
-        const actual = filter(query, bookmarks, false);
+        const actual = filter(query, bookmarks);
 
         assert.deepEqual(actual, expected);
     });
