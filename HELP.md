@@ -31,6 +31,7 @@ Search process has 4 steps (or algorithms). Algorithms are applied one by one. E
 3. Full bookmark path including name splitted by whitespace to splitted by whitespace query matching;
 4. Abbreviation mathing;
 
+Last two algorithms are heavy - you can disable it if you are not using it to improve searching performance at least as temporary solution before bookmarks reorganising and renaming.
 Case sensitivity (that is in use) is configurable. In some cases that is not so straightforward it make sense to take time to think about best way (best query that is easy to type in other words) to get required bookmark as high as possible in results list.
 Sub-searching algorithm can be "starts with" or "contains" - it's also configurable.
 

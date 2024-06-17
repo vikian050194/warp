@@ -63,9 +63,13 @@ const sortBookmarks = async (bookmarks) => {
 export const onFilter = async (query) => {
     const bookmarks = await Local.get(STORE.BOOKMARKS);
     const configuration = new FilteringConfiguration();
+
     configuration.behavior.caseSensitive = await Sync.get(OPTIONS.SEARCH_IS_CASE_SENSITIVE);
     configuration.behavior.startsWith = await Sync.get(OPTIONS.SEARCH_IS_STARTS_WITH);
-    // TODO setup configuration.filters.* values
+
+    configuration.filters.split = await Sync.get(OPTIONS.SEARCH_SPLIT);
+    configuration.filters.abbreviation = await Sync.get(OPTIONS.SEARCH_ABBREVIATION);
+
     const complexFilter = new ComplexFilter(configuration);
     const filteredBookmarks = complexFilter.filter(query, bookmarks);
     const sortedBookmarks = await sortBookmarks(filteredBookmarks);

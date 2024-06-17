@@ -15,8 +15,7 @@ test.describe("Actions", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        // TODO extract all magic number in getPin(n)
-        await options.getPin(5).click();
+        await options.clickAppearancePin();
         await options.ui.selectedItemArrow.click();
         await options.save();
 
@@ -61,7 +60,7 @@ test.describe("Actions", () => {
             const options = new OptionsPage(await context.newPage(), extensionId);
             await options.goto();
 
-            await options.getPin(6).click();
+            await options.clickTabsPin();
             await options.tab.neighbour.setValue("never");
             await options.save();
             await options.close();
@@ -88,7 +87,7 @@ test.describe("Actions", () => {
             const options = new OptionsPage(await context.newPage(), extensionId);
             await options.goto();
 
-            await options.getPin(6).click();
+            await options.clickTabsPin();
             await options.tab.neighbour.setValue("only-in-group");
             await options.save();
             await options.close();
@@ -115,7 +114,7 @@ test.describe("Actions", () => {
             const options = new OptionsPage(await context.newPage(), extensionId);
             await options.goto();
 
-            await options.getPin(6).click();
+            await options.clickTabsPin();
             await options.tab.neighbour.setValue("only-without-group");
             await options.save();
             await options.close();

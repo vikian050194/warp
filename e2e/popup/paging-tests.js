@@ -15,7 +15,7 @@ test.describe("Paging", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        await options.getPin(5).click();
+        await options.clickAppearancePin();
         await options.ui.selectedItemArrow.click();
         await options.save();
 

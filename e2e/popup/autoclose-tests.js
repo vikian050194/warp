@@ -15,7 +15,7 @@ test.describe("Autoclose", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        await options.getPin(5).click();
+        await options.clickAppearancePin();
         await options.ui.selectedItemArrow.click();
         await options.save();
 
@@ -28,7 +28,7 @@ test.describe("Autoclose", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(7).click();
+        await options.clickAutoclosePin();
         await options.autoclose.enabled.isChecked(true);
         await options.autoclose.time.setValue("0");
         await options.save();
@@ -57,7 +57,7 @@ test.describe("Autoclose", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(7).click();
+        await options.clickAutoclosePin();
         await options.autoclose.enabled.isChecked(true);
         await options.autoclose.time.setValue("1");
         await options.save();
@@ -87,7 +87,7 @@ test.describe("Autoclose", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(7).click();
+        await options.clickAutoclosePin();
         await options.autoclose.enabled.isChecked(true);
         await options.autoclose.time.setValue("1");
         await options.save();
@@ -118,7 +118,7 @@ test.describe("Autoclose", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(7).click();
+        await options.clickAutoclosePin();
         await options.autoclose.enabled.isChecked(true);
         await options.autoclose.enabled.click();
         await options.save();

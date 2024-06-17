@@ -36,7 +36,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(2).click();
+        await pom.clickHistoryPin();
 
         await pom.history.maxCount.hasValue("100000");
         await pom.history.expirationTime.hasValue("365");
@@ -57,15 +57,18 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        // TODO remove magic number
-        await pom.getPin(3).click();
+        await pom.clickSearchPin();
 
         await pom.search.isCaseSensitive.isChecked(false);
         await pom.search.isStartsWith.isChecked(true);
+        await pom.search.splitSearch.isChecked(true);
+        await pom.search.abbreviationSearch.isChecked(true);
 
         // Act
         await pom.search.isCaseSensitive.click();
         await pom.search.isStartsWith.click();
+        await pom.search.splitSearch.click();
+        await pom.search.abbreviationSearch.click();
 
         await pom.save();
         await pom.reload();
@@ -73,13 +76,15 @@ test.describe("Sections", () => {
         // Assert
         await pom.search.isCaseSensitive.isChecked(true);
         await pom.search.isStartsWith.isChecked(false);
+        await pom.search.splitSearch.isChecked(false);
+        await pom.search.abbreviationSearch.isChecked(false);
     });
 
     test("Results", async ({ page }) => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(4).click();
+        await pom.clickResultsPin();
 
         await pom.results.perPage.hasValue("10");
         await pom.results.sorting.hasValue("frequency");
@@ -103,7 +108,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(5).click();
+        await pom.clickAppearancePin();
 
         await pom.ui.fontSize.hasValue("12");
         await pom.ui.selectedItemColor.hasValue("#EC4339");
@@ -130,7 +135,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(6).click();
+        await pom.clickTabsPin();
 
         await pom.tab.action.isChecked(true);
         await pom.tab.group.isChecked(true);
@@ -154,7 +159,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(7).click();
+        await pom.clickAutoclosePin();
 
         await pom.autoclose.enabled.isChecked(true);
         await pom.autoclose.time.hasValue("5");
@@ -175,7 +180,7 @@ test.describe("Sections", () => {
         // Arrange
         const pom = new OptionsPage(page);
 
-        await pom.getPin(8).click();
+        await pom.clickChangelogPin();
 
         await pom.changelog.show.isChecked(true);
 

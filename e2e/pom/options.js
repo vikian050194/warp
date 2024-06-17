@@ -96,6 +96,8 @@ export class SearchOptions extends BasePOM {
 
         this.isCaseSensitive = new CheckboxOption(page, OPTIONS.SEARCH_IS_CASE_SENSITIVE);
         this.isStartsWith = new CheckboxOption(page, OPTIONS.SEARCH_IS_STARTS_WITH);
+        this.splitSearch = new CheckboxOption(page, OPTIONS.SEARCH_SPLIT);
+        this.abbreviationSearch = new CheckboxOption(page, OPTIONS.SEARCH_ABBREVIATION);
     }
 }
 
@@ -162,6 +164,15 @@ export class ChangelogOptions extends BasePOM {
     }
 }
 
+const BOOKMARKS = 1;
+const HISTORY = 2;
+const SEARCH = 3;
+const RESULTS = 4;
+const APPEARANCE = 5;
+const TABS = 6;
+const AUTOCLOSE = 7;
+const CHANGELOG = 8;
+
 export class OptionsPage extends BasePage {
     /**
      * @param {import('@playwright/test').Page} page
@@ -195,6 +206,38 @@ export class OptionsPage extends BasePage {
 
     getPin(index) {
         return this.pins.locator(`button[pin-id="${index}"]`);
+    }
+
+    async clickBookmarksPin() {
+        await this.getPin(BOOKMARKS).click();
+    }
+
+    async clickHistoryPin() {
+        await this.getPin(HISTORY).click();
+    }
+
+    async clickSearchPin() {
+        await this.getPin(SEARCH).click();
+    }
+
+    async clickResultsPin() {
+        await this.getPin(RESULTS).click();
+    }
+
+    async clickAppearancePin() {
+        await this.getPin(APPEARANCE).click();
+    }
+
+    async clickTabsPin() {
+        await this.getPin(TABS).click();
+    }
+
+    async clickAutoclosePin() {
+        await this.getPin(AUTOCLOSE).click();
+    }
+
+    async clickChangelogPin() {
+        await this.getPin(CHANGELOG).click();
     }
 
     getTab(index) {

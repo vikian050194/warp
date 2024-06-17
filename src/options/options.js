@@ -113,6 +113,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $searchIsStartsWith = document.getElementById(OPTIONS.SEARCH_IS_STARTS_WITH);
     $searchIsStartsWith.checked = await Sync.get(OPTIONS.SEARCH_IS_STARTS_WITH);
 
+    const $searchSplit = document.getElementById(OPTIONS.SEARCH_SPLIT);
+    $searchSplit.checked = await Sync.get(OPTIONS.SEARCH_SPLIT);
+
+    const $searchAbbreviation = document.getElementById(OPTIONS.SEARCH_ABBREVIATION);
+    $searchAbbreviation.checked = await Sync.get(OPTIONS.SEARCH_ABBREVIATION);
+
     // Results
     const $resultsPerPage = document.getElementById(OPTIONS.RESULTS_PER_PAGE);
     for (const value of PAGE.ORDERED) {
@@ -205,6 +211,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await Sync.set(OPTIONS.SEARCH_IS_CASE_SENSITIVE, $searchIsCaseSensitive.checked);
         await Sync.set(OPTIONS.SEARCH_IS_STARTS_WITH, $searchIsStartsWith.checked);
+        await Sync.set(OPTIONS.SEARCH_SPLIT, $searchSplit.checked);
+        await Sync.set(OPTIONS.SEARCH_ABBREVIATION, $searchAbbreviation.checked);
 
         await Sync.set(OPTIONS.RESULTS_PER_PAGE, parseInt($resultsPerPage.value));
         await Sync.set(OPTIONS.RESULTS_SORTING, $resultsSorting.value);

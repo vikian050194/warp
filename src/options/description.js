@@ -73,6 +73,26 @@ export const descriptions = [
     ),
 
     makeDescription(
+        OPTIONS.SEARCH_SPLIT,
+        "Split search",
+        [
+            "Split searching algorithm.",
+            "Disable it if you are not using it to improve performance.",
+            "It's heavy."
+        ]
+    ),
+
+    makeDescription(
+        OPTIONS.SEARCH_ABBREVIATION,
+        "Abbreviation search",
+        [
+            "Abbreviation searching algorithm.",
+            "Disable it if you are not using it to improve performance.",
+            "It's heavy."
+        ]
+    ),
+
+    makeDescription(
         OPTIONS.RESULTS_PER_PAGE,
         "Page size",
         [

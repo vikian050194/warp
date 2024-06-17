@@ -15,7 +15,7 @@ test.describe("Items - basic", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        await options.getPin(5).click();
+        await options.clickAppearancePin();
         await options.ui.selectedItemArrow.click();
         await options.save();
 
@@ -28,7 +28,7 @@ test.describe("Items - basic", () => {
         const options = new OptionsPage(page, extensionId);
         await options.goto();
 
-        await options.getPin(5).click();
+        await options.clickAppearancePin();
         await options.ui.selectedItemArrow.click();
         await options.save();
 
@@ -62,7 +62,7 @@ test.describe("Items - basic", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(4).click();
+        await options.clickResultsPin();
         await options.results.looping.click();
         await options.save();
         await options.close();
@@ -130,7 +130,7 @@ test.describe("Items - basic", () => {
         const options = new OptionsPage(await context.newPage(), extensionId);
         await options.goto();
 
-        await options.getPin(4).click();
+        await options.clickResultsPin();
         await options.results.looping.click();
         await options.save();
         await options.close();
