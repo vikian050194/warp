@@ -72,6 +72,8 @@ You can [setup your own shortcut for activation](chrome://extensions/shortcuts),
 | :--- | :--- |
 | Case sensitivity | Search algorithms work taking into account (or not) case sensitivity |
 | Starts with | Search algorithms use "starts with" for sub-searching is enabled, otherwise "contains" is used |
+| Split search | Split searching algorithm |
+| Abbreviation search | Abbreviation searching algorithm |
 
 **Results**
 
