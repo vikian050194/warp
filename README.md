@@ -15,6 +15,8 @@
 
 You can take a look at [list of questions and problems](./QA.md) that I faced during development.
 
+By the way, there is [todo list](./TODO.md).
+
 ## Motivation
 
 It's a bit strange, but I did not found Google Chrome extension that can do something like "Ctrl+P" in VS Code or "Ctrl+T" in Slack. OK, I just will make it by my own.
