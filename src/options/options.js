@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const $selectedItemArrow = document.getElementById(OPTIONS.UI_SELECTED_ITEM_ARROW);
     $selectedItemArrow.checked = await Sync.get(OPTIONS.UI_SELECTED_ITEM_ARROW);
 
+    // Tabs
     const $newTabOnShift = document.getElementById(OPTIONS.NEW_TAB_ON_SHIFT);
     $newTabOnShift.checked = await Sync.get(OPTIONS.NEW_TAB_ON_SHIFT);
 
