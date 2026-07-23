@@ -10,6 +10,19 @@ import {
 } from "../../common/index.js";
 import { getBookmarksList } from "../scan.js";
 
+const getBookmarksBar = async () => {
+    const bookmarksBarType = "bookmarks-bar";
+    const [root] = await chrome.bookmarks.getTree();
+
+    for (const child of root.children) {
+        if(child.folderType === bookmarksBarType){
+            return child;
+        }
+    }
+
+    return null;
+};
+
 const getRoot = async () => {
     const searchInCustomDerectory = await Sync.get(OPTIONS.IS_CUSTOM_DIRECTORY);
 
@@ -19,7 +32,7 @@ const getRoot = async () => {
         return root;
     }
 
-    const [root] = await chrome.bookmarks.get("1");
+    const root = await getBookmarksBar();
     return root;
 };
 

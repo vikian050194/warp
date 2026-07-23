@@ -14,6 +14,7 @@ test.describe("Counters", () => {
 
         const pom = new CountersPage(page, extensionId);
         await pom.goto();
+        await page.waitForTimeout(timeout);
     });
 
     test("Sections", async ({ page }) => {

@@ -10,7 +10,7 @@ export class BookmarksPage {
 
         this.expect = expect;
         this.query = page.locator("#searchInput");
-        this.dots = page.locator("bookmarks-list iron-list bookmarks-item div[id='maskedImage']");
+        this.dots = page.locator("#bookmark_0 #menuButton");
         this.delete = page.locator("cr-action-menu > button:nth-child(5)");
     }
 

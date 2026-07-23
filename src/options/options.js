@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const icon = "{ &#8505; }";
 
-    const openModal = (optionid) => {
-        const description = descriptions.find(({ id }) => id === optionid);
+    const openModal = (optionId) => {
+        const description = descriptions.find(({ id }) => id === optionId);
         $modal.querySelector("h1").innerHTML = description.title;
         $modal.querySelector("div.description").innerHTML = description.paragraphs.map(p => `<p>${p}</p>`).join("");
         $modal.classList.add("open");

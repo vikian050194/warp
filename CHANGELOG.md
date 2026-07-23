@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.21.1] - 2026-07-21
+
+### Fixed
+
+- Bookmarks bar could not be found in case if "Use custom directory" is `false`
+
 ## [1.21.0] - 2024-06-17
 
 ### Added
@@ -355,7 +361,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Open new tab
 - Update current tab
 
-[Unreleased]: https://github.com/vikian050194/warp/compare/v1.21.0...HEAD
+[Unreleased]: https://github.com/vikian050194/warp/compare/v1.21.1...HEAD
+[1.21.1]: https://github.com/vikian050194/warp/compare/v1.21.0...v1.21.1
 [1.21.0]: https://github.com/vikian050194/warp/compare/v1.20.0...v1.21.0
 [1.20.0]: https://github.com/vikian050194/warp/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/vikian050194/warp/compare/v1.18.0...v1.19.0
